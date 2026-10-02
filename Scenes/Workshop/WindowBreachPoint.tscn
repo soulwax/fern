@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cwinbreachpt"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/WindowBreach.gd" id="1_wb"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Window_Frame.gltf" id="2_frame"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Plank_01.gltf" id="3_plank"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_window"]
+size = Vector3(1.6, 2.2, 0.4)
+
+[node name="WindowBreachPoint" type="StaticBody3D" groups=["interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_wb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+shape = SubResource("BoxShape3D_window")
+
+[node name="WindowFrame" parent="." instance=ExtResource("2_frame")]
+
+[node name="Planks" type="Node3D" parent="."]
+
+[node name="Plank1" parent="Planks" instance=ExtResource("3_plank")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.6, 0.05)
+visible = false
+
+[node name="Plank2" parent="Planks" instance=ExtResource("3_plank")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 1.1, 0.05)
+visible = false
+
+[node name="Plank3" parent="Planks" instance=ExtResource("3_plank")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0.05)
+visible = false
+
+[node name="HammerAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+max_distance = 15.0
+bus = &"Master"

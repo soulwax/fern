@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://canvil01station"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/AnvilStation.gd" id="1_an"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Bench.gltf" id="2_bench"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Metal_Plate.gltf" id="3_plate"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Mallet_01.gltf" id="4_mallet"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_interact"]
+size = Vector3(1.5, 1.2, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ring"]
+shading_mode = 0
+albedo_color = Color(1, 0.9, 0.6, 0.6)
+
+[sub_resource type="TorusMesh" id="TorusMesh_wave"]
+material = SubResource("StandardMaterial3D_ring")
+inner_radius = 2.0
+outer_radius = 2.1
+rings = 32
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ring"]
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 3.5
+
+[node name="AnvilStation" type="StaticBody3D" groups=["interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_an")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("BoxShape3D_interact")
+
+[node name="Bench" parent="." instance=ExtResource("2_bench")]
+
+[node name="MetalPlate" parent="." instance=ExtResource("3_plate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+
+[node name="Mallet" parent="." instance=ExtResource("4_mallet")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0.25, 0.68, 0.1)
+
+[node name="ShockwaveParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+emitting = false
+amount = 4
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ring")
+draw_pass_1 = SubResource("TorusMesh_wave")
+
+[node name="StrikeAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+max_distance = 35.0
+bus = &"Master"

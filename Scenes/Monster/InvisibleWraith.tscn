@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://cwr4ithunseen"]
+
+[ext_resource type="Script" path="res://Scripts/Monster/WraithAI.gd" id="1_ai"]
+[ext_resource type="Shader" path="res://Scenes/Monster/Shaders/WraithShader.gdshader" id="2_shd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wraith"]
+radius = 0.45
+height = 2.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wraith"]
+render_priority = 0
+shader = ExtResource("2_shd")
+shader_parameter/reveal_amount = 0.0
+shader_parameter/bark_color = Color(0.08, 0.07, 0.06, 1)
+shader_parameter/glow_color = Color(0.45, 0.7, 1, 1)
+shader_parameter/ember_color = Color(1, 0.45, 0.1, 1)
+shader_parameter/distortion_strength = 0.025
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+radius = 0.42
+height = 2.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_antler"]
+albedo_color = Color(0.1, 0.08, 0.06, 1)
+roughness = 0.9
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_horn_main"]
+material = SubResource("StandardMaterial3D_antler")
+top_radius = 0.02
+bottom_radius = 0.05
+height = 0.75
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_horn_tine"]
+material = SubResource("StandardMaterial3D_antler")
+top_radius = 0.015
+bottom_radius = 0.035
+height = 0.4
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_embers"]
+emission_shape = 1
+emission_sphere_radius = 0.8
+direction = Vector3(0, 1, 0)
+spread = 45.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.8
+gravity = Vector3(0, 0.5, 0)
+scale_min = 0.02
+scale_max = 0.05
+color = Color(1, 0.55, 0.1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ember"]
+shading_mode = 0
+albedo_color = Color(1, 0.6, 0.1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ember"]
+material = SubResource("StandardMaterial3D_ember")
+radius = 0.025
+height = 0.05
+
+[node name="InvisibleWraith" type="CharacterBody3D" groups=["unseen_entity"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_ai")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+shape = SubResource("CapsuleShape3D_wraith")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+mesh = SubResource("CapsuleMesh_body")
+surface_material_override/0 = SubResource("ShaderMaterial_wraith")
+
+[node name="Antlers" type="Node3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+
+[node name="LeftHorn" type="MeshInstance3D" parent="Visuals/Antlers"]
+transform = Transform3D(0.866025, 0.5, 0, -0.433013, 0.75, -0.5, -0.25, 0.433013, 0.866025, -0.28, 0.28, 0)
+mesh = SubResource("CylinderMesh_horn_main")
+
+[node name="LeftTine" type="MeshInstance3D" parent="Visuals/Antlers/LeftHorn"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0.15, 0.1, 0)
+mesh = SubResource("CylinderMesh_horn_tine")
+
+[node name="RightHorn" type="MeshInstance3D" parent="Visuals/Antlers"]
+transform = Transform3D(0.866025, -0.5, 0, 0.433013, 0.75, -0.5, 0.25, 0.433013, 0.866025, 0.28, 0.28, 0)
+mesh = SubResource("CylinderMesh_horn_main")
+
+[node name="RightTine" type="MeshInstance3D" parent="Visuals/Antlers/RightHorn"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, -0.15, 0.1, 0)
+mesh = SubResource("CylinderMesh_horn_tine")
+
+[node name="EmberParticles" type="GPUParticles3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+emitting = false
+amount = 64
+lifetime = 1.2
+process_material = SubResource("ParticleProcessMaterial_embers")
+draw_pass_1 = SubResource("SphereMesh_ember")
+
+[node name="Audio" type="Node3D" parent="."]
+
+[node name="HoofCrunchAudio" type="AudioStreamPlayer3D" parent="Audio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+max_distance = 18.0
+bus = &"Master"
+
+[node name="GrowlAudio" type="AudioStreamPlayer3D" parent="Audio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+max_distance = 22.0
+bus = &"Master"
+
+[node name="ScreechAudio" type="AudioStreamPlayer3D" parent="Audio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+max_distance = 30.0
+bus = &"Master"

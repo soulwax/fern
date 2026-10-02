@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cdrudenfuss01"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/DrudenfussThreshold.gd" id="1_df"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_interact"]
+size = Vector3(2, 0.5, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chalk"]
+albedo_color = Color(0.9, 0.95, 1, 0.85)
+emission_enabled = true
+emission = Color(0.7, 0.85, 1, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="TorusMesh" id="TorusMesh_rune"]
+material = SubResource("StandardMaterial3D_chalk")
+inner_radius = 0.45
+outer_radius = 0.5
+rings = 16
+ring_segments = 8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_barrier"]
+size = Vector3(2.2, 2.5, 1.4)
+
+[node name="DrudenfussThreshold" type="StaticBody3D" groups=["interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_df")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_interact")
+
+[node name="ChalkVisual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+visible = false
+
+[node name="RuneRing" type="MeshInstance3D" parent="ChalkVisual"]
+transform = Transform3D(1, 0, 0, 0, 0.05, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("TorusMesh_rune")
+
+[node name="BarrierArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BarrierArea"]
+shape = SubResource("BoxShape3D_barrier")
+
+[node name="ChalkAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+max_distance = 12.0
+bus = &"Master"

@@ -1,0 +1,235 @@
+[gd_scene format=3 uid="uid://chud01gothic"]
+
+[ext_resource type="Script" path="res://Scripts/UI/HUDController.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hour_bg"]
+bg_color = Color(0.1, 0.1, 0.12, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hour_fill"]
+bg_color = Color(0.65, 0.8, 1, 0.85)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bloom_bg"]
+bg_color = Color(0.08, 0.12, 0.15, 0.7)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bloom_fill"]
+bg_color = Color(0.4, 0.75, 1, 0.9)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dark_overlay"]
+bg_color = Color(0.05, 0.04, 0.04, 0.92)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="VignetteRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.2, 0.02, 0.02, 0)
+
+[node name="Reticle" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Dot" type="ColorRect" parent="Reticle"]
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.7)
+
+[node name="PromptContainer" type="CenterContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -140.0
+offset_right = 200.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="PromptLabel" type="Label" parent="PromptContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 18
+text = "[E] Interact"
+horizontal_alignment = 1
+
+[node name="TopBar" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 20.0
+offset_right = 160.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="HourLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.92, 0.96, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_font_sizes/font_size = 17
+text = "00:00 (Die Geisterstunde)"
+horizontal_alignment = 1
+
+[node name="HourBar" type="ProgressBar" parent="TopBar"]
+custom_minimum_size = Vector2(280, 6)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_hour_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hour_fill")
+show_percentage = false
+
+[node name="BottomLeft" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -90.0
+offset_right = 280.0
+grow_vertical = 0
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_bottom = 20
+
+[node name="BloomContainer" type="VBoxContainer" parent="BottomLeft"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="BloomTitle" type="Label" parent="BottomLeft/BloomContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.88, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "🌿 Farnblumenlicht"
+
+[node name="BloomBar" type="ProgressBar" parent="BottomLeft/BloomContainer"]
+custom_minimum_size = Vector2(220, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bloom_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bloom_fill")
+value = 100.0
+show_percentage = false
+
+[node name="BloomStateLabel" type="Label" parent="BottomLeft/BloomContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.75, 0.85, 0.85)
+theme_override_font_sizes/font_size = 12
+text = "Farnblume leuchtet [R: Schützen]"
+
+[node name="GameOverPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dark_overlay")
+
+[node name="Center" type="CenterContainer" parent="GameOverPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="GameOverPanel/Center"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="Label" parent="GameOverPanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 36
+text = "VOM WALD VERSCHLUNGEN"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="GameOverPanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 0.9)
+theme_override_font_sizes/font_size = 16
+text = "Der ungesehene Hüter des Schwarzwaldes hat sich geholt, was ihm gehört.
+Die Farnblume vergeht in der ewigen Finsternis."
+horizontal_alignment = 1
+
+[node name="RestartBtn" type="Button" parent="GameOverPanel/Center/VBox"]
+custom_minimum_size = Vector2(200, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Nochmals versuchen"
+
+[node name="VictoryPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dark_overlay")
+
+[node name="Center" type="CenterContainer" parent="VictoryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="VictoryPanel/Center"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="Label" parent="VictoryPanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 36
+text = "DAS MORGENGRAUEN SIEGT"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="VictoryPanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.92, 0.95)
+theme_override_font_sizes/font_size = 16
+text = "Die Glocken im fernen Tal läuten das Ende der Geisterstunde ein.
+Der ungesehene Schrecken zerfällt vor den ersten Sonnenstrahlen zu Staub.
+Du hast überlebt."
+horizontal_alignment = 1
+
+[node name="RestartBtn" type="Button" parent="VictoryPanel/Center/VBox"]
+custom_minimum_size = Vector2(220, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Erneut der Nacht trotzen"
+
+[connection signal="pressed" from="GameOverPanel/Center/VBox/RestartBtn" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="VictoryPanel/Center/VBox/RestartBtn" to="." method="_on_restart_button_pressed"]
