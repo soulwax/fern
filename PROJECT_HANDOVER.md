@@ -82,6 +82,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v1.4.0 (Audio Bus & Graphics Settings Update):** [https://github.com/soulwax/fern/releases/tag/v1.4.0](https://github.com/soulwax/fern/releases/tag/v1.4.0)
 - **v1.3.0 (Definitive Jam Edition):** [https://github.com/soulwax/fern/releases/tag/v1.3.0](https://github.com/soulwax/fern/releases/tag/v1.3.0)
 - **v1.2.0 (Difficulty & Cinematic Update):** [https://github.com/soulwax/fern/releases/tag/v1.2.0](https://github.com/soulwax/fern/releases/tag/v1.2.0)
 - **v1.1.0 (Candles & Verticality Update):** [https://github.com/soulwax/fern/releases/tag/v1.1.0](https://github.com/soulwax/fern/releases/tag/v1.1.0)

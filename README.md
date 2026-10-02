@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v1.3.0)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v1.4.0)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v1.3.0)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v1.4.0)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build (v1.3.0)](https://github.com/soulwax/fern/releases/download/v1.3.0/Fern-v1.3.0-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build (v1.4.0)](https://github.com/soulwax/fern/releases/download/v1.4.0/Fern-v1.4.0-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -69,7 +69,8 @@ Every standalone release archive is self-contained and pre-configured for Window
 
 | Version | Status | Highlights | Download |
 |:---|:---:|:---|:---:|
-| **v1.3.0** | 🌟 **Latest** | **Definitive Jam Edition:** High-res key art, complete jam presentation page, full audio foley suite | [ZIP (274 MB)](https://github.com/soulwax/fern/releases/download/v1.3.0/Fern-v1.3.0-windows-x86_64.zip) |
+| **v1.4.0** | 🌟 **Latest** | **Audio & Graphics Settings:** Multi-channel audio bus layout with valley reverb, Forward+ TAA, VSync, in-game audio channels & F11 fullscreen | [ZIP (275 MB)](https://github.com/soulwax/fern/releases/download/v1.4.0/Fern-v1.4.0-windows-x86_64.zip) |
+| **v1.3.0** | Stable | **Definitive Jam Edition:** High-res key art, complete jam presentation page, full audio foley suite | [ZIP (274 MB)](https://github.com/soulwax/fern/releases/download/v1.3.0/Fern-v1.3.0-windows-x86_64.zip) |
 | **v1.2.0** | Stable | Difficulty presets (Midsummer, Walpurgisnacht, Stille Nacht), death jumpscare cinematic & epitaph | [ZIP (303 MB)](https://github.com/soulwax/fern/releases/download/v1.2.0/Fern-v1.2.0-windows-x86_64.zip) |
 | **v1.1.0** | Stable | Candle snuffing & relighting, loft catwalks, ladder climbing, howling wind loop | [ZIP (303 MB)](https://github.com/soulwax/fern/releases/download/v1.1.0/Fern-v1.1.0-windows-x86_64.zip) |
 | **v1.0.0** | Initial | Initial release featuring workshop arena, Farnblume UV bloom, and wraith AI | [ZIP (302 MB)](https://github.com/soulwax/fern/releases/download/v1.0.0/Fern-v1.0.0-windows-x86_64.zip) |
