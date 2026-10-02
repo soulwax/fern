@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ch4ngingchain01"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/HangingProp.gd" id="1_hp"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Hook.gltf" id="2_hook"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/chain_creak.wav" id="3_creak"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_prox"]
+radius = 2.6
+
+[node name="HangingChainProp" type="Node3D"]
+script = ExtResource("1_hp")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="HookMesh" parent="Pivot" instance=ExtResource("2_hook")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.4, 0)
+
+[node name="ProximityArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 0)
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProximityArea"]
+shape = SubResource("SphereShape3D_prox")
+
+[node name="CreakAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0, 0)
+stream = ExtResource("3_creak")
+max_distance = 18.0
+bus = &"Master"

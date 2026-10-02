@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://l4dd3rst4t10n"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/LadderClimb.gd" id="1_lc"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Ladder.gltf" id="2_ladder"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/wood_crunch_step.wav" id="3_creak"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ladder"]
+size = Vector3(1.0, 3.6, 1.0)
+
+[node name="LadderStation" type="StaticBody3D" groups=["interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_lc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+shape = SubResource("BoxShape3D_ladder")
+
+[node name="LadderMesh" parent="." instance=ExtResource("2_ladder")]
+
+[node name="BottomMount" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.8)
+
+[node name="TopMount" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -0.6)
+
+[node name="AudioCreak" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+stream = ExtResource("3_creak")
+max_distance = 12.0
+bus = &"Master"

@@ -10,6 +10,13 @@
 [ext_resource type="PackedScene" path="res://Scenes/Monster/InvisibleWraith.tscn" id="8_wraith"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/HUD.tscn" id="9_hud"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/Ambiance/A_Ambiance_DayBirds_001.wav" id="10_birds"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/church_bell_toll.wav" id="11_bell"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/WaterJarStation.tscn" id="12_jar"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/HangingChainProp.tscn" id="13_chain"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/PauseMenu.tscn" id="14_pause"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/CandleStation.tscn" id="15_candle"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/LadderStation.tscn" id="16_ladder"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/Ambiance/black_forest_wind.wav" id="17_wind"]
 
 [sub_resource type="Environment" id="Environment_gothic"]
 background_mode = 1
@@ -25,6 +32,26 @@ volumetric_fog_density = 0.028
 volumetric_fog_albedo = Color(0.32, 0.4, 0.5, 1)
 volumetric_fog_emission = Color(0.02, 0.03, 0.05, 1)
 volumetric_fog_emission_energy = 0.4
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dust"]
+emission_shape = 3
+emission_box_extents = Vector3(7.5, 2.5, 7.5)
+direction = Vector3(0.2, -0.1, 0.1)
+spread = 45.0
+initial_velocity_min = 0.05
+initial_velocity_max = 0.15
+gravity = Vector3(0, -0.015, 0)
+color = Color(0.85, 0.9, 1, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dust"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.85, 0.9, 1, 0.35)
+
+[sub_resource type="SphereMesh" id="SphereMesh_dust"]
+material = SubResource("StandardMaterial3D_dust")
+radius = 0.012
+height = 0.024
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_main")
@@ -55,8 +82,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 [node name="GrindStoneStation" parent="." instance=ExtResource("4_grindstone")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -2.8)
 
-[node name="WindowBreachPoint" parent="." instance=ExtResource("5_window")]
+[node name="WindowBreachNorth" parent="." instance=ExtResource("5_window")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.2)
+
+[node name="WindowBreachEast" parent="." instance=ExtResource("5_window")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.2, 0, -1.5)
+
+[node name="WindowBreachWest" parent="." instance=ExtResource("5_window")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.2, 0, -1.5)
 
 [node name="DrudenfussThreshold" parent="." instance=ExtResource("6_drudenfuss")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.8)
@@ -64,14 +97,55 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.8)
 [node name="AnvilStation" parent="." instance=ExtResource("7_anvil")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 0, -1.8)
 
+[node name="WaterJarStation1" parent="." instance=ExtResource("12_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0.85, 1.2)
+
+[node name="WaterJarStation2" parent="." instance=ExtResource("12_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0.85, -3.5)
+
+[node name="HangingChain1" parent="." instance=ExtResource("13_chain")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, -0.5)
+
+[node name="HangingChain2" parent="." instance=ExtResource("13_chain")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 4.5, 2)
+
+[node name="CandleWorkbench" parent="." instance=ExtResource("15_candle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.88, 0.5)
+
+[node name="CandleGrindstone" parent="." instance=ExtResource("15_candle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0.88, -2.5)
+
+[node name="CandleAnvil" parent="." instance=ExtResource("15_candle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 0.88, -2.2)
+
+[node name="LadderLoft" parent="." instance=ExtResource("16_ladder")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 0, 2)
+
 [node name="InvisibleWraith" parent="." instance=ExtResource("8_wraith")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.1, 3.8)
 
+[node name="LoftDustMotes" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+amount = 48
+lifetime = 6.0
+visibility_aabb = AABB(-10, -3, -10, 20, 6, 20)
+process_material = SubResource("ParticleProcessMaterial_dust")
+draw_pass_1 = SubResource("SphereMesh_dust")
+
 [node name="HUD" parent="." instance=ExtResource("9_hud")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("14_pause")]
 
 [node name="Audio" type="Node" parent="."]
 
+[node name="NightWindAudio" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("17_wind")
+autoplay = true
+volume_db = -16.0
+bus = &"Master"
+
 [node name="ChurchBellAudio" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("11_bell")
 bus = &"Master"
 
 [node name="DayBirdsAudio" type="AudioStreamPlayer" parent="Audio"]

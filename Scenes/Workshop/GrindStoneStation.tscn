@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Workshop/GrindStone.gd" id="1_gs"]
 [ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_GrindStone.gltf" id="2_mesh"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/grindstone_spark_loop.wav" id="3_audio"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_interact"]
 size = Vector3(1.2, 1.4, 1.6)
@@ -71,5 +72,6 @@ shape = SubResource("BoxShape3D_spark_cone")
 
 [node name="GrindAudio" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+stream = ExtResource("3_audio")
 max_distance = 15.0
 bus = &"Master"

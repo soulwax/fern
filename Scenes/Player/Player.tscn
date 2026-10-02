@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_pc"]
 [ext_resource type="PackedScene" path="res://Scenes/Player/Farnblume.tscn" id="2_fb"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/wood_crunch_step.wav" id="3_step"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p1"]
 radius = 0.35
@@ -35,5 +36,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26, -0.22, -0.42)
 
 [node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+stream = ExtResource("3_step")
 max_distance = 12.0
 bus = &"Master"

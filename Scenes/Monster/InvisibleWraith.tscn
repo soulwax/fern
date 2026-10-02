@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/Monster/WraithAI.gd" id="1_ai"]
 [ext_resource type="Shader" path="res://Scenes/Monster/Shaders/WraithShader.gdshader" id="2_shd"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/wood_crunch_step.wav" id="3_crunch"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/wraith_growl.wav" id="4_growl"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/wraith_screech.wav" id="5_screech"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wraith"]
 radius = 0.45
@@ -104,15 +107,18 @@ draw_pass_1 = SubResource("SphereMesh_ember")
 
 [node name="HoofCrunchAudio" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+stream = ExtResource("3_crunch")
 max_distance = 18.0
 bus = &"Master"
 
 [node name="GrowlAudio" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+stream = ExtResource("4_growl")
 max_distance = 22.0
 bus = &"Master"
 
 [node name="ScreechAudio" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+stream = ExtResource("5_screech")
 max_distance = 30.0
 bus = &"Master"

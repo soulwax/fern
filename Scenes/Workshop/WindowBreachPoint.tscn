@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Workshop/WindowBreach.gd" id="1_wb"]
 [ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Window_Frame.gltf" id="2_frame"]
 [ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Plank_01.gltf" id="3_plank"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/hammer_nail_wood.wav" id="4_hammer"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_window"]
 size = Vector3(1.6, 2.2, 0.4)
@@ -34,5 +35,6 @@ visible = false
 
 [node name="HammerAudio" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+stream = ExtResource("4_hammer")
 max_distance = 15.0
 bus = &"Master"

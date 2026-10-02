@@ -43,8 +43,15 @@ var step_cycle_dist: float = 0.0
 var step_interval: float = 1.7
 var current_prompt: String = ""
 
+var is_frozen: bool = false
+
 # Current interactable focused
 var current_interactable: Node = null
+
+func set_movement_frozen(frozen: bool) -> void:
+	is_frozen = frozen
+	if frozen:
+		velocity = Vector3.ZERO
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -96,6 +103,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta: float) -> void:
+	if is_frozen:
+		return
+
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta

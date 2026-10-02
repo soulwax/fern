@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://cf0lkl0reguide01"]
+
+[ext_resource type="Script" path="res://Scripts/UI/FolkloreGuide.gd" id="1_fg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal_bg"]
+bg_color = Color(0.04, 0.04, 0.05, 0.94)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+content_margin_left = 18.0
+content_margin_top = 14.0
+content_margin_right = 18.0
+content_margin_bottom = 14.0
+bg_color = Color(0.07, 0.08, 0.1, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.38, 0.5, 0.4)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="FolkloreGuideModal" type="CanvasLayer"]
+process_mode = 3
+layer = 15
+script = ExtResource("1_fg")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal_bg")
+
+[node name="Center" type="CenterContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Center"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Header" type="VBoxContainer" parent="Panel/Center/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Panel/Center/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "ÜBERLEBENS-LEITFADEN"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Panel/Center/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.75, 0.85, 0.8)
+theme_override_font_sizes/font_size = 14
+text = "Die 4 Säulen zur Abwehr des ungesehenen Hüters des Schwarzwaldes"
+horizontal_alignment = 1
+
+[node name="CardsGrid" type="GridContainer" parent="Panel/Center/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 14
+columns = 2
+
+[node name="Card1" type="PanelContainer" parent="Panel/Center/VBox/CardsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Center/VBox/CardsGrid/Card1"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Heading" type="Label" parent="Panel/Center/VBox/CardsGrid/Card1/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.82, 1, 1)
+theme_override_font_sizes/font_size = 15
+text = "🌿 Die Farnblume (UV-Licht & Schutz)"
+
+[node name="Body" type="Label" parent="Panel/Center/VBox/CardsGrid/Card1/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.87, 0.9, 0.9)
+theme_override_font_sizes/font_size = 12
+text = "Der UV-Lichtkegel entlarvt die wahre Horngestalt des Geistes.
+[R] krümmt die Hände schützend, um die Blüte zu schonen.
+An Wasserkrügen auf Werkbänken regenerierst du die Leuchtkraft."
+autowrap_mode = 2
+
+[node name="Card2" type="PanelContainer" parent="Panel/Center/VBox/CardsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Center/VBox/CardsGrid/Card2"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Heading" type="Label" parent="Panel/Center/VBox/CardsGrid/Card2/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.72, 0.35, 1)
+theme_override_font_sizes/font_size = 15
+text = "⚙️ Der Schleifstein (Funkenregen)"
+
+[node name="Body" type="Label" parent="Panel/Center/VBox/CardsGrid/Card2/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.87, 0.9, 0.9)
+theme_override_font_sizes/font_size = 12
+text = "Halte [E] am Schleifstein, um Funken zu sprühen.
+Treffen Funken den unsichtbaren Geist, haftet glimmende Glut an seiner Silhouette und betäubt ihn für 2.5s."
+autowrap_mode = 2
+
+[node name="Card3" type="PanelContainer" parent="Panel/Center/VBox/CardsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Center/VBox/CardsGrid/Card3"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Heading" type="Label" parent="Panel/Center/VBox/CardsGrid/Card3/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 15
+text = "✡️ Der Drudenfuss (Schutzrune)"
+
+[node name="Body" type="Label" parent="Panel/Center/VBox/CardsGrid/Card3/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.87, 0.9, 0.9)
+theme_override_font_sizes/font_size = 12
+text = "Zeichne mit [E] an Türschwellen den Drudenfuss.
+Die weiße Bannlinie blockiert den Geist für 35 Sekunden und schlägt ihn bei Berührung in die Flucht."
+autowrap_mode = 2
+
+[node name="Card4" type="PanelContainer" parent="Panel/Center/VBox/CardsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Center/VBox/CardsGrid/Card4"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Heading" type="Label" parent="Panel/Center/VBox/CardsGrid/Card4/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.65, 1)
+theme_override_font_sizes/font_size = 15
+text = "🔨 Amboss & Fenster-Barrikaden"
+
+[node name="Body" type="Label" parent="Panel/Center/VBox/CardsGrid/Card4/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.87, 0.9, 0.9)
+theme_override_font_sizes/font_size = 12
+text = "Vernagle mit [E] Fensterläden, um Brechen zu stoppen.
+Ein Hammerschlag auf den Amboss erzeugt einen geweihten Eisengong, der den Geist im Umkreis von 14m vertreibt."
+autowrap_mode = 2
+
+[node name="CloseBtn" type="Button" parent="Panel/Center/VBox"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Verstanden"
+
+[connection signal="pressed" from="Panel/Center/VBox/CloseBtn" to="." method="_on_close_pressed"]

@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://c4ndl3st4t10n"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/CandleStation.gd" id="1_cs"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Cup.gltf" id="2_cup"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/candle_snuff.wav" id="3_snuff"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/chalk_scrape.wav" id="4_strike"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_candle"]
+height = 0.4
+radius = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wax"]
+albedo_color = Color(0.95, 0.92, 0.85, 1)
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wax"]
+material = SubResource("StandardMaterial3D_wax")
+top_radius = 0.035
+bottom_radius = 0.04
+height = 0.14
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flame"]
+shading_mode = 0
+albedo_color = Color(1, 0.65, 0.15, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_flame"]
+material = SubResource("StandardMaterial3D_flame")
+radius = 0.015
+height = 0.04
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_smoke"]
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 0.2
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0.3, 0)
+color = Color(0.4, 0.4, 0.4, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smoke"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.35, 0.35, 0.35, 0.45)
+
+[sub_resource type="SphereMesh" id="SphereMesh_smoke"]
+material = SubResource("StandardMaterial3D_smoke")
+radius = 0.02
+height = 0.03
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wraith"]
+radius = 3.5
+
+[node name="CandleStation" type="StaticBody3D" groups=["interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_cs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("CylinderShape3D_candle")
+
+[node name="CupHolder" parent="." instance=ExtResource("2_cup")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+
+[node name="WaxCylinder" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+mesh = SubResource("CylinderMesh_wax")
+
+[node name="FlameMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 0)
+mesh = SubResource("SphereMesh_flame")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+light_color = Color(1, 0.68, 0.35, 1)
+light_energy = 1.6
+shadow_enabled = true
+omni_range = 6.0
+omni_attenuation = 1.4
+
+[node name="SmokeParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0)
+emitting = false
+amount = 12
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.7
+process_material = SubResource("ParticleProcessMaterial_smoke")
+draw_pass_1 = SubResource("SphereMesh_smoke")
+
+[node name="AudioSnuff" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+stream = ExtResource("3_snuff")
+max_distance = 12.0
+bus = &"Master"
+
+[node name="AudioStrike" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+stream = ExtResource("4_strike")
+max_distance = 10.0
+bus = &"Master"
+
+[node name="WraithDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WraithDetector"]
+shape = SubResource("SphereShape3D_wraith")

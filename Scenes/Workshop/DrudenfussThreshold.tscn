@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cdrudenfuss01"]
 
 [ext_resource type="Script" path="res://Scripts/Workshop/DrudenfussThreshold.gd" id="1_df"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/chalk_scrape.wav" id="2_chalk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_interact"]
 size = Vector3(2, 0.5, 1.2)
@@ -48,5 +49,6 @@ shape = SubResource("BoxShape3D_barrier")
 
 [node name="ChalkAudio" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+stream = ExtResource("2_chalk")
 max_distance = 12.0
 bus = &"Master"

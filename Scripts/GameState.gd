@@ -5,6 +5,13 @@ signal game_won()
 signal game_lost()
 signal ambient_bell_tolled()
 
+enum Difficulty {
+	MIDSUMMER,     # Standard 6-hour night
+	WALPURGISNACHT, # Nightmare: +25% speed, 1.5x wilt
+	STILLE_NACHT   # Story: 0.75x speed, 0.5x wilt
+}
+
+@export var current_difficulty: Difficulty = Difficulty.MIDSUMMER
 @export var seconds_per_hour: float = 75.0
 @export var current_hour: int = 0
 @export var max_hours: int = 6
@@ -21,6 +28,45 @@ const HOUR_NAMES = [
 	"05:00 (Der Dämmerung nahe)",
 	"06:00 (Taganbruch & Frühglocke)"
 ]
+
+func set_difficulty(diff: Difficulty) -> void:
+	current_difficulty = diff
+
+func get_difficulty_name() -> String:
+	match current_difficulty:
+		Difficulty.WALPURGISNACHT:
+			return "Walpurgisnacht (Nightmare)"
+		Difficulty.STILLE_NACHT:
+			return "Stille Nacht (Story)"
+		_:
+			return "Midsummer Eve (Standard)"
+
+func get_difficulty_description() -> String:
+	match current_difficulty:
+		Difficulty.WALPURGISNACHT:
+			return "Nightmare terror: +25% wraith speed, 1.5x flower wilt, wider candle snuffing."
+		Difficulty.STILLE_NACHT:
+			return "Atmospheric mode: -25% wraith speed, 0.5x flower wilt, relaxed exploration."
+		_:
+			return "Standard Gothic horror: 6-hour survival night, balanced flower decay & aggression."
+
+func get_wilt_rate_multiplier() -> float:
+	match current_difficulty:
+		Difficulty.WALPURGISNACHT:
+			return 1.5
+		Difficulty.STILLE_NACHT:
+			return 0.5
+		_:
+			return 1.0
+
+func get_wraith_speed_multiplier() -> float:
+	match current_difficulty:
+		Difficulty.WALPURGISNACHT:
+			return 1.25
+		Difficulty.STILLE_NACHT:
+			return 0.75
+		_:
+			return 1.0
 
 func _ready() -> void:
 	reset_game()
@@ -60,15 +106,22 @@ func get_current_hour_name() -> String:
 func get_hour_progress() -> float:
 	return clamp(elapsed_in_hour / seconds_per_hour, 0.0, 1.0)
 
+func _get_active_tree() -> SceneTree:
+	if is_inside_tree():
+		return get_tree()
+	return Engine.get_main_loop() as SceneTree
+
 func trigger_victory() -> void:
 	is_game_active = false
 	game_won.emit()
 	
 	# Banish all unseen entities
-	var wraiths = get_tree().get_nodes_in_group("unseen_entity")
-	for w in wraiths:
-		if w.has_method("banish"):
-			w.banish()
+	var tree = _get_active_tree()
+	if tree:
+		var wraiths = tree.get_nodes_in_group("unseen_entity")
+		for w in wraiths:
+			if w.has_method("banish"):
+				w.banish()
 
 func trigger_defeat() -> void:
 	if not is_game_active:
@@ -77,11 +130,14 @@ func trigger_defeat() -> void:
 	game_lost.emit()
 
 func _apply_difficulty_scaling() -> void:
-	var wraiths = get_tree().get_nodes_in_group("unseen_entity")
-	for w in wraiths:
-		if w is WraithAI:
-			# Each hour, increase speed and reduce time between hunts
-			w.hunt_speed = 6.2 + (current_hour * 0.4)
-			w.stalk_speed = 3.2 + (current_hour * 0.25)
-			if current_hour >= 3:
-				w.uv_recoil_threshold = max(0.9, 1.6 - (current_hour * 0.15))
+	var mult = get_wraith_speed_multiplier()
+	var tree = _get_active_tree()
+	if tree:
+		var wraiths = tree.get_nodes_in_group("unseen_entity")
+		for w in wraiths:
+			if w is WraithAI:
+				# Each hour, increase speed and reduce time between hunts
+				w.hunt_speed = (6.2 + (current_hour * 0.4)) * mult
+				w.stalk_speed = (3.2 + (current_hour * 0.25)) * mult
+				if current_hour >= 3:
+					w.uv_recoil_threshold = max(0.9, 1.6 - (current_hour * 0.15))

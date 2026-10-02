@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://cm4inmenu01"]
+
+[ext_resource type="Script" path="res://Scripts/UI/MainMenu.gd" id="1_mm"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/FolkloreGuideModal.tscn" id="2_guide"]
+
+[sub_resource type="Curve" id="Curve_mist"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.6), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_mist"]
+colors = PackedColorArray(0.35, 0.5, 0.7, 0, 0.6, 0.75, 1, 0.15)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mm")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.025, 0.035, 0.05, 1)
+
+[node name="MistParticles" type="CPUParticles2D" parent="."]
+position = Vector2(576, 324)
+amount = 45
+lifetime = 6.0
+preprocess = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(600, 350)
+gravity = Vector2(-8, -4)
+scale_amount_min = 15.0
+scale_amount_max = 45.0
+scale_amount_curve = SubResource("Curve_mist")
+color_ramp = SubResource("Gradient_mist")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TitleBox" type="VBoxContainer" parent="Center/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TitleLabel" type="Label" parent="Center/VBox/TitleBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.94, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.1, 0.25, 0.5, 0.8)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 58
+text = "F E R N"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="Center/VBox/TitleBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "F A R N B L U M E"
+horizontal_alignment = 1
+
+[node name="GenreLabel" type="Label" parent="Center/VBox/TitleBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.72, 0.8, 0.75)
+theme_override_font_sizes/font_size = 13
+text = "Eine Schwarzwald-Sage — Gothic Folk Horror"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Center/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="DifficultyBox" type="VBoxContainer" parent="Center/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="DifficultyBtn" type="Button" parent="Center/VBox/DifficultyBox"]
+custom_minimum_size = Vector2(280, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Modus: Midsummer Eve (Standard)"
+
+[node name="DifficultyDesc" type="Label" parent="Center/VBox/DifficultyBox"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.72, 0.8, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "Standard Gothic horror: 6-hour survival night, balanced flower decay & aggression."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="StartBtn" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(260, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "In die Nacht eintreten"
+
+[node name="GuideBtn" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(260, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Überlebens-Leitfaden"
+
+[node name="QuitBtn" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(260, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Verlassen"
+
+[node name="FooterSpacer" type="Control" parent="Center/VBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="FooterLabel" type="Label" parent="Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.52, 0.6, 0.6)
+theme_override_font_sizes/font_size = 11
+text = "Ein Werk von soulwax | Godot 4.7 Forward+"
+horizontal_alignment = 1
+
+[node name="FolkloreGuideModal" parent="." instance=ExtResource("2_guide")]
+
+[connection signal="pressed" from="Center/VBox/DifficultyBox/DifficultyBtn" to="." method="_on_difficulty_pressed"]
+[connection signal="pressed" from="Center/VBox/StartBtn" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Center/VBox/GuideBtn" to="." method="_on_guide_pressed"]
+[connection signal="pressed" from="Center/VBox/QuitBtn" to="." method="_on_quit_pressed"]

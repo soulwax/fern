@@ -1,0 +1,99 @@
+# 🌿 FERN: FARNBLUME (The Fern Flower)
+### *Gothic Black Forest Survival Horror — Definitive Edition Handover*
+**Author:** `soulwax`  
+**Engine:** Godot Engine 4.7 Forward+ (Jolt Physics 3D)  
+**Target Platform:** Windows Desktop (x86_64)  
+**GitHub Repository:** [`soulwax/fern`](https://github.com/soulwax/fern)
+
+---
+
+## 📖 Overview & Lore
+
+In the secluded, mist-shrouded valleys of the 19th-century Black Forest (*Schwarzwald*), an isolated carpenter plies his trade under the shadow of ancient pine trees. On Midsummer Eve (*Johannisnacht*), the legendary **Farnblume** (Fern Flower) blooms only once every hundred years.
+
+Possessing this mystical bioluminescent blossom grants supernatural vision—revealing secrets buried beneath mortal sight. But its glow also stirs **Der Alp** (The Forest Wraith), an ancient predatory entity that hunts in the dark. 
+
+Your objective: Keep the flower alive from **00:00 to 06:00** by harvesting mystical energy from your workshop stations, while staving off *Der Alp* with iron tools, warding salt (*Drudenfuss*), and holy candleflames.
+
+---
+
+## 🕹️ Controls Reference
+
+| Input | Action | Description |
+|---|---|---|
+| **W, A, S, D** | Movement | Navigate the carpenter's workshop and upper catwalks. |
+| **Shift** (Hold) | Sprint | Dash to escape *Der Alp* (depletes stamina bar). |
+| **Space** | Jump | Leap across workshop obstacles and floorboards. |
+| **Mouse** | Look | First-person camera orientation with smooth look smoothing. |
+| **F** / **Right Click** | Farnblume UV Bloom | Activate flower's bioluminescence; reveals wraith hoofprints and unseen horrors. |
+| **E** / **Left Click** | Interact | Work forge stations, relight snuffed candles, climb loft ladders, or repair salt thresholds. |
+| **Escape** | Pause Menu | Pause game, view controls and adjust settings. |
+
+---
+
+## 🕯️ Core Gameplay Systems & Mechanics
+
+### 1. The Farnblume (Fern Flower) Cycle
+- **Handheld Companion:** Held continuously in the carpenter's left hand with ambient organic breathing animation and gentle blue-violet emission.
+- **UV Bloom Mode (`F` or RMB):** Expands the light radius and increases luminescence intensity ($8\times$ boost), revealing invisible clues such as:
+  - Cloven hoofprints left on the wooden floor by *Der Alp*.
+  - Hidden runes and occult markers on the walls.
+- **Wilt Dynamic:** The blossom slowly wilts over time. If the petal health drops to 0%, the flower dies and darkness consumes you.
+- **Recharging the Blossom:** Completing tasks at the **GrindStoneStation** (sharpening iron tools) and **AnvilStation** (hammering iron nails) showers the workshop in spark particles and restores the flower's vital essence.
+
+### 2. Der Alp (The Invisible Wraith AI)
+- **Stalking Mode:** The wraith roams outside the windows and through workshop shadows, completely invisible to the naked eye.
+- **Auditory & Visual Cues:** Wooden creaks, cloven hoofprints glowing under UV light, and gusting draft windows announce its approach.
+- **Candle Snuffing:** As *Der Alp* nears a lit candle station within 3.5m, the flame sputters, blows out with grey smoke, and plunges the area into freezing dark. Players can strike a match (`[E]`) to relight it.
+- **The Drudenfuss (Pentagram Salt Threshold):** The main door is protected by a consecrated salt line. If breached by the wraith, it degrades and must be replenished before the beast can enter freely.
+- **Hunting Phase:** When enraged or when the player is caught in the dark without light, *Der Alp* enters full hunt, sprinting toward the player with guttural shrieks.
+
+### 3. Loft & Catwalk Verticality
+- **Ladder Stations (`LadderStation.tscn`):** Interactive ladders allow rapid ascension to the elevated storage rafters and drying beams.
+- **Tactical Advantage:** Climbing the ladder freezes ground pursuit and provides high-ground sightlines over the workshop floor to plan station visits safely.
+
+### 4. Difficulty Modes
+Accessible directly from the **Main Menu**:
+1. **Midsummer Eve (Standard):** Balanced wilt rate and wraith stalk/hunt speed for the authentic atmospheric horror experience.
+2. **Walpurgisnacht (Nightmare):** 1.5× faster wilt rate, 1.25× wraith sprint speed, aggressive candle snuffing, and shorter station cooldowns.
+3. **Stille Nacht (Story / Explorer):** 0.5× wilt rate, slower wraith speed, allowing exploratory enjoyment of the Gothic folklore atmosphere.
+
+### 5. Death Jumpscare & Folklore Epitaph
+- Upon being captured, the camera violently snaps toward the towering visage of *Der Alp*, punctuated by a bloodcurdling screech and crimson claw-strike screen flash.
+- A personalized game-over sequence displays survival statistics (hours survived, stations worked, candles relit) and the German folklore epitaph:
+  > *"Der Wald nimmt, was sein ist. Deine Knochen nähren die Wurzeln."*  
+  > *(The forest takes what is its own. Your bones nourish the roots.)*
+
+---
+
+## 🔊 Sound Design & Foley Architecture
+
+All audio systems in *Fern* feature fallback synthesizers and procedurally pitch-varied foley triggers to prevent repetitive audio fatigue:
+- **Cathedral Church Bell Tolls:** A deep, resonant low-frequency chime sounds at each hourly milestone from 01:00 to 06:00.
+- **Workshop Ambiance:** Low-end wind draft loops howling against the clapboard walls, accompanied by authentic floor creaks.
+- **Foley Feedback:** Distinct metallic rings for the anvil, grinding stone friction with randomized pitch (0.95–1.05), match strikes, and candle snuff whooshes.
+
+---
+
+## 📦 Releases & Distribution
+
+All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
+
+- **v1.3.0 (Definitive Jam Edition):** [https://github.com/soulwax/fern/releases/tag/v1.3.0](https://github.com/soulwax/fern/releases/tag/v1.3.0)
+- **v1.2.0 (Difficulty & Cinematic Update):** [https://github.com/soulwax/fern/releases/tag/v1.2.0](https://github.com/soulwax/fern/releases/tag/v1.2.0)
+- **v1.1.0 (Candles & Verticality Update):** [https://github.com/soulwax/fern/releases/tag/v1.1.0](https://github.com/soulwax/fern/releases/tag/v1.1.0)
+- **v1.0.0 (Initial Release):** [https://github.com/soulwax/fern/releases/tag/v1.0.0](https://github.com/soulwax/fern/releases/tag/v1.0.0)
+
+---
+
+## 🛠️ Developer Verification & Test Suite
+
+The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
+- `e2e_match_simulation.gd`: Simulates a full game cycle (00:00 to 06:00), testing hourly transitions, victory triggers, station interactions, and wraith speed scaling.
+- `verify_difficulty_and_death.gd`: Tests menu button cycling, state multipliers, and HUD jumpscare components.
+- `verify_features.gd`: Validates candle snuffing, match relighting, and ladder climbing mechanics.
+
+To run tests in headless mode:
+```powershell
+godot --headless --script scripts_scratch/e2e_match_simulation.gd
+```

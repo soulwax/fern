@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://cp4usemenu01"]
+
+[ext_resource type="Script" path="res://Scripts/UI/PauseMenu.gd" id="1_pm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0.04, 0.04, 0.06, 0.88)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_box"]
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+bg_color = Color(0.08, 0.09, 0.12, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.45, 0.6, 0.5)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_pm")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")
+
+[node name="Center" type="CenterContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Center"]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "PAUSE"
+horizontal_alignment = 1
+
+[node name="SettingsBox" type="PanelContainer" parent="Panel/Center/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_box")
+
+[node name="SettingsVBox" type="VBoxContainer" parent="Panel/Center/VBox/SettingsBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="VolumeRow" type="HBoxContainer" parent="Panel/Center/VBox/SettingsBox/SettingsVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/VolumeRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Lautstärke"
+
+[node name="VolumeSlider" type="HSlider" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/VolumeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="ValLabel" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/VolumeRow"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.9, 0.8)
+theme_override_font_sizes/font_size = 13
+text = "100%"
+horizontal_alignment = 2
+
+[node name="SensRow" type="HBoxContainer" parent="Panel/Center/VBox/SettingsBox/SettingsVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/SensRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Mausempfindlichkeit"
+
+[node name="SensSlider" type="HSlider" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/SensRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.2
+max_value = 2.5
+step = 0.1
+value = 1.0
+
+[node name="ValLabel" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/SensRow"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.9, 0.8)
+theme_override_font_sizes/font_size = 13
+text = "1.0x"
+horizontal_alignment = 2
+
+[node name="ResumeBtn" type="Button" parent="Panel/Center/VBox"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+text = "Fortsetzen"
+
+[node name="RestartBtn" type="Button" parent="Panel/Center/VBox"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+text = "Nacht neu beginnen"
+
+[node name="MainMenuBtn" type="Button" parent="Panel/Center/VBox"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+text = "Zum Hauptmenü"
+
+[connection signal="pressed" from="Panel/Center/VBox/ResumeBtn" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/Center/VBox/RestartBtn" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Panel/Center/VBox/MainMenuBtn" to="." method="_on_main_menu_pressed"]

@@ -41,8 +41,12 @@ func _process(delta: float) -> void:
 		# Cupped hands recover energy slowly
 		current_energy = min(max_energy, current_energy + cupped_recovery_rate * delta)
 	else:
-		# Active bloom burns energy
-		current_energy = max(0.0, current_energy - deplete_rate * delta)
+		# Active bloom burns energy scaled by difficulty
+		var wilt_mult = 1.0
+		var game_state = get_node_or_null("/root/GameState")
+		if game_state and game_state.has_method("get_wilt_rate_multiplier"):
+			wilt_mult = game_state.get_wilt_rate_multiplier()
+		current_energy = max(0.0, current_energy - deplete_rate * delta * wilt_mult)
 
 	bloom_energy_changed.emit(current_energy, max_energy)
 	
