@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cpostprocgothic"]
+
+[ext_resource type="Script" path="res://Scripts/UI/PostProcessController.gd" id="1_ctrl"]
+[ext_resource type="Shader" path="res://Scenes/Shaders/daguerreotype_post_process.gdshader" id="2_shd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_daguerreotype"]
+shader = ExtResource("2_shd")
+shader_parameter/enabled = true
+shader_parameter/grain_amount = 0.042
+shader_parameter/grain_speed = 14.0
+shader_parameter/vignette_intensity = 0.68
+shader_parameter/vignette_radius = 0.82
+shader_parameter/chromatic_aberration = 0.0022
+shader_parameter/contrast_boost = 1.06
+shader_parameter/sepia_tone = 0.06
+
+[node name="PostProcess" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_ctrl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_daguerreotype")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

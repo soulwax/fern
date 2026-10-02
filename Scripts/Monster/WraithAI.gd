@@ -57,7 +57,7 @@ func _ready() -> void:
 	add_to_group("unseen_entity")
 	_find_player()
 	_generate_initial_waypoints()
-	_update_visual_reveal(0.0)
+	_update_visual_reveal(0.0, 0.0)
 
 func _find_player() -> void:
 	var players = get_tree().get_nodes_in_group("player")
@@ -212,7 +212,8 @@ func expose_to_uv_light(source: Node) -> void:
 	uv_decay_timer = 0.35 # Keep reveal alive while being hit
 	uv_exposure_timer += get_process_delta_time()
 	var ratio = clamp(uv_exposure_timer / 0.8, 0.0, 1.0)
-	_update_visual_reveal(ratio)
+	var ember_ratio = clamp(spark_ignite_timer / 2.0, 0.0, 1.0)
+	_update_visual_reveal(ratio, ember_ratio)
 	wraith_spotted.emit(ratio)
 	
 	# Prolonged UV exposure forces wraith retreat
@@ -224,7 +225,8 @@ func ignite_with_sparks(duration: float) -> void:
 	spark_ignite_timer = duration
 	if ember_particles:
 		ember_particles.emitting = true
-	_update_visual_reveal(1.0)
+	_play_screech()
+	_update_visual_reveal(1.0, 1.0)
 	set_state(State.STUNNED)
 	state_timer = duration
 
@@ -253,21 +255,31 @@ func _handle_sensory_decay(delta: float) -> void:
 		if spark_ignite_timer <= 0.0 and ember_particles:
 			ember_particles.emitting = false
 
-	var reveal_ratio = clamp(max(uv_exposure_timer / 0.8, (1.0 if spark_ignite_timer > 0.0 else 0.0)), 0.0, 1.0)
-	_update_visual_reveal(reveal_ratio)
+	var uv_ratio = clamp(uv_exposure_timer / 0.8, 0.0, 1.0)
+	var ember_ratio = clamp(spark_ignite_timer / 2.0, 0.0, 1.0)
+	_update_visual_reveal(uv_ratio, ember_ratio)
 
-func _update_visual_reveal(ratio: float) -> void:
+func _update_visual_reveal(ratio: float, ember_ratio: float = 0.0) -> void:
+	if not body_mesh:
+		body_mesh = get_node_or_null("Visuals/BodyMesh")
+	if not antler_mesh:
+		antler_mesh = get_node_or_null("Visuals/Antlers")
+		
 	if body_mesh and body_mesh.get_surface_override_material(0):
 		var mat = body_mesh.get_surface_override_material(0)
 		if mat is ShaderMaterial:
 			mat.set_shader_parameter("reveal_amount", ratio)
+			mat.set_shader_parameter("ember_amount", ember_ratio)
 		elif mat is StandardMaterial3D:
 			# Adjust transparency / rim glow
-			mat.albedo_color.a = lerp(0.05, 0.95, ratio)
-			mat.emission_energy_multiplier = lerp(0.0, 3.0, ratio)
+			var combined = max(ratio, ember_ratio)
+			mat.albedo_color.a = lerp(0.05, 0.95, combined)
+			mat.emission_energy_multiplier = lerp(0.0, 3.5, combined)
 			
 	if antler_mesh:
-		antler_mesh.visible = (ratio > 0.15)
+		antler_mesh.visible = (ratio > 0.15 or ember_ratio > 0.1)
+
+
 
 func _handle_footstep_effects(delta: float) -> void:
 	var horiz_vel = Vector2(velocity.x, velocity.z).length()

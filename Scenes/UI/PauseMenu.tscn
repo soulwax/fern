@@ -75,6 +75,20 @@ text = "Vollbildmodus (F11)"
 [node name="FullscreenCheck" type="CheckBox" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/FullscreenRow"]
 layout_mode = 2
 
+[node name="DaguerreotypeRow" type="HBoxContainer" parent="Panel/Center/VBox/SettingsBox/SettingsVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/DaguerreotypeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Gothic Film Grain (Daguerreotype)"
+
+[node name="DaguerreotypeCheck" type="CheckBox" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/DaguerreotypeRow"]
+layout_mode = 2
+button_pressed = true
+
 [node name="VolumeRow" type="HBoxContainer" parent="Panel/Center/VBox/SettingsBox/SettingsVBox"]
 layout_mode = 2
 

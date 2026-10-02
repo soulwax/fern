@@ -5,6 +5,7 @@ signal resumed()
 
 @onready var panel: Panel = $Panel
 @onready var fullscreen_check: CheckBox = $Panel/Center/VBox/SettingsBox/SettingsVBox/FullscreenRow/FullscreenCheck
+@onready var daguerreotype_check: CheckBox = $Panel/Center/VBox/SettingsBox/SettingsVBox/DaguerreotypeRow/DaguerreotypeCheck
 @onready var volume_slider: HSlider = $Panel/Center/VBox/SettingsBox/SettingsVBox/VolumeRow/VolumeSlider
 @onready var volume_val_label: Label = $Panel/Center/VBox/SettingsBox/SettingsVBox/VolumeRow/ValLabel
 @onready var sfx_slider: HSlider = $Panel/Center/VBox/SettingsBox/SettingsVBox/SfxRow/SfxSlider
@@ -27,6 +28,14 @@ func _ready() -> void:
 		var mode = DisplayServer.window_get_mode()
 		fullscreen_check.button_pressed = (mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 		fullscreen_check.toggled.connect(_on_fullscreen_toggled)
+
+	# Daguerreotype Post-Processing
+	if daguerreotype_check:
+		var game_state = get_node_or_null("/root/GameState")
+		if game_state:
+			daguerreotype_check.button_pressed = game_state.daguerreotype_enabled
+		daguerreotype_check.toggled.connect(_on_daguerreotype_toggled)
+
 	
 	# Master Bus
 	if volume_slider:
@@ -94,6 +103,11 @@ func set_fullscreen(enabled: bool) -> void:
 
 func _on_fullscreen_toggled(toggled_on: bool) -> void:
 	set_fullscreen(toggled_on)
+
+func _on_daguerreotype_toggled(toggled_on: bool) -> void:
+	var game_state = get_node_or_null("/root/GameState")
+	if game_state:
+		game_state.set_daguerreotype_enabled(toggled_on)
 
 func toggle_pause() -> void:
 	set_paused(not is_paused)

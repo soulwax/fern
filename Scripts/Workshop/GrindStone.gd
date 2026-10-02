@@ -18,8 +18,20 @@ var spin_timer: float = 0.0
 func _ready() -> void:
 	super._ready()
 	prompt_message = "[E] Spin Grindstone (Spray Sparks)"
+	_ensure_nodes()
 	if spark_particles:
 		spark_particles.emitting = false
+
+func _ensure_nodes() -> void:
+	if not wheel_mesh:
+		wheel_mesh = get_node_or_null("Wheel")
+	if not spark_particles:
+		spark_particles = get_node_or_null("SparkParticles")
+	if not spark_hit_area:
+		spark_hit_area = get_node_or_null("SparkHitArea")
+	if not grind_audio:
+		grind_audio = get_node_or_null("GrindAudio")
+
 
 func _process(delta: float) -> void:
 	if is_spinning:
@@ -35,8 +47,15 @@ func _process(delta: float) -> void:
 
 func _on_interacted(player: Node) -> void:
 	_trigger_sparks()
+	if player:
+		var flower = player.get_node_or_null("Head/Camera3D/Hand/Farnblume")
+		if not flower:
+			flower = player.find_child("Farnblume", true, false)
+		if flower and flower.has_method("recharge"):
+			flower.recharge(25.0)
 
 func _trigger_sparks() -> void:
+	_ensure_nodes()
 	is_spinning = true
 	spin_timer = spark_duration
 	if spark_particles:
@@ -44,6 +63,8 @@ func _trigger_sparks() -> void:
 	if grind_audio and not grind_audio.playing:
 		grind_audio.play()
 	sparks_fired.emit(true)
+	_check_spark_hits()
+
 
 func _stop_sparks() -> void:
 	is_spinning = false
@@ -60,4 +81,5 @@ func _check_spark_hits() -> void:
 	for body in bodies:
 		if body.is_in_group("unseen_entity"):
 			if body.has_method("ignite_with_sparks"):
-				body.ignite_with_sparks(2.5)
+				body.ignite_with_sparks(3.0)
+

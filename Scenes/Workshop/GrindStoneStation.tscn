@@ -74,4 +74,5 @@ shape = SubResource("BoxShape3D_spark_cone")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 stream = ExtResource("3_audio")
 max_distance = 15.0
-bus = &"Master"
+bus = &"SFX"
+

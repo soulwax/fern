@@ -65,6 +65,10 @@ Accessible directly from the **Main Menu**:
   > *"Der Wald nimmt, was sein ist. Deine Knochen nähren die Wurzeln."*  
   > *(The forest takes what is its own. Your bones nourish the roots.)*
 
+### 6. 19th-Century Daguerreotype Post-Processing & Spark Silhouette
+- **Gothic Daguerreotype Shader (`daguerreotype_post_process.gdshader`):** Simulates 19th-century silver halide grain, claustrophobic radial vignetting, vintage curved glass chromatic aberration, and rich chiaroscuro contrast. Full toggle in Pause Menu.
+- **Grindstone Spark Silhouette Detection:** Spinning the grindstone sprays sparks that coat *Der Alp*'s body in incandescent orange embers (`ember_amount`), stunning the wraith and exposing its stag silhouette in the dark while replenishing the Farnblume's bloom.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -82,6 +86,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v1.5.0 (Daguerreotype & Spark Silhouette):** [https://github.com/soulwax/fern/releases/tag/v1.5.0](https://github.com/soulwax/fern/releases/tag/v1.5.0)
 - **v1.4.0 (Audio Bus & Graphics Settings Update):** [https://github.com/soulwax/fern/releases/tag/v1.4.0](https://github.com/soulwax/fern/releases/tag/v1.4.0)
 - **v1.3.0 (Definitive Jam Edition):** [https://github.com/soulwax/fern/releases/tag/v1.3.0](https://github.com/soulwax/fern/releases/tag/v1.3.0)
 - **v1.2.0 (Difficulty & Cinematic Update):** [https://github.com/soulwax/fern/releases/tag/v1.2.0](https://github.com/soulwax/fern/releases/tag/v1.2.0)
@@ -93,11 +98,14 @@ All standalone builds are packaged with the standalone game executable, user man
 ## 🛠️ Developer Verification & Test Suite
 
 The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
+- `verify_v1_5_features.gd`: Validates Daguerreotype shader compilation, toggle events, GrindStone spark emission, and wraith ember ignition.
 - `e2e_match_simulation.gd`: Simulates a full game cycle (00:00 to 06:00), testing hourly transitions, victory triggers, station interactions, and wraith speed scaling.
 - `verify_difficulty_and_death.gd`: Tests menu button cycling, state multipliers, and HUD jumpscare components.
 - `verify_features.gd`: Validates candle snuffing, match relighting, and ladder climbing mechanics.
 
 To run tests in headless mode:
 ```powershell
+godot --headless --script scripts_scratch/verify_v1_5_features.gd
 godot --headless --script scripts_scratch/e2e_match_simulation.gd
 ```
+

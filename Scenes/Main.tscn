@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/CandleStation.tscn" id="15_candle"]
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/LadderStation.tscn" id="16_ladder"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/Ambiance/black_forest_wind.wav" id="17_wind"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/PostProcess.tscn" id="18_postproc"]
 
 [sub_resource type="Environment" id="Environment_gothic"]
 background_mode = 1
@@ -131,6 +132,8 @@ lifetime = 6.0
 visibility_aabb = AABB(-10, -3, -10, 20, 6, 20)
 process_material = SubResource("ParticleProcessMaterial_dust")
 draw_pass_1 = SubResource("SphereMesh_dust")
+
+[node name="PostProcess" parent="." instance=ExtResource("18_postproc")]
 
 [node name="HUD" parent="." instance=ExtResource("9_hud")]
 

@@ -78,6 +78,11 @@ func replenish_in_water() -> void:
 	current_energy = max_energy
 	bloom_energy_changed.emit(current_energy, max_energy)
 
+func recharge(amount: float) -> void:
+	current_energy = min(max_energy, current_energy + amount)
+	bloom_energy_changed.emit(current_energy, max_energy)
+
+
 func _detect_unseen_entities() -> void:
 	if is_cupped or current_energy <= 5.0:
 		return
