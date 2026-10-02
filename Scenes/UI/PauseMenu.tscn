@@ -35,7 +35,6 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")
 
 [node name="Center" type="CenterContainer" parent="Panel"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -43,15 +42,15 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Panel/Center"]
-custom_minimum_size = Vector2(380, 0)
+custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
-theme_override_constants/separation = 18
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="Title" type="Label" parent="Panel/Center/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 30
 text = "PAUSE"
 horizontal_alignment = 1
 
@@ -61,17 +60,30 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_box")
 
 [node name="SettingsVBox" type="VBoxContainer" parent="Panel/Center/VBox/SettingsBox"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
+
+[node name="FullscreenRow" type="HBoxContainer" parent="Panel/Center/VBox/SettingsBox/SettingsVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/FullscreenRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Vollbildmodus (F11)"
+
+[node name="FullscreenCheck" type="CheckBox" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/FullscreenRow"]
+layout_mode = 2
 
 [node name="VolumeRow" type="HBoxContainer" parent="Panel/Center/VBox/SettingsBox/SettingsVBox"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/VolumeRow"]
-custom_minimum_size = Vector2(140, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
 theme_override_font_sizes/font_size = 14
-text = "Lautstärke"
+text = "Gesamtlautstärke"
 
 [node name="VolumeSlider" type="HSlider" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/VolumeRow"]
 layout_mode = 2
@@ -89,11 +101,63 @@ theme_override_font_sizes/font_size = 13
 text = "100%"
 horizontal_alignment = 2
 
+[node name="SfxRow" type="HBoxContainer" parent="Panel/Center/VBox/SettingsBox/SettingsVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/SfxRow"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Effekte & Werkzeuge"
+
+[node name="SfxSlider" type="HSlider" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/SfxRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="ValLabel" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/SfxRow"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.9, 0.8)
+theme_override_font_sizes/font_size = 13
+text = "100%"
+horizontal_alignment = 2
+
+[node name="AmbianceRow" type="HBoxContainer" parent="Panel/Center/VBox/SettingsBox/SettingsVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/AmbianceRow"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Atmosphäre & Wind"
+
+[node name="AmbianceSlider" type="HSlider" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/AmbianceRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="ValLabel" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/AmbianceRow"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.9, 0.8)
+theme_override_font_sizes/font_size = 13
+text = "100%"
+horizontal_alignment = 2
+
 [node name="SensRow" type="HBoxContainer" parent="Panel/Center/VBox/SettingsBox/SettingsVBox"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/Center/VBox/SettingsBox/SettingsVBox/SensRow"]
-custom_minimum_size = Vector2(140, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
 theme_override_font_sizes/font_size = 14
@@ -117,17 +181,17 @@ text = "1.0x"
 horizontal_alignment = 2
 
 [node name="ResumeBtn" type="Button" parent="Panel/Center/VBox"]
-custom_minimum_size = Vector2(0, 38)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 text = "Fortsetzen"
 
 [node name="RestartBtn" type="Button" parent="Panel/Center/VBox"]
-custom_minimum_size = Vector2(0, 38)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 text = "Nacht neu beginnen"
 
 [node name="MainMenuBtn" type="Button" parent="Panel/Center/VBox"]
-custom_minimum_size = Vector2(0, 38)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 text = "Zum Hauptmenü"
 

@@ -58,6 +58,7 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 | <kbd>F</kbd> / <kbd>Right Click</kbd> | **UV Bloom** | Flare flower's light; reveal hoofprints & runes |
 | <kbd>E</kbd> / <kbd>Left Click</kbd> | **Interact** | Work forge stations, relight candles, climb ladders |
 | <kbd>R</kbd> | **Cup Hands** | Shelter the flower blossom to conserve energy |
+| <kbd>F11</kbd> | **Toggle Fullscreen** | Instant exclusive/windowed fullscreen switch |
 | <kbd>Esc</kbd> | **Pause** | Access options, controls, and return to menu |
 
 ---

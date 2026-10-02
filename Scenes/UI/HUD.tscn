@@ -41,12 +41,12 @@ script = ExtResource("1_hud")
 [node name="HeartbeatAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_heart")
 volume_db = -18.0
-bus = &"Master"
+bus = &"SFX"
 
 [node name="ScreechAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_screech")
 volume_db = 2.0
-bus = &"Master"
+bus = &"Creature"
 
 [node name="VignetteRect" type="ColorRect" parent="."]
 anchors_preset = 15

@@ -38,4 +38,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26, -0.22, -0.42)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 stream = ExtResource("3_step")
 max_distance = 12.0
-bus = &"Master"
+bus = &"SFX"

@@ -27,7 +27,8 @@ Your objective: Keep the flower alive from **00:00 to 06:00** by harvesting myst
 | **Mouse** | Look | First-person camera orientation with smooth look smoothing. |
 | **F** / **Right Click** | Farnblume UV Bloom | Activate flower's bioluminescence; reveals wraith hoofprints and unseen horrors. |
 | **E** / **Left Click** | Interact | Work forge stations, relight snuffed candles, climb loft ladders, or repair salt thresholds. |
-| **Escape** | Pause Menu | Pause game, view controls and adjust settings. |
+| **F11** | Toggle Fullscreen | Instant switch between windowed and exclusive fullscreen. |
+| **Escape** | Pause Menu | Pause game, view controls, adjust graphics, and customize audio channels. |
 
 ---
 
@@ -66,12 +67,14 @@ Accessible directly from the **Main Menu**:
 
 ---
 
-## 🔊 Sound Design & Foley Architecture
+## 🔊 Sound Design & Multi-Channel Audio Architecture
 
-All audio systems in *Fern* feature fallback synthesizers and procedurally pitch-varied foley triggers to prevent repetitive audio fatigue:
-- **Cathedral Church Bell Tolls:** A deep, resonant low-frequency chime sounds at each hourly milestone from 01:00 to 06:00.
-- **Workshop Ambiance:** Low-end wind draft loops howling against the clapboard walls, accompanied by authentic floor creaks.
-- **Foley Feedback:** Distinct metallic rings for the anvil, grinding stone friction with randomized pitch (0.95–1.05), match strikes, and candle snuff whooshes.
+All audio systems in *Fern* are routed through a dedicated multi-channel bus hierarchy (`default_bus_layout.tres`):
+- **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
+- **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, accompanied by authentic timber stress creaks and morning dawn bird song.
+- **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
+- **SFX Bus:** Distinct metallic rings for the anvil, grinding stone friction with randomized pitch (0.95–1.05), match strikes, candle snuff whooshes, and player footsteps.
+- **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
 

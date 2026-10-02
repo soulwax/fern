@@ -142,12 +142,12 @@ draw_pass_1 = SubResource("SphereMesh_dust")
 stream = ExtResource("17_wind")
 autoplay = true
 volume_db = -16.0
-bus = &"Master"
+bus = &"Ambiance"
 
 [node name="ChurchBellAudio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("11_bell")
-bus = &"Master"
+bus = &"Bells"
 
 [node name="DayBirdsAudio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("10_birds")
-bus = &"Master"
+bus = &"Ambiance"

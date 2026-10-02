@@ -109,16 +109,16 @@ draw_pass_1 = SubResource("SphereMesh_ember")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 stream = ExtResource("3_crunch")
 max_distance = 18.0
-bus = &"Master"
+bus = &"Creature"
 
 [node name="GrowlAudio" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 stream = ExtResource("4_growl")
 max_distance = 22.0
-bus = &"Master"
+bus = &"Creature"
 
 [node name="ScreechAudio" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 stream = ExtResource("5_screech")
 max_distance = 30.0
-bus = &"Master"
+bus = &"Creature"
