@@ -122,7 +122,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
 - **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, rolling thunder rumbles, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, torch flame crackles, iron shutter drop-latch rattles, viscous pine pitch bubbling, cuckoo calls, chisel impacts, crushed herb crunches, bellows rushes, ember hisses, zinc basin pings, water splashes, drawknife peeling, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, torch flame crackles, iron shutter drop-latch rattles, viscous pine pitch bubbling, cuckoo calls, chisel impacts, crushed herb crunches, bellows rushes, ember hisses, zinc basin pings, water splashes, drawknife peeling, bread loaf cutting, wraith appeased feeding rustles, roof shingle gale rattling, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -131,6 +131,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.2 (Der Albschatten):** [https://github.com/soulwax/fern/releases/tag/v0.0.2](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 - **v0.0.1 (Farnblume — Initial Release):** [https://github.com/soulwax/fern/releases/tag/v0.0.1](https://github.com/soulwax/fern/releases/tag/v0.0.1)
 
 ---
@@ -138,20 +139,14 @@ All standalone builds are packaged with the standalone game executable, user man
 ## 🛠️ Developer Verification & Test Suite
 
 The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
-- `verify_v0_0_6_features.gd`: Validates Hearth Bellows ember chill hiss & flare repel, Zinc Basin droplet rhythm & overhead rafter splash anomaly, and Drawknife shaving peeling & movement slow debuff.
-- `verify_v0_0_5_features.gd`: Validates Cuckoo Clock half-hour bellows calls, proximity escapement jamming, weight rewind, Cold-Iron Framing Chisel lunging parry/repel, grindstone resharpening, and Midsummer Herb Bundle crushing with heartbeat/scent masking.
-- `verify_v1_9_features.gd`: Validates MirrorStation SubViewport reflection setup, Layer 2 wraith true-form visibility, floorboard altitude groans, and workbench tool tremble.
-- `verify_v1_8_features.gd`: Validates thunderstorm lightning shadow projection, thunder delay, cold breath condensation particles, and hanging chain physics & clinking.
-- `verify_v1_7_features.gd`: Validates heartbeat sub-bass cardiac pacing, Drudenfuss threshold UV luminescence, and sulfur repel bursts.
-- `verify_v1_6_features.gd`: Validates window rattle, shutter shudder vibration, plank breach, hammer fortification, draft wilt multipliers, and wraith siege routines.
-- `verify_v1_5_features.gd`: Validates Daguerreotype shader compilation, toggle events, GrindStone spark emission, and wraith ember ignition.
+- `verify_v0_0_2_features.gd`: Validates BreadOfferingStation placement, consumption, cooldown cycle, InvisibleWraith ShadowCaster (`SHADOWS_ONLY`), ShingleGaleAudio, and WindowBreach frost ingress.
 - `e2e_match_simulation.gd`: Simulates a full game cycle (00:00 to 06:00), testing hourly transitions, victory triggers, station interactions, and wraith speed scaling.
 - `verify_difficulty_and_death.gd`: Tests menu button cycling, state multipliers, and HUD jumpscare components.
 - `verify_features.gd`: Validates candle snuffing, match relighting, and ladder climbing mechanics.
 
 To run tests in headless mode:
 ```powershell
-godot --headless --script scripts_scratch/verify_v0_0_5_features.gd
+godot --headless --script scripts_scratch/verify_v0_0_2_features.gd
 godot --headless --script scripts_scratch/e2e_match_simulation.gd
 ```
 

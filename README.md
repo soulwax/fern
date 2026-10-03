@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.1)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.1)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build — v0.0.1](https://github.com/soulwax/fern/releases/download/v0.0.1/Fern-v0.0.1-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build — v0.0.2](https://github.com/soulwax/fern/releases/download/v0.0.2/Fern-v0.0.2-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -31,6 +31,9 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 
 ## ✨ Core Features & Mechanics
 
+- 🍞 **Das Opferbrot (Folkloric Appeasement Offering Trencher):** Slice and place a hearty rye loaf on the central workshop trencher (`[E]`, `bread_slice_place.wav`). When *Der Alp* stalks or hunts, it catches the scent of rye and detours to feed upon the trencher for 18 seconds (`wraith_appeased_feed.wav`), suspending its hunt and pacifying its aggression.
+- 🕯️ **Der Albschatten (Spectral Shadow Silhouette Projection):** Even when *Der Alp* is invisible to direct gaze, strong workshop illumination (hearth fire, resin cauldron, torches, candles) casts its towering, antlered silhouette across the timber walls and ceiling floorboards (`SHADOW_CASTING_SETTING_SHADOWS_ONLY`).
+- ❄️ **Frost Ingress & Shingle Gale Chatter:** Temperatures plunge near windows when *Der Alp* lingers, visibly creeping frost patterns across the glass and frames. Rafter movement triggers violent storm wind gusts rattling roof shingles (`shingle_gale_rattle.wav`).
 - 🌸 **The Handheld Farnblume:** Held in your left hand with living, organic luminescence. Wilt dynamics require constant replenishment at the workshop stations.
 - 🔥 **The Charcoal Hearth & Leather Bellows Blast (Das Kohlenbecken & Der Schmiedebalg):** The blacksmith hearth by the stone chimney. When *Der Alp* stalks within 5.0m, the supernatural chill quenches glowing coals into a sharp vapor hiss (`ember_hiss.wav`). Interacting with the leather bellows (`[E]`, `bellows_pump.wav`) blasts compressed air into the coals, erupting radiant light, flying sparks, and repelling the creature for 4.0s.
 - 🌧️ **The Zinc Rainwater Basin & Droplet Resonator (Das Zink-Regenfass):** A galvanized zinc rainwater bucket catching roof runoff. Drips with periodic metallic pings (`drip_tap.wav`). When *Der Alp* prowls across roof shingles or ceiling rafters overhead (`Y > 2.4m`), surface tension is arrested—the drip halts, followed by a violent splashing anomaly (`water_splash.wav`). Players can also collect fresh water (`[E]`) to revive the Farnblume.

@@ -84,7 +84,7 @@ func _update_wraith_reference() -> void:
 	if main_tree:
 		wraith_node = main_tree.root.find_child("InvisibleWraith", true, false)
 
-func _on_hour_changed(_new_hour: int) -> void:
+func _on_hour_changed(_new_hour: int, _hour_name: String = "") -> void:
 	chime()
 
 func chime() -> void:

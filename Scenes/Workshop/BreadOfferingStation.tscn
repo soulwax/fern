@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c8breadoffering"]
+[gd_scene format=3 uid="uid://do4gjj6pu7bqe"]
 
 [ext_resource type="Script" path="res://Scripts/Workshop/BreadOfferingStation.gd" id="1_script"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/bread_slice_place.wav" id="2_place"]
