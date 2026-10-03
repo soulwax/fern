@@ -30,9 +30,39 @@ func _process(delta: float) -> void:
 		_cooldown_timer -= delta
 	
 	if is_lit and light:
-		_time_passed += delta * 12.0
-		var flicker = sin(_time_passed) * 0.5 + sin(_time_passed * 2.3) * 0.3 + randf_range(-0.1, 0.1)
-		light.light_energy = maxf(0.2, base_energy + flicker * flicker_intensity)
+		# Calculate draft intensity from open window breaches
+		var windows = get_tree().get_nodes_in_group("window_breach")
+		var open_breaches: int = 0
+		for w in windows:
+			if "current_planks" in w and w.current_planks <= 0:
+				open_breaches += 1
+
+		var draft_boost: float = 1.0 + (open_breaches * 0.65)
+		var effective_intensity: float = flicker_intensity * draft_boost
+
+		# Calculate entity proximity draft
+		var wraith = get_tree().root.find_child("InvisibleWraith", true, false)
+		var wraith_dist: float = 999.0
+		var draft_dir: Vector3 = Vector3.ZERO
+		if wraith and is_instance_valid(wraith):
+			var c_pos = global_position if is_inside_tree() else position
+			var w_pos = wraith.global_position if wraith.is_inside_tree() else wraith.position
+			wraith_dist = c_pos.distance_to(w_pos)
+			if wraith_dist < 4.5:
+				var push = (c_pos - w_pos)
+				push.y = 0.0
+				draft_dir = push.normalized() * clampf((4.5 - wraith_dist) / 4.5, 0.0, 1.0)
+				effective_intensity += (4.5 - wraith_dist) * 0.25
+
+		_time_passed += delta * (12.0 * draft_boost)
+		var flicker = sin(_time_passed) * 0.5 + sin(_time_passed * 2.3) * 0.3 + randf_range(-0.15, 0.15) * draft_boost
+		light.light_energy = maxf(0.15, base_energy + flicker * effective_intensity)
+
+		# Tilt flame mesh with draft vector
+		if flame_mesh:
+			flame_mesh.rotation.x = draft_dir.z * 0.45 + sin(_time_passed * 1.5) * 0.08 * draft_boost
+			flame_mesh.rotation.z = -draft_dir.x * 0.45 + cos(_time_passed * 1.8) * 0.08 * draft_boost
+			flame_mesh.scale.y = maxf(0.6, 1.0 + sin(_time_passed * 2.5) * 0.18 * draft_boost)
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("monster") and is_lit and _cooldown_timer <= 0.0:

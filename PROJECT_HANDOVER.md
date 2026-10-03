@@ -94,6 +94,11 @@ Accessible directly from the **Main Menu**:
 - **The Warded Iron Horseshoe (Das Hufeisen am Türsturz):** Cold iron mounted above the entrance lintel. If the wraith attempts a doorway ambush, the horseshoe discharges a violent cold-iron spark burst and concussive clang (`horseshoe_strike.wav`), repelling the creature for 3.5s. Can be re-consecrated with Farnblume light (`[E]`) after triggering.
 - **Valley Night Mist Ingress & Vapor Wakes (Der Talnebel):** Mountain fog drifts across the workshop floor, density swelling with open window breaches. When the invisible entity moves across the floorboards, its cloven steps part the mist, generating visible swirling vapor wakes that expose its ground path.
 
+### 12. Consecrated Salt Lines, Turbulent Candle Drafts & Pine Shaving Soundtraps (v0.0.3)
+- **Consecrated Salt Lines & Sizzling Thresholds:** A consecrated salt line laid across the entrance vestibule. When *Der Alp* attempts to cross, the salt bursts into white-hot sizzles and crackling particles (`salt_sizzle.wav`), repelling the wraith for 4.0s. Has 2 durability charges before breaking and can be replenished by re-strewn salt (`[E]`).
+- **Turbulent Candle Drafts & Dynamic Flame Tilt:** Unbarricaded or broken window breaches channel atmospheric mountain drafts into the workshop. Candle flames violently tilt, stretch, and flicker according to localized wind vectors, sputtering and smoking before blowing out completely if breaches remain unsealed.
+- **Pine Shaving Soundtraps:** Carpentry pine shavings scattered across high-traffic floor areas. Walking over them—or when the invisible wraith creeps across them—triggers crisp tactile wood crushing and crunching audio (`shavings_crunch.wav`), acting as an early auditory tripwire in the dark.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -102,7 +107,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
 - **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, rolling thunder rumbles, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -111,6 +116,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.3 (Consecrated Salt Lines, Turbulent Candle Drafts & Pine Shaving Soundtraps):** [https://github.com/soulwax/fern/releases/tag/v0.0.3](https://github.com/soulwax/fern/releases/tag/v0.0.3)
 - **v0.0.2 (The Black Forest Standuhr, Iron Horseshoe & Fog Ingress):** [https://github.com/soulwax/fern/releases/tag/v0.0.2](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 - **v0.0.1 (The Zauberspiegel, Floorboard Groans & Tool Rattles):** [https://github.com/soulwax/fern/releases/tag/v0.0.1](https://github.com/soulwax/fern/releases/tag/v0.0.1)
 - **v1.8.0 (Walpurgisnacht Thunderstorm, Freezing Breath & Rafter Chains):** [https://github.com/soulwax/fern/releases/tag/v1.8.0](https://github.com/soulwax/fern/releases/tag/v1.8.0)

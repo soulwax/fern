@@ -24,6 +24,8 @@
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/StanduhrClock.tscn" id="22_clock"]
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/HorseshoeWard.tscn" id="23_horseshoe"]
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/FloorMistEcosystem.tscn" id="24_mist"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/SaltLineStation.tscn" id="25_salt"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/WoodShavingTrap.tscn" id="26_shavings"]
 
 [sub_resource type="Environment" id="Environment_gothic"]
 background_mode = 1
@@ -140,6 +142,15 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.3
 
 [node name="FloorMistEcosystem" parent="." instance=ExtResource("24_mist")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="SaltLineStation" parent="." instance=ExtResource("25_salt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 3.2)
+
+[node name="WoodShavingTrap1" parent="." instance=ExtResource("26_shavings")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.01, -0.8)
+
+[node name="WoodShavingTrap2" parent="." instance=ExtResource("26_shavings")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0.01, 1.2)
 
 [node name="CandleGrindstone" parent="." instance=ExtResource("15_candle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0.88, -2.5)

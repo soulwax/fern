@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://b003shavingstrap01"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/WoodShavingTrap.gd" id="1_trap_script"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/shavings_crunch.wav" id="2_crunch_audio"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pine"]
+albedo_color = Color(0.85, 0.72, 0.45, 1)
+roughness = 0.88
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_shavings"]
+material = SubResource("StandardMaterial3D_pine")
+top_radius = 0.7
+bottom_radius = 0.85
+height = 0.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dust"]
+shading_mode = 0
+albedo_color = Color(0.85, 0.75, 0.5, 0.6)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dust"]
+emission_shape = 1
+emission_sphere_radius = 0.4
+direction = Vector3(0, 1, 0)
+spread = 45.0
+initial_velocity_min = 0.4
+initial_velocity_max = 1.0
+gravity = Vector3(0, -1.5, 0)
+scale_min = 0.02
+scale_max = 0.05
+
+[sub_resource type="SphereMesh" id="SphereMesh_dust"]
+material = SubResource("StandardMaterial3D_dust")
+radius = 0.02
+height = 0.04
+
+[node name="WoodShavingTrap" type="Node3D"]
+script = ExtResource("1_trap_script")
+
+[node name="ShavingsMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("CylinderMesh_shavings")
+
+[node name="DustPuff" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+emitting = false
+amount = 14
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.95
+process_material = SubResource("ParticleProcessMaterial_dust")
+draw_pass_1 = SubResource("SphereMesh_dust")
+
+[node name="CrunchAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+stream = ExtResource("2_crunch_audio")
+bus = &"SFX"
+max_distance = 18.0
