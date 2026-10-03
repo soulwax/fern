@@ -21,10 +21,12 @@ signal latch_battered(health_left: int)
 @onready var draft_audio: AudioStreamPlayer3D = $DraftAudio
 @onready var latch_mesh: Node3D = $LatchBar
 @onready var latch_audio: AudioStreamPlayer3D = $LatchAudio
+@onready var frost_overlay: MeshInstance3D = get_node_or_null("FrostOverlay")
 
 var is_rattling: bool = false
 var rattle_timer: float = 0.0
 var base_frame_pos: Vector3 = Vector3.ZERO
+var current_frost_alpha: float = 0.0
 
 # Drop-latch state
 var is_latched: bool = true
@@ -58,9 +60,12 @@ func _ensure_nodes() -> void:
 		latch_mesh = get_node_or_null("LatchBar")
 	if not latch_audio:
 		latch_audio = get_node_or_null("LatchAudio")
+	if not frost_overlay:
+		frost_overlay = get_node_or_null("FrostOverlay")
 
 func _process(delta: float) -> void:
 	_ensure_nodes()
+	_update_frost_ingress(delta)
 	if is_rattling:
 		rattle_timer -= delta
 		# Shudder vibration on the frame
@@ -75,6 +80,26 @@ func _process(delta: float) -> void:
 
 		if rattle_timer <= 0.0:
 			stop_rattle()
+
+func _update_frost_ingress(delta: float) -> void:
+	if not is_inside_tree():
+		return
+	var wraiths = get_tree().get_nodes_in_group("unseen_entity")
+	var target_frost: float = 0.0
+	for w in wraiths:
+		if is_instance_valid(w):
+			var cur_p = global_position if is_inside_tree() else position
+			var wr_p = w.global_position if w.is_inside_tree() else w.position
+			var d = cur_p.distance_to(wr_p)
+			if d < 6.5:
+				var intensity = clamp((6.5 - d) / 5.0, 0.0, 1.0)
+				target_frost = max(target_frost, intensity)
+	current_frost_alpha = move_toward(current_frost_alpha, target_frost, delta * 0.45)
+	if frost_overlay:
+		frost_overlay.visible = current_frost_alpha > 0.01
+		var mat = frost_overlay.get_active_material(0)
+		if mat is StandardMaterial3D:
+			mat.albedo_color.a = current_frost_alpha * 0.85
 
 func start_rattle(duration: float = 3.5) -> void:
 	_ensure_nodes()

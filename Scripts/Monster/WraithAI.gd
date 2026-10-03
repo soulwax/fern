@@ -13,7 +13,8 @@ enum State {
 	STUNNED,      # Hit by grindstone sparks, disoriented
 	REPELLED,     # Driven back by prolonged UV bloom or iron chime
 	BANISHED,     # Dawn arrives, dissolved
-	SIEGE         # Rattling and assaulting an exterior window
+	SIEGE,        # Rattling and assaulting an exterior window
+	APPEASED      # Feeding on Das Opferbrot bread offering
 }
 
 
@@ -35,12 +36,15 @@ enum State {
 @onready var growl_audio: AudioStreamPlayer3D = $Audio/GrowlAudio
 @onready var screech_audio: AudioStreamPlayer3D = $Audio/ScreechAudio
 @onready var floor_creak_audio: AudioStreamPlayer3D = get_node_or_null("Audio/FloorCreakAudio")
+@onready var shingle_gale_audio: AudioStreamPlayer3D = get_node_or_null("Audio/ShingleGaleAudio")
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 # AI State
 var current_state: State = State.PROWL
 var state_timer: float = 0.0
 var creak_timer: float = 4.0
+var shingle_timer: float = 5.0
+var target_offering: Node = null
 var player_ref: Node3D = null
 
 # Sensory & Reveal timers
@@ -158,6 +162,8 @@ func _physics_process(delta: float) -> void:
 			_process_repelled(delta)
 		State.SIEGE:
 			_process_siege(delta)
+		State.APPEASED:
+			_process_appeased(delta)
 
 	move_and_slide()
 	_handle_footstep_effects(delta)
@@ -168,6 +174,18 @@ func _physics_process(delta: float) -> void:
 		if velocity.length() > 0.3:
 			trigger_floor_creak()
 		creak_timer = randf_range(4.5, 7.5)
+
+	# Roof shingle gale vibration when traversing upper rafters
+	var cur_pos = global_position if is_inside_tree() else position
+	if cur_pos.y > 2.8 and velocity.length() > 0.4:
+		shingle_timer -= delta
+		if shingle_timer <= 0.0:
+			if not shingle_gale_audio:
+				shingle_gale_audio = get_node_or_null("Audio/ShingleGaleAudio")
+			if shingle_gale_audio and is_inside_tree():
+				shingle_gale_audio.pitch_scale = randf_range(0.92, 1.08)
+				shingle_gale_audio.play()
+			shingle_timer = randf_range(5.0, 9.0)
 
 func trigger_floor_creak() -> void:
 	if not floor_creak_audio:
@@ -182,8 +200,45 @@ func trigger_floor_creak() -> void:
 		floor_creak_audio.play()
 	floorboard_creaked.emit(current_pos, is_rafter)
 
+func _find_active_bread_offering() -> Node:
+	if not is_inside_tree():
+		return null
+	var stations = get_tree().get_nodes_in_group("bread_offering_station")
+	for s in stations:
+		if is_instance_valid(s) and s.get("is_offering_active") == true and not s.get("is_being_consumed"):
+			var cur_p = global_position if is_inside_tree() else position
+			var st_p = s.global_position if s.is_inside_tree() else s.position
+			var d = cur_p.distance_to(st_p)
+			if d <= 14.0:
+				return s
+	return null
+
+func _check_and_divert_to_bread_offering() -> bool:
+	if target_offering == null or not is_instance_valid(target_offering) or not target_offering.get("is_offering_active"):
+		target_offering = _find_active_bread_offering()
+	
+	if target_offering and is_instance_valid(target_offering) and target_offering.get("is_offering_active"):
+		var cur_p = global_position if is_inside_tree() else position
+		var off_p = target_offering.global_position if target_offering.is_inside_tree() else target_offering.position
+		var to_off = off_p - cur_p
+		to_off.y = 0.0
+		var dist = to_off.length()
+		if dist <= 1.6:
+			set_state(State.APPEASED)
+			return true
+		var move_dir = to_off.normalized()
+		velocity.x = move_dir.x * stalk_speed * slow_multiplier
+		velocity.z = move_dir.z * stalk_speed * slow_multiplier
+		if move_dir != Vector3.ZERO and is_inside_tree():
+			look_at(global_position + move_dir, Vector3.UP)
+		return true
+	return false
+
 func _process_prowl(delta: float) -> void:
 	state_timer -= delta
+	
+	if _check_and_divert_to_bread_offering():
+		return
 	
 	# Check if arriving at target window
 	if target_window and is_instance_valid(target_window):
@@ -203,7 +258,6 @@ func _process_prowl(delta: float) -> void:
 			set_state(State.STALK)
 			return
 
-
 	var move_dir = to_target.normalized()
 	velocity.x = move_dir.x * prowl_speed * slow_multiplier
 	velocity.z = move_dir.z * prowl_speed * slow_multiplier
@@ -212,6 +266,10 @@ func _process_prowl(delta: float) -> void:
 
 func _process_stalk(delta: float) -> void:
 	state_timer -= delta
+	
+	if _check_and_divert_to_bread_offering():
+		return
+		
 	if not player_ref or scent_mask_timer > 0.0:
 		set_state(State.PROWL)
 		return
@@ -241,6 +299,9 @@ func _process_stalk(delta: float) -> void:
 		look_at(global_position + move_dir, Vector3.UP)
 
 func _process_hunt(delta: float) -> void:
+	if _check_and_divert_to_bread_offering():
+		return
+		
 	if not player_ref:
 		set_state(State.PROWL)
 		return
@@ -258,6 +319,28 @@ func _process_hunt(delta: float) -> void:
 	velocity.z = move_dir.z * hunt_speed * slow_multiplier
 	if move_dir != Vector3.ZERO:
 		look_at(global_position + move_dir, Vector3.UP)
+
+func _process_appeased(delta: float) -> void:
+	velocity.x = 0.0
+	velocity.z = 0.0
+	state_timer -= delta
+	
+	if target_offering and is_instance_valid(target_offering):
+		if target_offering.has_method("start_consumption") and not target_offering.is_being_consumed:
+			target_offering.start_consumption()
+		var cur_p = global_position if is_inside_tree() else position
+		var off_p = target_offering.global_position if target_offering.is_inside_tree() else target_offering.position
+		var to_off = off_p - cur_p
+		to_off.y = 0.0
+		if to_off != Vector3.ZERO and is_inside_tree():
+			look_at(global_position + to_off.normalized(), Vector3.UP)
+			
+	if state_timer <= 0.0:
+		if target_offering and is_instance_valid(target_offering):
+			if target_offering.has_method("finish_consumption"):
+				target_offering.finish_consumption()
+		target_offering = null
+		set_state(State.PROWL)
 
 func _process_stunned(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, 0.0, 15.0 * delta)
@@ -336,6 +419,11 @@ func set_state(new_state: State) -> void:
 			state_timer = 4.0
 			if target_window and target_window.has_method("start_rattle"):
 				target_window.start_rattle(4.0)
+		State.APPEASED:
+			state_timer = 18.0
+			if target_offering and is_instance_valid(target_offering):
+				if target_offering.has_method("start_consumption"):
+					target_offering.start_consumption()
 
 func expose_to_uv_light(source: Node) -> void:
 	uv_decay_timer = 0.35 # Keep reveal alive while being hit
@@ -345,6 +433,16 @@ func expose_to_uv_light(source: Node) -> void:
 	_update_visual_reveal(ratio, ember_ratio)
 	wraith_spotted.emit(ratio)
 	
+	# If currently feeding on an offering, UV light immediately interrupts and repels
+	if current_state == State.APPEASED:
+		if target_offering and is_instance_valid(target_offering):
+			if target_offering.has_method("interrupt_consumption"):
+				target_offering.interrupt_consumption()
+		target_offering = null
+		_play_screech()
+		set_state(State.REPELLED)
+		return
+
 	# If currently sieging a window, UV light immediately drives the wraith away
 	if current_state == State.SIEGE:
 		if target_window and target_window.has_method("stop_rattle"):

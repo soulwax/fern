@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" path="res://Assets/Audio/wraith_growl.wav" id="4_growl"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/wraith_screech.wav" id="5_screech"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/floor_creak_deep.wav" id="6_creak"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/shingle_gale_rattle.wav" id="7_shingle"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wraith"]
 radius = 0.45
@@ -151,6 +152,26 @@ lifetime = 1.2
 process_material = SubResource("ParticleProcessMaterial_embers")
 draw_pass_1 = SubResource("SphereMesh_ember")
 
+[node name="ShadowCaster" type="Node3D" parent="Visuals"]
+
+[node name="ShadowBody" type="MeshInstance3D" parent="Visuals/ShadowCaster"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+cast_shadow = 3
+mesh = SubResource("CapsuleMesh_body")
+
+[node name="ShadowAntlers" type="Node3D" parent="Visuals/ShadowCaster"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+
+[node name="ShadowLeftHorn" type="MeshInstance3D" parent="Visuals/ShadowCaster/ShadowAntlers"]
+transform = Transform3D(0.866025, 0.5, 0, -0.433013, 0.75, -0.5, -0.25, 0.433013, 0.866025, -0.28, 0.28, 0)
+cast_shadow = 3
+mesh = SubResource("CylinderMesh_horn_main")
+
+[node name="ShadowRightHorn" type="MeshInstance3D" parent="Visuals/ShadowCaster/ShadowAntlers"]
+transform = Transform3D(0.866025, -0.5, 0, 0.433013, 0.75, -0.5, 0.25, 0.433013, 0.866025, 0.28, 0.28, 0)
+cast_shadow = 3
+mesh = SubResource("CylinderMesh_horn_main")
+
 [node name="Audio" type="Node3D" parent="."]
 
 [node name="HoofCrunchAudio" type="AudioStreamPlayer3D" parent="Audio"]
@@ -177,3 +198,10 @@ stream = ExtResource("6_creak")
 volume_db = -3.0
 max_distance = 22.0
 bus = &"SFX"
+
+[node name="ShingleGaleAudio" type="AudioStreamPlayer3D" parent="Audio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+stream = ExtResource("7_shingle")
+volume_db = -2.0
+max_distance = 26.0
+bus = &"Ambiance"

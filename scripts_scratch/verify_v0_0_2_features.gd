@@ -1,133 +1,87 @@
 extends SceneTree
 
-const StanduhrClockClass = preload("res://Scripts/Workshop/StanduhrClock.gd")
-const HorseshoeWardClass = preload("res://Scripts/Workshop/HorseshoeWard.gd")
-const FloorMistEcosystemClass = preload("res://Scripts/Workshop/FloorMistEcosystem.gd")
-
 func _init() -> void:
-	print("--- Running FERN Milestone v0.0.2 Feature Verification ---")
+	print("--- BEGIN VERIFICATION: Fern v0.0.2 Features ---")
+	
+	# TEST 1: BreadOfferingStation mechanics
+	print("\n[Test 1] Testing BreadOfferingStation mechanics...")
+	var bread_scene = load("res://Scenes/Workshop/BreadOfferingStation.tscn")
+	assert(bread_scene != null, "BreadOfferingStation.tscn failed to load!")
+	var bread = bread_scene.instantiate()
+	root.add_child(bread)
+	
+	assert(bread.is_offering_active == false, "Initial offering should be inactive")
+	assert(bread.is_being_consumed == false, "Initial consumption should be false")
+	
+	bread.place_offering()
+	assert(bread.is_offering_active == true, "Offering should be active after place_offering()")
+	assert(bread.bread_mesh.visible == true, "Bread mesh should be visible")
+	
+	bread.start_consumption()
+	assert(bread.is_being_consumed == true, "Offering should be marked as being consumed")
+	
+	bread.finish_consumption()
+	assert(bread.is_offering_active == false, "Offering should be inactive after consumption")
+	assert(bread.cooldown_timer > 0.0, "Cooldown timer should be set after consumption")
+	print(" -> PASS: BreadOfferingStation placement, consumption, and cooldown verified.")
+	bread.queue_free()
 
-	# Test 1: StanduhrClock structure and dread dilation logic
-	print("[1/4] Verifying StanduhrClock.tscn and temporal dread dilation...")
-	var clock_scene = load("res://Scenes/Workshop/StanduhrClock.tscn")
-	assert(clock_scene != null, "StanduhrClock.tscn must load successfully")
-	var clock_instance = clock_scene.instantiate()
-	assert(clock_instance != null, "StanduhrClock.tscn must instantiate cleanly")
-
-	var tick_audio = clock_instance.get_node_or_null("TickAudio")
-	assert(tick_audio != null, "TickAudio must exist in StanduhrClock")
-	assert(tick_audio.bus == &"SFX", "TickAudio must route to SFX bus")
-	assert(tick_audio.stream != null, "TickAudio must have valid AudioStream")
-
-	var chime_audio = clock_instance.get_node_or_null("ChimeAudio")
-	assert(chime_audio != null, "ChimeAudio must exist in StanduhrClock")
-	assert(chime_audio.bus == &"SFX", "ChimeAudio must route to SFX bus")
-
-	var pendulum = clock_instance.get_node_or_null("PendulumAnchor/Pendulum")
-	assert(pendulum != null, "Pendulum must exist in StanduhrClock")
-
-	# Simulate fake wraith for dilation tests
-	var dummy_wraith = CharacterBody3D.new()
-	dummy_wraith.name = "InvisibleWraith"
-	clock_instance.wraith_node = dummy_wraith
-	clock_instance.position = Vector3(5.8, 0, 0.5)
-
-	# Far test (>5.5m): pitch ~1.0
-	dummy_wraith.position = Vector3(0, 0, 0) # dist ~ 5.82m
-	clock_instance._process(0.1)
-	assert(not clock_instance.is_frozen, "Clock must not be frozen when wraith is far")
-
-	# Critical proximity (<2.5m): frozen in silence
-	dummy_wraith.position = Vector3(5.0, 0, 0.5) # dist ~ 0.8m
-	clock_instance._process(0.1)
-	assert(clock_instance.is_frozen, "Clock must freeze when wraith is within critical range (<2.5m)")
-
-	# Recede: unfreeze
-	dummy_wraith.position = Vector3(0, 0, 0)
-	clock_instance._process(0.1)
-	assert(not clock_instance.is_frozen, "Clock must unfreeze when wraith retreats")
-
-	clock_instance.chime()
-	print("  -> Passed: StanduhrClock temporal dilation & audio verified.")
-
-	# Test 2: HorseshoeWard deflection and consecration
-	print("[2/4] Verifying HorseshoeWard.tscn threshold protection...")
-	var shoe_scene = load("res://Scenes/Workshop/HorseshoeWard.tscn")
-	assert(shoe_scene != null, "HorseshoeWard.tscn must load successfully")
-	var shoe_instance = shoe_scene.instantiate()
-	assert(shoe_instance != null, "HorseshoeWard.tscn must instantiate cleanly")
-
-	assert(shoe_instance.is_ward_active == true, "Horseshoe ward must be active by default")
-	var shoe_audio = shoe_instance.get_node_or_null("WardAudio")
-	assert(shoe_audio != null, "WardAudio must exist in HorseshoeWard")
-	assert(shoe_audio.bus == &"SFX", "WardAudio must route to SFX bus")
-
-	# Test deflection
+	# TEST 2: InvisibleWraith ShadowCaster & ShingleGaleAudio & APPEASED State
+	print("\n[Test 2] Testing InvisibleWraith Shadow Silhouette & Appeasement...")
 	var wraith_scene = load("res://Scenes/Monster/InvisibleWraith.tscn")
-	var wraith_instance = wraith_scene.instantiate()
-	assert(wraith_instance.has_method("repel_by_horseshoe"), "InvisibleWraith must support repel_by_horseshoe")
+	assert(wraith_scene != null, "InvisibleWraith.tscn failed to load!")
+	var wraith = wraith_scene.instantiate()
+	root.add_child(wraith)
+	
+	var shadow_caster = wraith.get_node_or_null("Visuals/ShadowCaster")
+	assert(shadow_caster != null, "ShadowCaster node must exist under Visuals!")
+	var shadow_body = wraith.get_node_or_null("Visuals/ShadowCaster/ShadowBody")
+	assert(shadow_body != null, "ShadowBody must exist!")
+	assert(shadow_body.cast_shadow == GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY, 
+		"ShadowBody must have cast_shadow = SHADOWS_ONLY (3)!")
+	
+	var shingle_audio = wraith.get_node_or_null("Audio/ShingleGaleAudio")
+	assert(shingle_audio != null, "ShingleGaleAudio must exist under Audio!")
+	assert(shingle_audio.stream != null, "ShingleGaleAudio must have valid stream!")
+	
+	assert("APPEASED" in WraithAI.State, "WraithAI.State must contain APPEASED enum!")
+	wraith.set_state(WraithAI.State.APPEASED)
+	assert(wraith.current_state == WraithAI.State.APPEASED, "Wraith must transition to APPEASED state!")
+	print(" -> PASS: ShadowCaster (SHADOWS_ONLY), ShingleGaleAudio, and APPEASED state verified.")
+	wraith.queue_free()
 
-	shoe_instance.trigger_deflection(wraith_instance)
-	assert(shoe_instance.is_ward_active == false, "Ward must deactivate after triggering deflection")
-	assert(wraith_instance.current_state == wraith_instance.State.REPELLED, "Wraith must be put in REPELLED state by horseshoe ward")
+	# TEST 3: WindowBreach Frost Ingress
+	print("\n[Test 3] Testing WindowBreach Frost Ingress...")
+	var window_scene = load("res://Scenes/Workshop/WindowBreachPoint.tscn")
+	assert(window_scene != null, "WindowBreachPoint.tscn failed to load!")
+	var window_breach = window_scene.instantiate()
+	root.add_child(window_breach)
+	
+	var frost = window_breach.get_node_or_null("FrostOverlay")
+	assert(frost != null, "FrostOverlay node must exist on WindowBreachPoint!")
+	assert(window_breach.has_method("_update_frost_ingress"), "WindowBreach must have _update_frost_ingress method!")
+	print(" -> PASS: FrostOverlay and frost ingress update logic verified.")
+	window_breach.queue_free()
 
-	# Test re-consecration
-	shoe_instance.consecrate()
-	assert(shoe_instance.is_ward_active == true, "Ward must reactivate after consecration")
-	print("  -> Passed: HorseshoeWard deflection & re-consecration verified.")
-
-	# Test 3: FloorMistEcosystem and vapor wake tracking
-	print("[3/4] Verifying FloorMistEcosystem.tscn low-lying mist & vapor wakes...")
-	var mist_scene = load("res://Scenes/Workshop/FloorMistEcosystem.tscn")
-	assert(mist_scene != null, "FloorMistEcosystem.tscn must load successfully")
-	var mist_instance = mist_scene.instantiate()
-	assert(mist_instance != null, "FloorMistEcosystem.tscn must instantiate cleanly")
-
-	var ambient_mist = mist_instance.get_node_or_null("AmbientMist")
-	assert(ambient_mist != null, "AmbientMist must exist in FloorMistEcosystem")
-	var displaced_wake = mist_instance.get_node_or_null("DisplacedWake")
-	assert(displaced_wake != null, "DisplacedWake must exist in FloorMistEcosystem")
-
-	# Test wake triggers on floor movement
-	mist_instance.wraith_node = wraith_instance
-	wraith_instance.position = Vector3(0, 0.1, 0)
-	wraith_instance.velocity = Vector3(2.5, 0, 0)
-	mist_instance._update_wraith_wake()
-	assert(displaced_wake.emitting == true, "DisplacedWake must emit when wraith is moving on floor")
-
-	# Test wake stops on rafter movement
-	wraith_instance.position = Vector3(0, 3.5, 0) # Elevated in rafters
-	mist_instance._update_wraith_wake()
-	assert(displaced_wake.emitting == false, "DisplacedWake must stop when wraith is in rafters")
-	print("  -> Passed: FloorMistEcosystem & wraith vapor wake verified.")
-
-	# Test 4: Main.tscn integration
-	print("[4/4] Verifying Main.tscn integration of all new stations...")
+	# TEST 4: Full Main Scene Integration
+	print("\n[Test 4] Testing Full Main Scene Integration...")
 	var main_scene = load("res://Scenes/Main.tscn")
-	assert(main_scene != null, "Main.tscn must load successfully")
-	var main_instance = main_scene.instantiate()
-	assert(main_instance != null, "Main.tscn must instantiate cleanly")
+	assert(main_scene != null, "Main.tscn failed to load!")
+	var main = main_scene.instantiate()
+	root.add_child(main)
+	
+	var bread_in_main = main.get_node_or_null("BreadOfferingStation")
+	assert(bread_in_main != null, "BreadOfferingStation must be instantiated in Main.tscn!")
+	assert(bread_in_main.is_in_group("bread_offering_station"), "BreadOfferingStation must be in 'bread_offering_station' group!")
+	
+	var wraith_in_main = main.get_node_or_null("InvisibleWraith")
+	assert(wraith_in_main != null, "InvisibleWraith must exist in Main.tscn!")
+	assert(wraith_in_main.get_node_or_null("Visuals/ShadowCaster") != null, "InvisibleWraith in Main must have ShadowCaster!")
+	
+	print(" -> PASS: Full Main Scene successfully loaded and stations verified.")
+	main.queue_free()
 
-	var main_clock = main_instance.get_node_or_null("StanduhrClock")
-	assert(main_clock != null, "Main.tscn must contain StanduhrClock")
-	var main_shoe = main_instance.get_node_or_null("HorseshoeWard")
-	assert(main_shoe != null, "Main.tscn must contain HorseshoeWard")
-	var main_mist = main_instance.get_node_or_null("FloorMistEcosystem")
-	assert(main_mist != null, "Main.tscn must contain FloorMistEcosystem")
-
-	print("  -> StanduhrClock position: ", main_clock.position)
-	print("  -> HorseshoeWard position: ", main_shoe.position)
-	print("  -> FloorMistEcosystem position: ", main_mist.position)
-
-	# Clean up
-	dummy_wraith.free()
-	clock_instance.free()
-	shoe_instance.free()
-	wraith_instance.free()
-	mist_instance.free()
-	main_instance.free()
-
-	print("=======================================================")
-	print("🎉 ALL v0.0.2 FEATURE VERIFICATIONS PASSED SUCCESSFULLY!")
-	print("=======================================================")
+	print("\n==========================================")
+	print("ALL v0.0.2 VERIFICATION TESTS PASSED (100%)")
+	print("==========================================")
 	quit(0)

@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://c8breadoffering"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/BreadOfferingStation.gd" id="1_script"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/bread_slice_place.wav" id="2_place"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/wraith_appeased_feed.wav" id="3_feed"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_interact"]
+height = 0.6
+radius = 0.65
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trencher"]
+albedo_color = Color(0.24, 0.17, 0.12, 1)
+roughness = 0.88
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_trencher"]
+material = SubResource("StandardMaterial3D_trencher")
+top_radius = 0.28
+bottom_radius = 0.26
+height = 0.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crust"]
+albedo_color = Color(0.28, 0.17, 0.09, 1)
+roughness = 0.9
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_loaf"]
+material = SubResource("StandardMaterial3D_crust")
+radius = 0.08
+height = 0.28
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_crumbs"]
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 1, 0)
+spread = 35.0
+initial_velocity_min = 0.1
+initial_velocity_max = 0.4
+gravity = Vector3(0, -1.5, 0)
+scale_min = 0.015
+scale_max = 0.03
+color = Color(0.5, 0.38, 0.22, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crumb"]
+albedo_color = Color(0.48, 0.36, 0.2, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_crumb"]
+material = SubResource("StandardMaterial3D_crumb")
+size = Vector3(0.02, 0.02, 0.02)
+
+[node name="BreadOfferingStation" type="Node3D" groups=["bread_offering_station", "interactable"]]
+script = ExtResource("1_script")
+prompt_message = "[E] Place Rye Bread Offering on Trencher (Opferbrot)"
+
+[node name="InteractionArea" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("CylinderShape3D_interact")
+
+[node name="TrencherMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("CylinderMesh_trencher")
+
+[node name="BreadVisuals" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
+visible = false
+
+[node name="LoafMesh" type="MeshInstance3D" parent="BreadVisuals"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.03, 0)
+mesh = SubResource("CapsuleMesh_loaf")
+
+[node name="CrumbParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+emitting = false
+amount = 16
+lifetime = 0.8
+process_material = SubResource("ParticleProcessMaterial_crumbs")
+draw_pass_1 = SubResource("BoxMesh_crumb")
+
+[node name="PlaceAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_place")
+volume_db = -1.0
+max_distance = 15.0
+bus = &"SFX"
+
+[node name="FeedAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_feed")
+volume_db = 2.0
+max_distance = 20.0
+bus = &"Creature"
