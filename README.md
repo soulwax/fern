@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.5)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.6)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.5)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.6)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build (v0.0.5)](https://github.com/soulwax/fern/releases/download/v0.0.5/Fern-v0.0.5-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build (v0.0.6)](https://github.com/soulwax/fern/releases/download/v0.0.6/Fern-v0.0.6-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -32,6 +32,9 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 ## ✨ Core Features & Mechanics
 
 - 🌸 **The Handheld Farnblume:** Held in your left hand with living, organic luminescence. Wilt dynamics require constant replenishment at the workshop stations.
+- 🔥 **The Charcoal Hearth & Leather Bellows Blast (Das Kohlenbecken & Der Schmiedebalg - v0.0.6):** The blacksmith hearth by the stone chimney. When *Der Alp* stalks within 5.0m, the supernatural chill quenches glowing coals into a sharp vapor hiss (`ember_hiss.wav`). Interacting with the leather bellows (`[E]`, `bellows_pump.wav`) blasts compressed air into the coals, erupting radiant light, flying sparks, and repelling the creature for 4.0s.
+- 🌧️ **The Zinc Rainwater Basin & Droplet Resonator (Das Zink-Regenfass - v0.0.6):** A galvanized zinc rainwater bucket catching roof runoff. Drips with periodic metallic pings (`drip_tap.wav`). When *Der Alp* prowls across roof shingles or ceiling rafters overhead (`Y > 2.4m`), surface tension is arrested—the drip halts, followed by a violent splashing anomaly (`water_splash.wav`). Players can also collect fresh water (`[E]`) to revive the Farnblume.
+- 🪓 **Carpenter's Drawknife & Shaving Snares (Das Zugmesser & Der Hobelspan-Wall - v0.0.6):** A curved two-handled drawknife at the timber shaving horse. Holding `[E]` peels aromatic spruce shavings (`drawknife_peel.wav`). Laid across doorway or window chokepoints, the ribbon snares entangle *Der Alp*, slowing its movement by 40% for 5.0 seconds.
 - 🕰️ **The Black Forest Cuckoo Automaton (Die Schwarzwald-Kuckucksuhr - v0.0.5):** Hand-carved mechanical clock with carved bird door and dual-pipe bellows. Calls on half-hours (`cuckoo_call.wav`). If *Der Alp* creeps within 6.0m, the mechanism chatters and violently jams (`automaton_jam.wav`), giving an unmistakable domestic acoustic alarm. Rewind the descending pinecone weights (`[E]`) to keep time running.
 - 🔨 **Cold-Iron Framing Chisel Defense (Das Handgeschmiedete Stemmeisen - v0.0.5):** A heavy socket framing chisel kept on the workbench tool rack. When *Der Alp* lunges into critical attack range (<2.2m), strike with cold iron (`[E]` / LMB) with a concussive metallic ring (`chisel_strike.wav`), repelling and staggering the wraith for 3.0s. Dulls upon impact; carry it to the Grindstone to resharpen the cutting bevel under showers of sparks.
 - 🌿 **Midsummer Eve Consecrated Herb Bundles (Die Johanniskraut-Bündel - v0.0.5):** Bundles of dried Saint John's wort and mugwort suspended from ceiling drying beams. Under the Farnblume's UV bloom, they glow with golden protective runes. Crushing a sprig (`[E]`, `herb_crush.wav`) envelops the player in a fragrant botanical cloud for 20s, suppressing rapid cardiac panic audio and masking sprint footsteps from *Der Alp*.
@@ -91,7 +94,8 @@ Every standalone release archive is self-contained and pre-configured for Window
 
 | Version | Status | Highlights | Download |
 |:---:|:---:|:---|:---:|
-| **v0.0.5** | 🌟 **Latest** | **The Black Forest Cuckoo Automaton, Cold-Iron Framing Chisel & Midsummer Herb Bundles:** Hand-carved mechanical cuckoo clock with half-hour bellows call and proximity gear jam alert, cold-iron socket framing chisel parry defense with grindstone resharpening synergy, and consecrated rafter herb bundles with heartbeat soothing and scent-masking aura | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.5/Fern-v0.0.5-windows-x86_64.zip) |
+| **v0.0.6** | 🌟 **Latest** | **Charcoal Hearth Bellows, Zinc Rainwater Basin & Carpenter's Drawknife Shavings:** Blacksmith forge hearth with supernatural chill damping and leather bellows flame flare/repel, zinc rainwater basin with overhead rafter drop arrest and splash telemetry, and two-handled drawknife with curling spruce shaving snares slowing Der Alp by 40% | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.6/Fern-v0.0.6-windows-x86_64.zip) |
+| **v0.0.5** | Stable | **The Black Forest Cuckoo Automaton, Cold-Iron Framing Chisel & Midsummer Herb Bundles:** Hand-carved mechanical cuckoo clock with half-hour bellows call and proximity gear jam alert, cold-iron socket framing chisel parry defense with grindstone resharpening synergy, and consecrated rafter herb bundles with heartbeat soothing and scent-masking aura | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.5/Fern-v0.0.5-windows-x86_64.zip) |
 | **v0.0.4** | Stable | **The Kienspan Resin Torch, Window Drop-Latches & Pine Pitch Cauldron:** Portable resin pitch torch with active repulsion aura, heavy iron shutter drop-latch siege defense, and boiling pine pitch cauldron with rafter denial vapor | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.4/Fern-v0.0.4-windows-x86_64.zip) |
 | **v0.0.3** | Stable | **Consecrated Salt Lines, Turbulent Candle Drafts & Pine Shaving Soundtraps:** Consecrated salt thresholds with sizzling particle bursts, candle flame draft turbulence and dynamic tilt, and tactile pine shaving floor soundtraps | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip) |
 | **v0.0.2** | Stable | **The Black Forest Standuhr, Iron Horseshoe & Fog Ingress:** Mechanical clock with temporal dread dilation, warded iron horseshoe threshold deflection, and valley mist with displaced vapor wakes | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.2/Fern-v0.0.2-windows-x86_64.zip) |

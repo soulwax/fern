@@ -109,6 +109,11 @@ Accessible directly from the **Main Menu**:
 - **Cold-Iron Framing Chisel Defense (Das Handgeschmiedete Stemmeisen):** A heavy hand-forged socket framing chisel kept in the central workbench tool rack. When *Der Alp* lunges into critical attack range (<2.2m), the player can strike with cold iron (`[E]` / LMB) with a deafening concussive impact (`chisel_strike.wav`), repelling and staggering the wraith for 3.0s. Dulls upon impact, requiring resharpening at the GrindStone station.
 - **Midsummer Eve Consecrated Herb Bundles (Die Johanniskraut-Bündel):** Bundles of dried Saint John's wort and mugwort suspended from upper ceiling rafters. Under the Farnblume's UV bloom, they glow with golden protective runes. Crushing a sprig (`[E]`, `herb_crush.wav`) envelops the player in a fragrant botanical cloud for 20s, suppressing rapid cardiac heartbeat panic audio and masking sprint footsteps from *Der Alp*.
 
+### 15. Charcoal Hearth Bellows, Zinc Rainwater Basin & Carpenter's Drawknife Shavings (v0.0.6)
+- **The Charcoal Hearth & Leather Bellows Blast (Das Kohlenbecken & Der Schmiedebalg):** The blacksmith hearth by the stone chimney (`Scenes/Workshop/HearthBellowsStation.tscn`). When *Der Alp* stalks within 5.0m, the supernatural chill quenches glowing coals into a sharp vapor hiss (`ember_hiss.wav`). Interacting with the leather bellows (`[E]`, `bellows_pump.wav`) blasts compressed air into the coals, erupting radiant light, flying sparks, and repelling the creature for 4.0s.
+- **The Zinc Rainwater Basin & Droplet Resonator (Das Zink-Regenfass):** A galvanized zinc rainwater bucket catching roof runoff (`Scenes/Workshop/ZincBasinStation.tscn`). Drips with periodic metallic pings (`drip_tap.wav`). When *Der Alp* prowls across roof shingles or ceiling rafters overhead (`Y > 2.4m`), surface tension is arrested—the drip halts, followed by a violent splashing anomaly (`water_splash.wav`). Players can also collect fresh water (`[E]`) to revive the Farnblume.
+- **Carpenter's Drawknife & Shaving Snares (Das Zugmesser & Der Hobelspan-Wall):** A curved two-handled drawknife at the timber shaving horse (`Scenes/Workshop/DrawknifeStation.tscn`). Holding `[E]` peels aromatic spruce shavings (`drawknife_peel.wav`). Laid across doorway or window chokepoints, the ribbon snares entangle *Der Alp*, slowing its movement by 40% for 5.0 seconds.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -117,7 +122,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
 - **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, rolling thunder rumbles, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, torch flame crackles, iron shutter drop-latch rattles, viscous pine pitch bubbling, cuckoo calls and escapement jams, cold-iron chisel strikes, herb crunching foley, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, torch flame crackles, iron shutter drop-latch rattles, viscous pine pitch bubbling, cuckoo calls, chisel impacts, crushed herb crunches, bellows rushes, ember hisses, zinc basin pings, water splashes, drawknife peeling, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -126,6 +131,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.6 (Charcoal Hearth Bellows, Zinc Rainwater Basin & Carpenter's Drawknife Shavings):** [https://github.com/soulwax/fern/releases/tag/v0.0.6](https://github.com/soulwax/fern/releases/tag/v0.0.6)
 - **v0.0.5 (The Black Forest Cuckoo Automaton, Cold-Iron Framing Chisel & Midsummer Herb Bundles):** [https://github.com/soulwax/fern/releases/tag/v0.0.5](https://github.com/soulwax/fern/releases/tag/v0.0.5)
 - **v0.0.4 (The Kienspan Resin Torch, Window Drop-Latches & Pine Pitch Cauldron):** [https://github.com/soulwax/fern/releases/tag/v0.0.4](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 - **v0.0.3 (Consecrated Salt Lines, Turbulent Candle Drafts & Pine Shaving Soundtraps):** [https://github.com/soulwax/fern/releases/tag/v0.0.3](https://github.com/soulwax/fern/releases/tag/v0.0.3)
@@ -146,6 +152,7 @@ All standalone builds are packaged with the standalone game executable, user man
 ## 🛠️ Developer Verification & Test Suite
 
 The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
+- `verify_v0_0_6_features.gd`: Validates Hearth Bellows ember chill hiss & flare repel, Zinc Basin droplet rhythm & overhead rafter splash anomaly, and Drawknife shaving peeling & movement slow debuff.
 - `verify_v0_0_5_features.gd`: Validates Cuckoo Clock half-hour bellows calls, proximity escapement jamming, weight rewind, Cold-Iron Framing Chisel lunging parry/repel, grindstone resharpening, and Midsummer Herb Bundle crushing with heartbeat/scent masking.
 - `verify_v1_9_features.gd`: Validates MirrorStation SubViewport reflection setup, Layer 2 wraith true-form visibility, floorboard altitude groans, and workbench tool tremble.
 - `verify_v1_8_features.gd`: Validates thunderstorm lightning shadow projection, thunder delay, cold breath condensation particles, and hanging chain physics & clinking.

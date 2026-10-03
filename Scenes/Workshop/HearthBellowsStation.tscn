@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://chearthbellows001"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/HearthBellowsStation.gd" id="1_hearth"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/bellows_pump.wav" id="2_bellows"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/ember_hiss.wav" id="3_hiss"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hearth"]
+size = Vector3(0.9, 0.8, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iron"]
+albedo_color = Color(0.18, 0.18, 0.2, 1)
+metallic = 0.85
+roughness = 0.65
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hearth"]
+material = SubResource("StandardMaterial3D_iron")
+top_radius = 0.42
+bottom_radius = 0.38
+height = 0.45
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coals"]
+albedo_color = Color(0.15, 0.08, 0.05, 1)
+emission_enabled = true
+emission = Color(0.95, 0.35, 0.05, 1)
+emission_energy_multiplier = 1.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_coals"]
+material = SubResource("StandardMaterial3D_coals")
+radius = 0.36
+height = 0.22
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leather"]
+albedo_color = Color(0.32, 0.2, 0.12, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_bellows"]
+material = SubResource("StandardMaterial3D_leather")
+size = Vector3(0.24, 0.12, 0.42)
+
+[node name="HearthBellowsStation" type="StaticBody3D" groups=["hearth_station", "interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_hearth")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("BoxShape3D_hearth")
+
+[node name="HearthMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
+mesh = SubResource("CylinderMesh_hearth")
+
+[node name="CoalsMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38, 0)
+mesh = SubResource("SphereMesh_coals")
+
+[node name="BellowsMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0.38, 0.45, 0.15)
+mesh = SubResource("BoxMesh_bellows")
+
+[node name="HearthLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+light_color = Color(1, 0.48, 0.16, 1)
+light_energy = 1.5
+omni_range = 6.5
+omni_attenuation = 1.25
+
+[node name="BellowsAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_bellows")
+bus = &"SFX"
+max_distance = 16.0
+
+[node name="HissAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_hiss")
+bus = &"SFX"
+max_distance = 14.0

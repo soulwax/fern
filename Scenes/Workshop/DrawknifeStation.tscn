@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cdrawknifestation001"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/DrawknifeStation.gd" id="1_drawknife"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/drawknife_peel.wav" id="2_peel"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bench"]
+size = Vector3(1.2, 0.7, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_timber"]
+albedo_color = Color(0.38, 0.25, 0.15, 1)
+roughness = 0.88
+
+[sub_resource type="BoxMesh" id="BoxMesh_horse"]
+material = SubResource("StandardMaterial3D_timber")
+size = Vector3(1.1, 0.55, 0.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blade"]
+albedo_color = Color(0.24, 0.26, 0.28, 1)
+metallic = 0.88
+roughness = 0.35
+
+[sub_resource type="BoxMesh" id="BoxMesh_drawknife"]
+material = SubResource("StandardMaterial3D_blade")
+size = Vector3(0.36, 0.03, 0.08)
+
+[node name="DrawknifeStation" type="StaticBody3D" groups=["interactable", "shaving_station"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_drawknife")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("BoxShape3D_bench")
+
+[node name="HorseMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275, 0)
+mesh = SubResource("BoxMesh_horse")
+
+[node name="DrawknifeMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0, 0.58, 0)
+mesh = SubResource("BoxMesh_drawknife")
+
+[node name="PeelAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_peel")
+bus = &"SFX"
+max_distance = 14.0

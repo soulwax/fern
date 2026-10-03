@@ -52,6 +52,8 @@ var window_siege_cooldown: float = 30.0
 var target_window: Node3D = null
 var rafter_denial_timer: float = 0.0
 var scent_mask_timer: float = 0.0
+var slow_timer: float = 0.0
+var slow_multiplier: float = 1.0
 
 
 # Footstep tracking
@@ -78,6 +80,10 @@ func set_scent_masked(duration: float) -> void:
 	scent_mask_timer = duration
 	if current_state == State.STALK:
 		set_state(State.PROWL)
+
+func apply_movement_slow(multiplier: float, duration: float) -> void:
+	slow_multiplier = clamp(multiplier, 0.1, 1.0)
+	slow_timer = duration
 
 func _find_player() -> void:
 	var players = get_tree().get_nodes_in_group("player")
@@ -128,6 +134,11 @@ func _physics_process(delta: float) -> void:
 	
 	if scent_mask_timer > 0.0:
 		scent_mask_timer -= delta
+	
+	if slow_timer > 0.0:
+		slow_timer -= delta
+		if slow_timer <= 0.0:
+			slow_multiplier = 1.0
 	
 	if current_state == State.PROWL or current_state == State.STALK:
 		window_siege_cooldown -= delta
@@ -194,8 +205,8 @@ func _process_prowl(delta: float) -> void:
 
 
 	var move_dir = to_target.normalized()
-	velocity.x = move_dir.x * prowl_speed
-	velocity.z = move_dir.z * prowl_speed
+	velocity.x = move_dir.x * prowl_speed * slow_multiplier
+	velocity.z = move_dir.z * prowl_speed * slow_multiplier
 	if move_dir != Vector3.ZERO:
 		look_at(global_position + move_dir, Vector3.UP)
 
@@ -224,8 +235,8 @@ func _process_stalk(delta: float) -> void:
 		return
 
 	var move_dir = to_player.normalized()
-	velocity.x = move_dir.x * stalk_speed
-	velocity.z = move_dir.z * stalk_speed
+	velocity.x = move_dir.x * stalk_speed * slow_multiplier
+	velocity.z = move_dir.z * stalk_speed * slow_multiplier
 	if move_dir != Vector3.ZERO:
 		look_at(global_position + move_dir, Vector3.UP)
 
@@ -243,8 +254,8 @@ func _process_hunt(delta: float) -> void:
 		return
 		
 	var move_dir = to_player.normalized()
-	velocity.x = move_dir.x * hunt_speed
-	velocity.z = move_dir.z * hunt_speed
+	velocity.x = move_dir.x * hunt_speed * slow_multiplier
+	velocity.z = move_dir.z * hunt_speed * slow_multiplier
 	if move_dir != Vector3.ZERO:
 		look_at(global_position + move_dir, Vector3.UP)
 
@@ -384,6 +395,17 @@ func repel_by_torch(torch_pos: Vector3) -> void:
 	velocity = push_dir.normalized() * 7.5
 	set_state(State.REPELLED)
 	state_timer = 4.0
+
+func repel_by_hearth_bellows(hearth_pos: Vector3, duration: float = 4.0) -> void:
+	_play_screech()
+	var current_pos = global_position if is_inside_tree() else position
+	var push_dir = (current_pos - hearth_pos)
+	push_dir.y = 0.0
+	if push_dir.length_squared() < 0.01:
+		push_dir = Vector3(0, 0, -1)
+	velocity = push_dir.normalized() * 7.0
+	set_state(State.REPELLED)
+	state_timer = duration
 
 func banish() -> void:
 	current_state = State.BANISHED
