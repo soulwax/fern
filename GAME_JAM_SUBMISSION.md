@@ -79,7 +79,7 @@ The forest wraith is completely invisible to the naked human eye. You cannot fig
 
 Download the standalone Windows 64-bit distribution package directly from GitHub Releases:
 - **Latest Release:** [Fern Releases on GitHub](https://github.com/soulwax/fern/releases)
-- **Package Archive:** `Fern-v1.2.0-windows-x86_64.zip`
+- **Package Archive:** `Fern-v0.0.1-windows-x86_64.zip`
 - **Installation:** Extract the `.zip` archive and run `Fern.exe`. No installer or external runtimes required.
 
 ---
