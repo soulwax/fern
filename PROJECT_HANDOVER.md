@@ -84,6 +84,11 @@ Accessible directly from the **Main Menu**:
 - **Exhaled Freezing Breath Condensation:** As *Der Alp* stalks within 7.5m or cold night drafts seep through broken window breaches, ambient temperature plunges, producing rhythmic clouds of translucent condensed breath in the player's view.
 - **Dynamic Rafter Chains & Foley Clinking:** Ceiling chains and hooks sway with realistic pendulum physics and metallic clinking when the entity or player passes beneath or through them.
 
+### 10. The Zauberspiegel, Floorboard Groans & Tool Rattles (v0.0.1)
+- **The Zauberspiegel (Silvered Mirror of Truth):** An antique wall-mounted shaving mirror above the washbench. While the wraith is completely invisible in the room to mortal eyes, looking into the silver mirror reflection reveals its true towering, hollow-eyed antlered phantom stalking behind you or crouching on the rafters! Press `[E]` to wipe accumulated soot from the mirror glass (`mirror_wipe.wav`) to sharpen reflection clarity.
+- **Dynamic Floorboard & Rafter Groans:** Heavy 19th-century oak planks groan and crack under the invisible entity's supernatural weight with 3D spatial attenuation, differentiating elevated rafter strain (`Y > 2.8m`) from ground-floor floorboard cracks to provide vital directional and vertical awareness.
+- **Workbench Tool Rattling:** Loose iron mallets, chisels, and ceramic cups vibrate and clatter on workbenches when the entity creeps within 3.8m, providing a tactile domestic warning before candles are snuffed out.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -92,7 +97,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
 - **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, rolling thunder rumbles, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -101,6 +106,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.1 (The Zauberspiegel, Floorboard Groans & Tool Rattles):** [https://github.com/soulwax/fern/releases/tag/v0.0.1](https://github.com/soulwax/fern/releases/tag/v0.0.1)
 - **v1.8.0 (Walpurgisnacht Thunderstorm, Freezing Breath & Rafter Chains):** [https://github.com/soulwax/fern/releases/tag/v1.8.0](https://github.com/soulwax/fern/releases/tag/v1.8.0)
 - **v1.7.0 (Heartbeat Anxiety & Drudenfuss Consecration):** [https://github.com/soulwax/fern/releases/tag/v1.7.0](https://github.com/soulwax/fern/releases/tag/v1.7.0)
 - **v1.6.0 (Workshop Siege Update):** [https://github.com/soulwax/fern/releases/tag/v1.6.0](https://github.com/soulwax/fern/releases/tag/v1.6.0)
@@ -116,6 +122,7 @@ All standalone builds are packaged with the standalone game executable, user man
 ## 🛠️ Developer Verification & Test Suite
 
 The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
+- `verify_v1_9_features.gd`: Validates MirrorStation SubViewport reflection setup, Layer 2 wraith true-form visibility, floorboard altitude groans, and workbench tool tremble.
 - `verify_v1_8_features.gd`: Validates thunderstorm lightning shadow projection, thunder delay, cold breath condensation particles, and hanging chain physics & clinking.
 - `verify_v1_7_features.gd`: Validates heartbeat sub-bass cardiac pacing, Drudenfuss threshold UV luminescence, and sulfur repel bursts.
 - `verify_v1_6_features.gd`: Validates window rattle, shutter shudder vibration, plank breach, hammer fortification, draft wilt multipliers, and wraith siege routines.
@@ -126,7 +133,7 @@ The project includes headless simulation scripts inside [scripts_scratch/](file:
 
 To run tests in headless mode:
 ```powershell
-godot --headless --script scripts_scratch/verify_v1_8_features.gd
+godot --headless --script scripts_scratch/verify_v1_9_features.gd
 godot --headless --script scripts_scratch/e2e_match_simulation.gd
 ```
 

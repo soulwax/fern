@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://wbpr0pgr0up01"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/WorkbenchPropGroup.gd" id="1_wbg"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Mallet_01.gltf" id="2_mallet"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Cup.gltf" id="3_cup"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Metal_Plate.gltf" id="4_plate"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/tool_rattle.wav" id="5_rattle"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_prox"]
+radius = 3.8
+
+[node name="WorkbenchPropGroup" type="Node3D"]
+script = ExtResource("1_wbg")
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Mallet" parent="Props" instance=ExtResource("2_mallet")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -0.15, 0, 0.05)
+
+[node name="Cup" parent="Props" instance=ExtResource("3_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0, -0.08)
+
+[node name="MetalPlate" parent="Props" instance=ExtResource("4_plate")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, -0.01, 0)
+
+[node name="ProximityArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProximityArea"]
+shape = SubResource("SphereShape3D_prox")
+
+[node name="RattleAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_rattle")
+volume_db = -2.0
+max_distance = 15.0
+bus = &"SFX"

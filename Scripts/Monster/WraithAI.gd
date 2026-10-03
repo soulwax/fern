@@ -4,6 +4,7 @@ class_name WraithAI
 signal state_changed(new_state: int)
 signal wraith_spotted(uv_ratio: float)
 signal player_caught()
+signal floorboard_creaked(position: Vector3, is_rafter: bool)
 
 enum State {
 	PROWL,        # Patrolling rafters and distant corners
@@ -33,11 +34,13 @@ enum State {
 @onready var hoof_audio: AudioStreamPlayer3D = $Audio/HoofCrunchAudio
 @onready var growl_audio: AudioStreamPlayer3D = $Audio/GrowlAudio
 @onready var screech_audio: AudioStreamPlayer3D = $Audio/ScreechAudio
+@onready var floor_creak_audio: AudioStreamPlayer3D = get_node_or_null("Audio/FloorCreakAudio")
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 # AI State
 var current_state: State = State.PROWL
 var state_timer: float = 0.0
+var creak_timer: float = 4.0
 var player_ref: Node3D = null
 
 # Sensory & Reveal timers
@@ -115,6 +118,26 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	_handle_footstep_effects(delta)
+	
+	# Floorboard and rafter timber stress creaks
+	creak_timer -= delta
+	if creak_timer <= 0.0:
+		if velocity.length() > 0.3:
+			trigger_floor_creak()
+		creak_timer = randf_range(4.5, 7.5)
+
+func trigger_floor_creak() -> void:
+	if not floor_creak_audio:
+		floor_creak_audio = get_node_or_null("Audio/FloorCreakAudio")
+	var current_pos = global_position if is_inside_tree() else position
+	var is_rafter = current_pos.y > 2.8
+	if floor_creak_audio and is_inside_tree():
+		if is_rafter:
+			floor_creak_audio.pitch_scale = randf_range(1.15, 1.28)
+		else:
+			floor_creak_audio.pitch_scale = randf_range(0.88, 1.02)
+		floor_creak_audio.play()
+	floorboard_creaked.emit(current_pos, is_rafter)
 
 func _process_prowl(delta: float) -> void:
 	state_timer -= delta

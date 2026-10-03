@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" path="res://Assets/Audio/wood_crunch_step.wav" id="3_crunch"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/wraith_growl.wav" id="4_growl"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/wraith_screech.wav" id="5_screech"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/floor_creak_deep.wav" id="6_creak"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wraith"]
 radius = 0.45
@@ -60,6 +61,22 @@ material = SubResource("StandardMaterial3D_ember")
 radius = 0.025
 height = 0.05
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mirror_bark"]
+albedo_color = Color(0.12, 0.1, 0.08, 1)
+roughness = 0.85
+emission_enabled = true
+emission = Color(0.25, 0.4, 0.7, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mirror_eye"]
+shading_mode = 0
+albedo_color = Color(0.5, 0.85, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_eye"]
+material = SubResource("StandardMaterial3D_mirror_eye")
+radius = 0.035
+height = 0.07
+
 [node name="InvisibleWraith" type="CharacterBody3D" groups=["unseen_entity"]]
 collision_layer = 4
 collision_mask = 3
@@ -95,6 +112,37 @@ mesh = SubResource("CylinderMesh_horn_main")
 transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, -0.15, 0.1, 0)
 mesh = SubResource("CylinderMesh_horn_tine")
 
+[node name="MirrorVisuals" type="Node3D" parent="Visuals"]
+
+[node name="MirrorBodyMesh" type="MeshInstance3D" parent="Visuals/MirrorVisuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+layers = 2
+mesh = SubResource("CapsuleMesh_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_mirror_bark")
+
+[node name="MirrorAntlers" type="Node3D" parent="Visuals/MirrorVisuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+
+[node name="LeftHorn" type="MeshInstance3D" parent="Visuals/MirrorVisuals/MirrorAntlers"]
+transform = Transform3D(0.866025, 0.5, 0, -0.433013, 0.75, -0.5, -0.25, 0.433013, 0.866025, -0.28, 0.28, 0)
+layers = 2
+mesh = SubResource("CylinderMesh_horn_main")
+
+[node name="RightHorn" type="MeshInstance3D" parent="Visuals/MirrorVisuals/MirrorAntlers"]
+transform = Transform3D(0.866025, -0.5, 0, 0.433013, 0.75, -0.5, 0.25, 0.433013, 0.866025, 0.28, 0.28, 0)
+layers = 2
+mesh = SubResource("CylinderMesh_horn_main")
+
+[node name="LeftEye" type="MeshInstance3D" parent="Visuals/MirrorVisuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 1.85, -0.38)
+layers = 2
+mesh = SubResource("SphereMesh_eye")
+
+[node name="RightEye" type="MeshInstance3D" parent="Visuals/MirrorVisuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 1.85, -0.38)
+layers = 2
+mesh = SubResource("SphereMesh_eye")
+
 [node name="EmberParticles" type="GPUParticles3D" parent="Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 emitting = false
@@ -122,3 +170,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 stream = ExtResource("5_screech")
 max_distance = 30.0
 bus = &"Creature"
+
+[node name="FloorCreakAudio" type="AudioStreamPlayer3D" parent="Audio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+stream = ExtResource("6_creak")
+volume_db = -3.0
+max_distance = 22.0
+bus = &"SFX"

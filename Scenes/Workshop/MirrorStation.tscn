@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://m1rr0rst4ti0n"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/MirrorStation.gd" id="1_ms"]
+[ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Window_Frame_02.gltf" id="2_frame"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/mirror_wipe.wav" id="3_wipe"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mirror"]
+size = Vector3(1.2, 1.6, 0.6)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mirror"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mirror"]
+resource_local_to_scene = true
+albedo_color = Color(0.65, 0.7, 0.75, 1)
+albedo_texture = SubResource("ViewportTexture_mirror")
+metallic = 0.85
+roughness = 0.35
+
+[sub_resource type="QuadMesh" id="QuadMesh_glass"]
+material = SubResource("StandardMaterial3D_mirror")
+size = Vector2(0.85, 1.25)
+
+[node name="MirrorStation" type="Area3D" groups=["interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_ms")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_mirror")
+
+[node name="FrameMesh" parent="." instance=ExtResource("2_frame")]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, -0.65, 0)
+
+[node name="MirrorQuad" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04)
+mesh = SubResource("QuadMesh_glass")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(512, 512)
+render_target_update_mode = 4
+
+[node name="ReflectionCamera" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+cull_mask = 1048575
+fov = 68.0
+near = 0.1
+far = 30.0
+
+[node name="WipeAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_wipe")
+volume_db = -4.0
+max_distance = 10.0
+bus = &"SFX"
