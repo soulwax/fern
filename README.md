@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.1)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.1)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build (v0.0.1)](https://github.com/soulwax/fern/releases/download/v0.0.1/Fern-v0.0.1-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build (v0.0.2)](https://github.com/soulwax/fern/releases/download/v0.0.2/Fern-v0.0.2-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -32,6 +32,9 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 ## ✨ Core Features & Mechanics
 
 - 🌸 **The Handheld Farnblume:** Held in your left hand with living, organic luminescence. Wilt dynamics require constant replenishment at the workshop stations.
+- 🕰️ **The Black Forest Standuhr (Mechanical Clock of Dread - v0.0.2):** An antique timber pendulum grandfather clock mounted on the east workshop wall. Ticks with authentic mechanical escapement cadence. As *Der Alp* stalks within 5.5m, time distorts—ticking slows and pitches down into a deep groan; within 2.5m, the clock freezes in dead silence right before an attack. Chimes in resonance with valley church bells on the hour.
+- 🧲 **The Warded Iron Horseshoe (Das Hufeisen am Türsturz - v0.0.2):** Cold iron mounted above the entrance door lintel. If the wraith attempts a doorway ambush, the horseshoe discharges a violent cold-iron spark burst and concussive clang, repelling the creature for 3.5s. Can be re-consecrated with Farnblume light (`[E]`) after triggering.
+- 🌫️ **Valley Night Mist Ingress & Vapor Wakes (Der Talnebel - v0.0.2):** Mountain fog drifts across the workshop floor, density swelling with open window breaches. When the invisible entity moves across the floorboards, its cloven steps part the mist, generating visible swirling vapor wakes that expose its ground path.
 - 🪞 **The Zauberspiegel (Silvered Mirror of Truth - v0.0.1):** An antique wall-mounted shaving mirror above the washbench. While the wraith is completely invisible in the room to mortal eyes, looking into the silver mirror reflection reveals its true towering, hollow-eyed antlered phantom stalking behind you or crouching on the rafters! Press `[E]` to wipe accumulated soot from the mirror glass to sharpen reflection clarity.
 - 🪵 **Dynamic Floorboard & Rafter Groans (v0.0.1):** Heavy 19th-century oak planks groan and crack under the invisible entity's supernatural weight with 3D spatial attenuation, differentiating elevated rafter strain (`Y > 2.8m`) from ground-floor floorboard cracks to provide vital directional and vertical awareness.
 - 🔨 **Workbench Tool Rattling (v0.0.1):** Loose iron mallets, chisels, and ceramic cups vibrate and clatter on workbenches when the entity creeps within 3.8m, providing a tactile domestic warning before candles are snuffed out.
@@ -78,8 +81,8 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 Every standalone release archive is self-contained and pre-configured for Windows x86_64, including the standalone executable, quickstart manual, promotional key art, and folklore manifesto.
 
 | Version | Status | Highlights | Download |
-|:---|:---:|:---|:---:|
-| **v0.0.1** | 🌟 **Latest** | **The Zauberspiegel, Floorboard Groans & Tool Rattles:** Silvered mirror reflection revealing true wraith form, interactive glass wiping, 3D timber floorboard/rafter creaks, and workbench tool tremble foley | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.1/Fern-v0.0.1-windows-x86_64.zip) |
+| **v0.0.2** | 🌟 **Latest** | **The Black Forest Standuhr, Iron Horseshoe & Fog Ingress:** Mechanical clock with temporal dread dilation, warded iron horseshoe threshold deflection, and valley mist with displaced vapor wakes | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.2/Fern-v0.0.2-windows-x86_64.zip) |
+| **v0.0.1** | Stable | **The Zauberspiegel, Floorboard Groans & Tool Rattles:** Silvered mirror reflection revealing true wraith form, interactive glass wiping, 3D timber floorboard/rafter creaks, and workbench tool tremble foley | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.1/Fern-v0.0.1-windows-x86_64.zip) |
 | **v1.8.0** | Stable | **Walpurgisnacht Thunderstorm, Freezing Breath & Rafter Chains:** Lightning silhouette beams, rolling thunder audio, freezing breath condensation, and dynamic swaying rafter chains with metallic clinking | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v1.8.0/Fern-v1.8.0-windows-x86_64.zip) |
 | **v1.7.0** | Stable | **Heartbeat Anxiety & Drudenfuss Consecration:** Proximity sub-bass cardiac pacing, Drudenfuss chalk threshold runes, UV luminescence boost, sulfur burst | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v1.7.0/Fern-v1.7.0-windows-x86_64.zip) |
 | **v1.6.0** | Stable | **Workshop Siege Update:** Dynamic window shutter rattles, barricade breaches by Der Alp, draft-induced wilt penalty, hammer repair | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v1.6.0/Fern-v1.6.0-windows-x86_64.zip) |

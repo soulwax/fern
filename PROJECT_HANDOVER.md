@@ -89,6 +89,11 @@ Accessible directly from the **Main Menu**:
 - **Dynamic Floorboard & Rafter Groans:** Heavy 19th-century oak planks groan and crack under the invisible entity's supernatural weight with 3D spatial attenuation, differentiating elevated rafter strain (`Y > 2.8m`) from ground-floor floorboard cracks to provide vital directional and vertical awareness.
 - **Workbench Tool Rattling:** Loose iron mallets, chisels, and ceramic cups vibrate and clatter on workbenches when the entity creeps within 3.8m, providing a tactile domestic warning before candles are snuffed out.
 
+### 11. The Black Forest Standuhr, Iron Horseshoe Ward & Valley Fog Ingress (v0.0.2)
+- **The Standuhr (Mechanical Clock of Dread):** Antique wooden pendulum grandfather clock ticking with mechanical escapement. When *Der Alp* stalks within 5.5m, time distorts—ticking slows down, drops in pitch, and completely freezes in dead silence within 2.5m! Strikes resonant chimes in harmony with valley cathedral bells on each hour.
+- **The Warded Iron Horseshoe (Das Hufeisen am Türsturz):** Cold iron mounted above the entrance lintel. If the wraith attempts a doorway ambush, the horseshoe discharges a violent cold-iron spark burst and concussive clang (`horseshoe_strike.wav`), repelling the creature for 3.5s. Can be re-consecrated with Farnblume light (`[E]`) after triggering.
+- **Valley Night Mist Ingress & Vapor Wakes (Der Talnebel):** Mountain fog drifts across the workshop floor, density swelling with open window breaches. When the invisible entity moves across the floorboards, its cloven steps part the mist, generating visible swirling vapor wakes that expose its ground path.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -97,7 +102,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
 - **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, rolling thunder rumbles, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -106,6 +111,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.2 (The Black Forest Standuhr, Iron Horseshoe & Fog Ingress):** [https://github.com/soulwax/fern/releases/tag/v0.0.2](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 - **v0.0.1 (The Zauberspiegel, Floorboard Groans & Tool Rattles):** [https://github.com/soulwax/fern/releases/tag/v0.0.1](https://github.com/soulwax/fern/releases/tag/v0.0.1)
 - **v1.8.0 (Walpurgisnacht Thunderstorm, Freezing Breath & Rafter Chains):** [https://github.com/soulwax/fern/releases/tag/v1.8.0](https://github.com/soulwax/fern/releases/tag/v1.8.0)
 - **v1.7.0 (Heartbeat Anxiety & Drudenfuss Consecration):** [https://github.com/soulwax/fern/releases/tag/v1.7.0](https://github.com/soulwax/fern/releases/tag/v1.7.0)

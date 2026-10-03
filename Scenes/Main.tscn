@@ -21,6 +21,9 @@
 [ext_resource type="AudioStream" path="res://Assets/Audio/thunder_distant.wav" id="19_thunder"]
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/MirrorStation.tscn" id="20_mirror"]
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/WorkbenchPropGroup.tscn" id="21_props"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/StanduhrClock.tscn" id="22_clock"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/HorseshoeWard.tscn" id="23_horseshoe"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/FloorMistEcosystem.tscn" id="24_mist"]
 
 [sub_resource type="Environment" id="Environment_gothic"]
 background_mode = 1
@@ -128,6 +131,15 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.8, 
 
 [node name="WorkbenchProps" parent="." instance=ExtResource("21_props")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.88, 0.5)
+
+[node name="StanduhrClock" parent="." instance=ExtResource("22_clock")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.8, 0, 0.5)
+
+[node name="HorseshoeWard" parent="." instance=ExtResource("23_horseshoe")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.35, 4.75)
+
+[node name="FloorMistEcosystem" parent="." instance=ExtResource("24_mist")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 
 [node name="CandleGrindstone" parent="." instance=ExtResource("15_candle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0.88, -2.5)

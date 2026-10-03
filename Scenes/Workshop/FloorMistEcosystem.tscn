@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://b002floormist001"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/FloorMistEcosystem.gd" id="1_mist_script"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mist"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.85, 0.92, 1, 0.09)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ambient"]
+emission_shape = 3
+emission_box_extents = Vector3(6.5, 0.25, 6.5)
+direction = Vector3(0.2, 0.02, 0.1)
+spread = 45.0
+initial_velocity_min = 0.15
+initial_velocity_max = 0.4
+gravity = Vector3(0, 0.01, 0)
+scale_min = 0.8
+scale_max = 1.8
+
+[sub_resource type="SphereMesh" id="SphereMesh_ambient"]
+material = SubResource("StandardMaterial3D_mist")
+radius = 0.6
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wake"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.75, 0.88, 1, 0.18)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wake"]
+emission_shape = 1
+emission_sphere_radius = 0.35
+direction = Vector3(0, 0.2, 0)
+spread = 180.0
+initial_velocity_min = 0.6
+initial_velocity_max = 1.4
+gravity = Vector3(0, 0.08, 0)
+scale_min = 0.25
+scale_max = 0.55
+
+[sub_resource type="SphereMesh" id="SphereMesh_wake"]
+material = SubResource("StandardMaterial3D_wake")
+radius = 0.25
+height = 0.25
+
+[node name="FloorMistEcosystem" type="Node3D"]
+script = ExtResource("1_mist_script")
+
+[node name="AmbientMist" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+amount = 64
+lifetime = 8.0
+visibility_aabb = AABB(-8, 0, -8, 16, 2, 16)
+process_material = SubResource("ParticleProcessMaterial_ambient")
+draw_pass_1 = SubResource("SphereMesh_ambient")
+
+[node name="DisplacedWake" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+emitting = false
+amount = 24
+lifetime = 1.6
+visibility_aabb = AABB(-4, 0, -4, 8, 2, 8)
+process_material = SubResource("ParticleProcessMaterial_wake")
+draw_pass_1 = SubResource("SphereMesh_wake")

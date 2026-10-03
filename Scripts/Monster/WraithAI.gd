@@ -331,6 +331,17 @@ func repel_by_holy_runes() -> void:
 	_play_screech()
 	set_state(State.REPELLED)
 
+func repel_by_horseshoe(ward_pos: Vector3) -> void:
+	_play_screech()
+	var current_pos = global_position if is_inside_tree() else position
+	var push_dir = (current_pos - ward_pos)
+	push_dir.y = 0.0
+	if push_dir.length_squared() < 0.01:
+		push_dir = Vector3(0, 0, -1)
+	velocity = push_dir.normalized() * 6.5
+	set_state(State.REPELLED)
+	state_timer = 3.5
+
 func banish() -> void:
 	current_state = State.BANISHED
 	velocity = Vector3.ZERO
