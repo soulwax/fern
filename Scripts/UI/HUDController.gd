@@ -11,7 +11,8 @@ class_name HUDController
 @onready var vignette_rect: ColorRect = $VignetteRect
 @onready var game_over_panel: Panel = $GameOverPanel
 @onready var victory_panel: Panel = $VictoryPanel
-@onready var heartbeat_audio: AudioStreamPlayer = $HeartbeatAudio
+@onready var heartbeat_slow_audio: AudioStreamPlayer = $HeartbeatSlowAudio
+@onready var heartbeat_fast_audio: AudioStreamPlayer = $HeartbeatFastAudio
 
 @onready var screech_audio: AudioStreamPlayer = $ScreechAudio
 @onready var claw_strike_rect: ColorRect = $ClawStrikeRect
@@ -21,7 +22,16 @@ var player_ref: Node = null
 var wraith_ref: Node = null
 var _is_dying: bool = false
 
+func _ensure_nodes() -> void:
+	if not heartbeat_slow_audio:
+		heartbeat_slow_audio = get_node_or_null("HeartbeatSlowAudio")
+	if not heartbeat_fast_audio:
+		heartbeat_fast_audio = get_node_or_null("HeartbeatFastAudio")
+	if not vignette_rect:
+		vignette_rect = get_node_or_null("VignetteRect")
+
 func _ready() -> void:
+	_ensure_nodes()
 	if game_over_panel:
 		game_over_panel.visible = false
 	if victory_panel:
@@ -40,6 +50,8 @@ func _ready() -> void:
 	_find_player_and_wraith()
 
 func _find_player_and_wraith() -> void:
+	if not is_inside_tree() or get_tree() == null:
+		return
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
 		player_ref = players[0]
@@ -57,6 +69,7 @@ func _find_player_and_wraith() -> void:
 			wraith_ref.player_caught.connect(_on_player_caught)
 
 func _process(delta: float) -> void:
+	_ensure_nodes()
 	var game_state = get_node_or_null("/root/GameState")
 	if game_state and hour_bar:
 		var total_progress = (float(game_state.current_hour) + game_state.get_hour_progress()) / float(game_state.max_hours)
@@ -64,24 +77,74 @@ func _process(delta: float) -> void:
 
 	# Calculate fear vignette and heartbeat based on proximity to unseen entity
 	if player_ref and wraith_ref and not _is_dying:
-		var dist = player_ref.global_position.distance_to(wraith_ref.global_position)
-		if dist <= 8.5:
-			var fear_factor = clamp(1.0 - (dist / 8.5), 0.0, 1.0)
+		var dist = get_proximity_distance()
+		var slow_thresh = 12.0
+		var fast_thresh = 6.0
+		if game_state and game_state.current_difficulty == game_state.Difficulty.WALPURGISNACHT:
+			slow_thresh = 15.0
+			fast_thresh = 8.0
+			
+		if dist <= fast_thresh:
+			# Frantic panic pulse
+			var panic_factor = clamp(1.0 - (dist / fast_thresh), 0.0, 1.0)
 			if vignette_rect:
-				vignette_rect.color.a = fear_factor * 0.75
-				
-			if heartbeat_audio:
-				if not heartbeat_audio.playing:
-					heartbeat_audio.play()
-				heartbeat_audio.pitch_scale = lerp(0.85, 1.45, fear_factor)
-				heartbeat_audio.volume_db = lerp(-22.0, 2.0, fear_factor)
+				vignette_rect.color.a = lerp(vignette_rect.color.a, 0.35 + panic_factor * 0.45, delta * 4.0)
+			if heartbeat_fast_audio and heartbeat_fast_audio.is_inside_tree():
+				if not heartbeat_fast_audio.playing:
+					heartbeat_fast_audio.play()
+				heartbeat_fast_audio.volume_db = lerp(heartbeat_fast_audio.volume_db, -6.0 + (panic_factor * 4.0), delta * 4.0)
+			if heartbeat_slow_audio and heartbeat_slow_audio.is_inside_tree() and heartbeat_slow_audio.playing:
+				heartbeat_slow_audio.volume_db = lerp(heartbeat_slow_audio.volume_db, -80.0, delta * 6.0)
+				if heartbeat_slow_audio.volume_db <= -70.0:
+					heartbeat_slow_audio.stop()
+		elif dist <= slow_thresh:
+			# Creeping dread slow heartbeat
+			var slow_factor = clamp(1.0 - ((dist - fast_thresh) / (slow_thresh - fast_thresh)), 0.0, 1.0)
+			if vignette_rect:
+				vignette_rect.color.a = lerp(vignette_rect.color.a, slow_factor * 0.30, delta * 3.0)
+			if heartbeat_slow_audio and heartbeat_slow_audio.is_inside_tree():
+				if not heartbeat_slow_audio.playing:
+					heartbeat_slow_audio.play()
+				heartbeat_slow_audio.volume_db = lerp(heartbeat_slow_audio.volume_db, -24.0 + (slow_factor * 12.0), delta * 3.0)
+			if heartbeat_fast_audio and heartbeat_fast_audio.is_inside_tree() and heartbeat_fast_audio.playing:
+				heartbeat_fast_audio.volume_db = lerp(heartbeat_fast_audio.volume_db, -80.0, delta * 6.0)
+				if heartbeat_fast_audio.volume_db <= -70.0:
+					heartbeat_fast_audio.stop()
 		else:
+			# Safe distance
 			if vignette_rect:
 				vignette_rect.color.a = lerp(vignette_rect.color.a, 0.0, delta * 3.0)
-			if heartbeat_audio and heartbeat_audio.playing:
-				heartbeat_audio.volume_db = lerp(heartbeat_audio.volume_db, -40.0, delta * 5.0)
-				if heartbeat_audio.volume_db < -35.0:
-					heartbeat_audio.stop()
+			if heartbeat_slow_audio and heartbeat_slow_audio.is_inside_tree() and heartbeat_slow_audio.playing:
+				heartbeat_slow_audio.volume_db = lerp(heartbeat_slow_audio.volume_db, -80.0, delta * 5.0)
+				if heartbeat_slow_audio.volume_db <= -70.0:
+					heartbeat_slow_audio.stop()
+			if heartbeat_fast_audio and heartbeat_fast_audio.is_inside_tree() and heartbeat_fast_audio.playing:
+				heartbeat_fast_audio.volume_db = lerp(heartbeat_fast_audio.volume_db, -80.0, delta * 5.0)
+				if heartbeat_fast_audio.volume_db <= -70.0:
+					heartbeat_fast_audio.stop()
+
+func get_proximity_distance() -> float:
+	if player_ref and wraith_ref and is_instance_valid(player_ref) and is_instance_valid(wraith_ref):
+		if player_ref is Node3D and wraith_ref is Node3D:
+			if player_ref.is_inside_tree() and wraith_ref.is_inside_tree():
+				return player_ref.global_position.distance_to(wraith_ref.global_position)
+			return player_ref.position.distance_to(wraith_ref.position)
+	return 999.0
+
+func get_anxiety_state() -> String:
+	var dist = get_proximity_distance()
+	var game_state = get_node_or_null("/root/GameState")
+	var slow_thresh = 12.0
+	var fast_thresh = 6.0
+	if game_state and game_state.current_difficulty == game_state.Difficulty.WALPURGISNACHT:
+		slow_thresh = 15.0
+		fast_thresh = 8.0
+	if dist <= fast_thresh:
+		return "PANIC"
+	elif dist <= slow_thresh:
+		return "CREEPING"
+	return "SAFE"
+
 
 func _on_prompt_changed(text: String) -> void:
 	if prompt_label:
@@ -110,6 +173,11 @@ func _on_player_caught() -> void:
 	if _is_dying:
 		return
 	_is_dying = true
+	
+	if heartbeat_slow_audio and heartbeat_slow_audio.playing:
+		heartbeat_slow_audio.stop()
+	if heartbeat_fast_audio and heartbeat_fast_audio.playing:
+		heartbeat_fast_audio.stop()
 	
 	if player_ref and player_ref.has_method("set_movement_frozen"):
 		player_ref.set_movement_frozen(true)

@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://chud01gothic"]
 
 [ext_resource type="Script" path="res://Scripts/UI/HUDController.gd" id="1_hud"]
-[ext_resource type="AudioStream" path="res://Assets/Audio/heartbeat_thump.wav" id="2_heart"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/heartbeat_slow.wav" id="2_heart_slow"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/wraith_screech.wav" id="3_screech"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/heartbeat_fast.wav" id="4_heart_fast"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hour_bg"]
 bg_color = Color(0.1, 0.1, 0.12, 0.6)
@@ -38,10 +39,15 @@ bg_color = Color(0.05, 0.04, 0.04, 0.92)
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud")
 
-[node name="HeartbeatAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_heart")
-volume_db = -18.0
-bus = &"SFX"
+[node name="HeartbeatSlowAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_heart_slow")
+volume_db = -80.0
+bus = &"Ambiance"
+
+[node name="HeartbeatFastAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_heart_fast")
+volume_db = -80.0
+bus = &"Ambiance"
 
 [node name="ScreechAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_screech")

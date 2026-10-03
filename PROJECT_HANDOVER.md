@@ -74,15 +74,20 @@ Accessible directly from the **Main Menu**:
 - **Plank Breaches & Draft Penalties:** If unaddressed, barricade planks splinter off. Each open breach increases the Farnblume's wilt rate by +20% and triggers whistling cold wind drafts.
 - **UV Flaring & Hammer Repairs:** Shining the flower's UV bloom (`F`) at the window terrifies the wraith into retreating. Nailing timber planks back on (`[E]`) restores fortification and seals drafts.
 
+### 8. Heartbeat Anxiety & Drudenfuss Consecration
+- **Dual-Loop Cardiac Pulse:** Sub-bass rhythmic heartbeats on the `Ambiance` bus. As *Der Alp* stalks within 12.0m, a slow thudding heartbeat sets in; within 6.0m, it escalates to frantic panic (~140 BPM) with peripheral vignette pulsing.
+- **UV-Reactive Drudenfuss Threshold:** Drawing the warded threshold plays abrasive chalk scratching audio (`chalk_scratch.wav` on `SFX` bus). Active runes glow with holy blue-violet light that intensifies under the Farnblume's UV beam. If *Der Alp* collides with the barrier, it ignites sulfur smoke particles and forces a screeching retreat.
+- **Concussive Anvil Ring:** Workshop anvil strikes route through the `SFX` bus with 14m shockwave stun.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
 
 All audio systems in *Fern* are routed through a dedicated multi-channel bus hierarchy (`default_bus_layout.tres`):
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
-- **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, accompanied by authentic timber stress creaks and morning dawn bird song.
+- **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -91,6 +96,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v1.7.0 (Heartbeat Anxiety & Drudenfuss Consecration):** [https://github.com/soulwax/fern/releases/tag/v1.7.0](https://github.com/soulwax/fern/releases/tag/v1.7.0)
 - **v1.6.0 (Workshop Siege Update):** [https://github.com/soulwax/fern/releases/tag/v1.6.0](https://github.com/soulwax/fern/releases/tag/v1.6.0)
 - **v1.5.0 (Daguerreotype & Spark Silhouette):** [https://github.com/soulwax/fern/releases/tag/v1.5.0](https://github.com/soulwax/fern/releases/tag/v1.5.0)
 - **v1.4.0 (Audio Bus & Graphics Settings Update):** [https://github.com/soulwax/fern/releases/tag/v1.4.0](https://github.com/soulwax/fern/releases/tag/v1.4.0)

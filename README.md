@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v1.6.0)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v1.7.0)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v1.6.0)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v1.7.0)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build (v1.6.0)](https://github.com/soulwax/fern/releases/download/v1.6.0/Fern-v1.6.0-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build (v1.7.0)](https://github.com/soulwax/fern/releases/download/v1.7.0/Fern-v1.7.0-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -39,7 +39,8 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 - 🕯️ **Candle Stations & Alp Snuffing:** Lit candles ward off the darkness. When *Der Alp* stalks within 3.5m, the candle flutters, snuffs out with rising smoke, and plunges the sector into ice-cold black. Strike a match (`[E]`) to restore holy light.
 - 🪜 **Loft Catwalks & Vertical Traversal:** Use interactive ladder stations (`LadderStation.tscn`) to scramble into the elevated storage rafters and drying beams, evading ground pursuit and scouting the workshop layout.
 - ⚡ **Dynamic Workshop Stations:** Work the **GrindStoneStation** (sparks cascading from tool sharpening) and **AnvilStation** (rhythmic iron forging) to recharge the blossom's vital essence.
-- ⛧ **The Drudenfuss Salt Threshold:** A consecrated pentagram salt barrier shields the entry door. Repair it when breached to deny the wraith free passage.
+- 💓 **Heartbeat Anxiety & Proximity Panic:** As *Der Alp* stalks within 12.0m, an ominous sub-bass heartbeat begins to thud. Within 6.0m, it escalates to frantic cardiac panic (~140 BPM) accompanied by peripheral red vignette darkening, providing vital auditory awareness even in absolute darkness.
+- ⛧ **UV-Reactive Drudenfuss Threshold:** A consecrated pentagram chalk barrier shields the entry door. Drawing the rune plays authentic abrasive chalk scratching audio (`[E]`). Active runes glow with holy blue-violet luminescence that intensifies under the Farnblume's UV bloom (`F`), and bursts into sulfur flames when repelling the wraith.
 - 👹 **Visceral Death Jumpscare Cinematic:** Snap-turn camera focus onto *Der Alp*, claw-strike crimson flash, bloodcurdling audio screech, survival telemetry, and the German folkloric epitaph:
   > *"Der Wald nimmt, was sein ist. Deine Knochen nähren die Wurzeln."*
 - 🎚️ **3 Difficulty Presets:**

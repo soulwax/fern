@@ -57,4 +57,4 @@ draw_pass_1 = SubResource("TorusMesh_wave")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 stream = ExtResource("5_strike")
 max_distance = 35.0
-bus = &"Master"
+bus = &"SFX"
