@@ -50,6 +50,7 @@ var spark_ignite_timer: float = 0.0
 var is_visible_to_player: bool = false
 var window_siege_cooldown: float = 30.0
 var target_window: Node3D = null
+var rafter_denial_timer: float = 0.0
 
 
 # Footstep tracking
@@ -67,26 +68,42 @@ func _ready() -> void:
 	_generate_initial_waypoints()
 	_update_visual_reveal(0.0, 0.0)
 
+func set_rafter_denial(duration: float) -> void:
+	rafter_denial_timer = duration
+	if current_target_point.y > 2.0:
+		_pick_next_waypoint()
+
 func _find_player() -> void:
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
 		player_ref = players[0]
 
 func _generate_initial_waypoints() -> void:
-	# Default patrol spots around the workshop
+	# Default patrol spots around the workshop floor and upper rafters
 	patrol_waypoints = [
 		Vector3(-6.0, 0.5, -4.0),
 		Vector3(6.0, 0.5, -4.0),
 		Vector3(-5.0, 0.5, 4.0),
 		Vector3(5.0, 0.5, 4.0),
 		Vector3(0.0, 0.5, -6.5),
-		Vector3(0.0, 0.5, 6.0)
+		Vector3(0.0, 0.5, 6.0),
+		Vector3(-2.5, 3.4, 0.0),
+		Vector3(2.5, 3.4, 1.2)
 	]
 	_pick_next_waypoint()
 
 func _pick_next_waypoint() -> void:
 	if patrol_waypoints.size() > 0:
-		current_target_point = patrol_waypoints.pick_random()
+		var available = patrol_waypoints
+		if rafter_denial_timer > 0.0:
+			available = []
+			for wp in patrol_waypoints:
+				if wp.y < 2.0:
+					available.append(wp)
+		if available.size() > 0:
+			current_target_point = available.pick_random()
+		else:
+			current_target_point = patrol_waypoints[0]
 
 func _physics_process(delta: float) -> void:
 	if current_state == State.BANISHED:
@@ -96,6 +113,12 @@ func _physics_process(delta: float) -> void:
 		_find_player()
 
 	_handle_sensory_decay(delta)
+	
+	if rafter_denial_timer > 0.0:
+		rafter_denial_timer -= delta
+		var cur_y = global_position.y if is_inside_tree() else position.y
+		if cur_y > 2.0:
+			velocity.y = -4.0
 	
 	if current_state == State.PROWL or current_state == State.STALK:
 		window_siege_cooldown -= delta
@@ -341,6 +364,17 @@ func repel_by_horseshoe(ward_pos: Vector3) -> void:
 	velocity = push_dir.normalized() * 6.5
 	set_state(State.REPELLED)
 	state_timer = 3.5
+
+func repel_by_torch(torch_pos: Vector3) -> void:
+	_play_screech()
+	var current_pos = global_position if is_inside_tree() else position
+	var push_dir = (current_pos - torch_pos)
+	push_dir.y = 0.0
+	if push_dir.length_squared() < 0.01:
+		push_dir = Vector3(0, 0, -1)
+	velocity = push_dir.normalized() * 7.5
+	set_state(State.REPELLED)
+	state_timer = 4.0
 
 func banish() -> void:
 	current_state = State.BANISHED

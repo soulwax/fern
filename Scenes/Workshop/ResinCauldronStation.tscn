@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://cresincauldron"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/ResinCauldronStation.gd" id="1_cauldron"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/cauldron_boil.wav" id="2_audio"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cauldron"]
+height = 0.7
+radius = 0.45
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iron"]
+albedo_color = Color(0.14, 0.14, 0.15, 1)
+metallic = 0.85
+roughness = 0.45
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pot"]
+material = SubResource("StandardMaterial3D_iron")
+top_radius = 0.38
+bottom_radius = 0.3
+height = 0.45
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_resin"]
+albedo_color = Color(0.45, 0.22, 0.05, 1)
+roughness = 0.2
+emission_enabled = true
+emission = Color(0.65, 0.3, 0.05, 1)
+emission_energy_multiplier = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_resin"]
+material = SubResource("StandardMaterial3D_resin")
+top_radius = 0.36
+bottom_radius = 0.36
+height = 0.05
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vapor"]
+direction = Vector3(0, 1, 0)
+spread = 22.0
+initial_velocity_min = 0.8
+initial_velocity_max = 1.8
+gravity = Vector3(0, 0.4, 0)
+scale_min = 1.2
+scale_max = 3.5
+color = Color(0.85, 0.78, 0.65, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vapor"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.9, 0.82, 0.7, 0.3)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vapor"]
+material = SubResource("StandardMaterial3D_vapor")
+radius = 0.15
+height = 0.25
+
+[node name="ResinCauldronStation" type="StaticBody3D" groups=["cauldron_station", "interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_cauldron")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("CylinderShape3D_cauldron")
+
+[node name="PotMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("CylinderMesh_pot")
+
+[node name="ResinSurface" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+mesh = SubResource("CylinderMesh_resin")
+
+[node name="VaporParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
+emitting = false
+amount = 24
+lifetime = 2.2
+process_material = SubResource("ParticleProcessMaterial_vapor")
+draw_pass_1 = SubResource("SphereMesh_vapor")
+
+[node name="HearthGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+light_color = Color(1, 0.42, 0.12, 1)
+light_energy = 0.6
+omni_range = 3.5
+
+[node name="BoilAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+stream = ExtResource("2_audio")
+max_distance = 15.0
+bus = &"SFX"

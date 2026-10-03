@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.3)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.3)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build (v0.0.3)](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build (v0.0.4)](https://github.com/soulwax/fern/releases/download/v0.0.4/Fern-v0.0.4-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -32,6 +32,9 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 ## ✨ Core Features & Mechanics
 
 - 🌸 **The Handheld Farnblume:** Held in your left hand with living, organic luminescence. Wilt dynamics require constant replenishment at the workshop stations.
+- 🪵 **The Kienspan Resin Pitch Torch (Die Pechfackel - v0.0.4):** A wall-mounted pine pitch torch soaked in spruce resin and linseed oil. Igniting it (`[E]`) yields 25s of fierce orange firelight, crackling foley (`torch_burn.wav`), and a portable 4.2m protection aura that repels *Der Alp* when workshop candles are snuffed out.
+- 🔒 **Window Shutter Drop-Latch Barricades (Die Fensterläden-Riegel - v0.0.4):** Heavy hand-forged wrought-iron drop-latches across interior timber window shutters. When the wraith claws at shutters, slam and wedge the latch (`[E]`) to absorb 2 brute-force impacts (`latch_rattle.wav`), protecting barricade planks from splintering.
+- 🍲 **The Pine Pitch Resin Cauldron (Der Pechkessel - v0.0.4):** An antique cast-iron pitch pot on the hearth. Stoking the embers (`[E]`) boils hot pine rosin (`cauldron_boil.wav`) and billows aromatic consecrated spruce vapor into the ceiling rafters, denying elevated ambush perches to *Der Alp* for 45s and forcing it down to the ground floor.
 - 🧂 **Consecrated Salt Lines & Sizzling Thresholds (v0.0.3):** A consecrated salt line laid across the entrance vestibule. If *Der Alp* attempts to cross, the salt bursts into white-hot sizzles and crackling particles (`salt_sizzle.wav`), repelling the wraith for 4.0s. Has 2 durability charges before breaking and can be replenished by re-strewn salt (`[E]`).
 - 💨 **Turbulent Candle Drafts & Window Sputter (v0.0.3):** Unbarricaded or broken window breaches channel atmospheric mountain drafts into the workshop. Candle flames violently tilt, stretch, and flicker according to localized wind vectors, sputtering and smoking before blowing out completely if breaches remain unsealed.
 - 🌲 **Pine Shaving Soundtraps (v0.0.3):** Carpentry pine shavings scattered across high-traffic floor areas. Walking over them—or when the invisible wraith creeps across them—triggers crisp tactile wood crushing and crunching audio (`shavings_crunch.wav`), acting as an early auditory tripwire in the dark.
@@ -85,7 +88,8 @@ Every standalone release archive is self-contained and pre-configured for Window
 
 | Version | Status | Highlights | Download |
 |:---:|:---:|:---|:---:|
-| **v0.0.3** | 🌟 **Latest** | **Consecrated Salt Lines, Turbulent Candle Drafts & Pine Shaving Soundtraps:** Consecrated salt thresholds with sizzling particle bursts, candle flame draft turbulence and dynamic tilt, and tactile pine shaving floor soundtraps | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip) |
+| **v0.0.4** | 🌟 **Latest** | **The Kienspan Resin Torch, Window Drop-Latches & Pine Pitch Cauldron:** Portable resin pitch torch with active repulsion aura, heavy iron shutter drop-latch siege defense, and boiling pine pitch cauldron with rafter denial vapor | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.4/Fern-v0.0.4-windows-x86_64.zip) |
+| **v0.0.3** | Stable | **Consecrated Salt Lines, Turbulent Candle Drafts & Pine Shaving Soundtraps:** Consecrated salt thresholds with sizzling particle bursts, candle flame draft turbulence and dynamic tilt, and tactile pine shaving floor soundtraps | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip) |
 | **v0.0.2** | Stable | **The Black Forest Standuhr, Iron Horseshoe & Fog Ingress:** Mechanical clock with temporal dread dilation, warded iron horseshoe threshold deflection, and valley mist with displaced vapor wakes | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.2/Fern-v0.0.2-windows-x86_64.zip) |
 | **v0.0.1** | Stable | **The Zauberspiegel, Floorboard Groans & Tool Rattles:** Silvered mirror reflection revealing true wraith form, interactive glass wiping, 3D timber floorboard/rafter creaks, and workbench tool tremble foley | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v0.0.1/Fern-v0.0.1-windows-x86_64.zip) |
 | **v1.8.0** | Stable | **Walpurgisnacht Thunderstorm, Freezing Breath & Rafter Chains:** Lightning silhouette beams, rolling thunder audio, freezing breath condensation, and dynamic swaying rafter chains with metallic clinking | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v1.8.0/Fern-v1.8.0-windows-x86_64.zip) |

@@ -99,6 +99,11 @@ Accessible directly from the **Main Menu**:
 - **Turbulent Candle Drafts & Dynamic Flame Tilt:** Unbarricaded or broken window breaches channel atmospheric mountain drafts into the workshop. Candle flames violently tilt, stretch, and flicker according to localized wind vectors, sputtering and smoking before blowing out completely if breaches remain unsealed.
 - **Pine Shaving Soundtraps:** Carpentry pine shavings scattered across high-traffic floor areas. Walking over them—or when the invisible wraith creeps across them—triggers crisp tactile wood crushing and crunching audio (`shavings_crunch.wav`), acting as an early auditory tripwire in the dark.
 
+### 13. The Kienspan Resin Torch, Window Shutter Drop-Latches & Pine Pitch Cauldron (v0.0.4)
+- **The Kienspan Resin Pitch Torch (Die Pechfackel):** A wall-mounted pine pitch torch soaked in spruce resin and linseed oil. Igniting it (`[E]`) yields 25s of fierce orange firelight, crackling combustion foley (`torch_burn.wav`), and a portable 4.2m protection aura that repels *Der Alp* when workshop candles are snuffed out.
+- **Window Shutter Drop-Latch Barricades (Die Fensterläden-Riegel):** Heavy hand-forged wrought-iron drop-latches across interior timber window shutters. When the wraith claws at shutters, slam and wedge the latch (`[E]`) to absorb 2 brute-force impacts (`latch_rattle.wav`), protecting barricade planks from splintering.
+- **The Pine Pitch Resin Cauldron (Der Pechkessel):** An antique cast-iron pitch pot on the hearth. Stoking the embers (`[E]`) boils hot pine rosin (`cauldron_boil.wav`) and billows aromatic consecrated spruce vapor into the ceiling rafters, denying elevated ambush perches to *Der Alp* for 45s and forcing it down to the ground floor.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -107,7 +112,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
 - **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, rolling thunder rumbles, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, torch flame crackles, iron shutter drop-latch rattles, viscous pine pitch bubbling, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -116,6 +121,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.4 (The Kienspan Resin Torch, Window Drop-Latches & Pine Pitch Cauldron):** [https://github.com/soulwax/fern/releases/tag/v0.0.4](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 - **v0.0.3 (Consecrated Salt Lines, Turbulent Candle Drafts & Pine Shaving Soundtraps):** [https://github.com/soulwax/fern/releases/tag/v0.0.3](https://github.com/soulwax/fern/releases/tag/v0.0.3)
 - **v0.0.2 (The Black Forest Standuhr, Iron Horseshoe & Fog Ingress):** [https://github.com/soulwax/fern/releases/tag/v0.0.2](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 - **v0.0.1 (The Zauberspiegel, Floorboard Groans & Tool Rattles):** [https://github.com/soulwax/fern/releases/tag/v0.0.1](https://github.com/soulwax/fern/releases/tag/v0.0.1)

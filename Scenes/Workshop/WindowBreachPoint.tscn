@@ -6,9 +6,19 @@
 [ext_resource type="AudioStream" path="res://Assets/Audio/hammer_nail_wood.wav" id="4_hammer"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/window_rattle.wav" id="5_rattle"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/Ambiance/black_forest_wind.wav" id="6_wind"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/latch_rattle.wav" id="7_latch"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_window"]
 size = Vector3(1.6, 2.2, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ironlatch"]
+albedo_color = Color(0.16, 0.16, 0.18, 1)
+metallic = 0.85
+roughness = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_latchbar"]
+material = SubResource("StandardMaterial3D_ironlatch")
+size = Vector3(1.15, 0.07, 0.05)
 
 [node name="WindowBreachPoint" type="StaticBody3D" groups=["interactable", "window_breach"]]
 collision_layer = 1
@@ -35,6 +45,10 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0.05)
 visible = false
 
+[node name="LatchBar" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -0.06)
+mesh = SubResource("BoxMesh_latchbar")
+
 [node name="HammerAudio" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 stream = ExtResource("4_hammer")
@@ -52,3 +66,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 stream = ExtResource("6_wind")
 max_distance = 12.0
 bus = &"Ambiance"
+
+[node name="LatchAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -0.06)
+stream = ExtResource("7_latch")
+max_distance = 18.0
+bus = &"SFX"
