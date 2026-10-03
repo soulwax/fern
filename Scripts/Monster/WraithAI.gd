@@ -11,8 +11,10 @@ enum State {
 	HUNT,         # Aggressive charge when player is in dark or vulnerable
 	STUNNED,      # Hit by grindstone sparks, disoriented
 	REPELLED,     # Driven back by prolonged UV bloom or iron chime
-	BANISHED      # Dawn arrives, dissolved
+	BANISHED,     # Dawn arrives, dissolved
+	SIEGE         # Rattling and assaulting an exterior window
 }
+
 
 @export_group("Speeds")
 @export var prowl_speed: float = 2.0
@@ -43,6 +45,9 @@ var uv_exposure_timer: float = 0.0
 var uv_decay_timer: float = 0.0
 var spark_ignite_timer: float = 0.0
 var is_visible_to_player: bool = false
+var window_siege_cooldown: float = 30.0
+var target_window: Node3D = null
+
 
 # Footstep tracking
 var step_dist_accumulator: float = 0.0
@@ -89,6 +94,11 @@ func _physics_process(delta: float) -> void:
 
 	_handle_sensory_decay(delta)
 	
+	if current_state == State.PROWL or current_state == State.STALK:
+		window_siege_cooldown -= delta
+		if window_siege_cooldown <= 0.0 and current_state == State.PROWL:
+			_attempt_window_siege()
+	
 	match current_state:
 		State.PROWL:
 			_process_prowl(delta)
@@ -100,12 +110,23 @@ func _physics_process(delta: float) -> void:
 			_process_stunned(delta)
 		State.REPELLED:
 			_process_repelled(delta)
+		State.SIEGE:
+			_process_siege(delta)
 
 	move_and_slide()
 	_handle_footstep_effects(delta)
 
 func _process_prowl(delta: float) -> void:
 	state_timer -= delta
+	
+	# Check if arriving at target window
+	if target_window and is_instance_valid(target_window):
+		var to_win = target_window.global_position - global_position
+		to_win.y = 0.0
+		if to_win.length() <= 2.2:
+			set_state(State.SIEGE)
+			return
+			
 	var to_target = current_target_point - global_position
 	to_target.y = 0.0
 	
@@ -115,6 +136,7 @@ func _process_prowl(delta: float) -> void:
 		if player_ref and randf() < 0.4:
 			set_state(State.STALK)
 			return
+
 
 	var move_dir = to_target.normalized()
 	velocity.x = move_dir.x * prowl_speed
@@ -192,7 +214,44 @@ func _process_repelled(delta: float) -> void:
 	if state_timer <= 0.0:
 		set_state(State.PROWL)
 
+func _process_siege(delta: float) -> void:
+	velocity.x = 0.0
+	velocity.z = 0.0
+	state_timer -= delta
+	
+	if not target_window or not is_instance_valid(target_window):
+		set_state(State.PROWL)
+		return
+		
+	var to_win = target_window.global_position - global_position
+	to_win.y = 0.0
+	if to_win != Vector3.ZERO:
+		look_at(global_position + to_win.normalized(), Vector3.UP)
+		
+	if state_timer <= 0.0:
+		if target_window.has_method("breach_plank"):
+			target_window.breach_plank()
+		_play_growl()
+		target_window = null
+		window_siege_cooldown = randf_range(35.0, 55.0)
+		set_state(State.PROWL)
+
+func _attempt_window_siege() -> void:
+	var windows = get_tree().get_nodes_in_group("window_breach")
+	var candidates: Array = []
+	for w in windows:
+		if w is WindowBreach and w.current_planks > 0:
+			candidates.append(w)
+	if candidates.size() > 0:
+		target_window = candidates.pick_random()
+		current_target_point = target_window.global_position
+		window_siege_cooldown = 45.0
+
 func set_state(new_state: State) -> void:
+	if current_state == State.SIEGE and new_state != State.SIEGE:
+		if target_window and target_window.has_method("stop_rattle"):
+			target_window.stop_rattle()
+
 	current_state = new_state
 	state_changed.emit(current_state)
 	match new_state:
@@ -207,6 +266,10 @@ func set_state(new_state: State) -> void:
 			_play_screech()
 		State.REPELLED:
 			state_timer = 4.0
+		State.SIEGE:
+			state_timer = 4.0
+			if target_window and target_window.has_method("start_rattle"):
+				target_window.start_rattle(4.0)
 
 func expose_to_uv_light(source: Node) -> void:
 	uv_decay_timer = 0.35 # Keep reveal alive while being hit
@@ -216,10 +279,21 @@ func expose_to_uv_light(source: Node) -> void:
 	_update_visual_reveal(ratio, ember_ratio)
 	wraith_spotted.emit(ratio)
 	
+	# If currently sieging a window, UV light immediately drives the wraith away
+	if current_state == State.SIEGE:
+		if target_window and target_window.has_method("stop_rattle"):
+			target_window.stop_rattle()
+		target_window = null
+		window_siege_cooldown = randf_range(40.0, 60.0)
+		_play_screech()
+		set_state(State.REPELLED)
+		return
+	
 	# Prolonged UV exposure forces wraith retreat
 	if uv_exposure_timer >= uv_recoil_threshold and current_state != State.REPELLED and current_state != State.STUNNED:
 		_play_screech()
 		set_state(State.REPELLED)
+
 
 func ignite_with_sparks(duration: float) -> void:
 	spark_ignite_timer = duration

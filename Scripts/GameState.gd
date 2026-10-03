@@ -57,14 +57,31 @@ func get_difficulty_description() -> String:
 		_:
 			return "Standard Gothic horror: 6-hour survival night, balanced flower decay & aggression."
 
+var open_window_breaches: int = 0
+
+signal window_breached_count_changed(count: int)
+
+func notify_window_breached() -> void:
+	open_window_breaches = min(3, open_window_breaches + 1)
+	window_breached_count_changed.emit(open_window_breaches)
+
+func notify_window_repaired() -> void:
+	open_window_breaches = max(0, open_window_breaches - 1)
+	window_breached_count_changed.emit(open_window_breaches)
+
+func get_breach_wilt_penalty() -> float:
+	return 1.0 + (open_window_breaches * 0.20)
+
 func get_wilt_rate_multiplier() -> float:
+	var base_mult = 1.0
 	match current_difficulty:
 		Difficulty.WALPURGISNACHT:
-			return 1.5
+			base_mult = 1.5
 		Difficulty.STILLE_NACHT:
-			return 0.5
+			base_mult = 0.5
 		_:
-			return 1.0
+			base_mult = 1.0
+	return base_mult * get_breach_wilt_penalty()
 
 func get_wraith_speed_multiplier() -> float:
 	match current_difficulty:
@@ -82,7 +99,9 @@ func reset_game() -> void:
 	current_hour = 0
 	elapsed_in_hour = 0.0
 	is_game_active = true
+	open_window_breaches = 0
 	hour_changed.emit(current_hour, get_current_hour_name())
+
 
 func _process(delta: float) -> void:
 	if not is_game_active:

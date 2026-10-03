@@ -69,15 +69,20 @@ Accessible directly from the **Main Menu**:
 - **Gothic Daguerreotype Shader (`daguerreotype_post_process.gdshader`):** Simulates 19th-century silver halide grain, claustrophobic radial vignetting, vintage curved glass chromatic aberration, and rich chiaroscuro contrast. Full toggle in Pause Menu.
 - **Grindstone Spark Silhouette Detection:** Spinning the grindstone sprays sparks that coat *Der Alp*'s body in incandescent orange embers (`ember_amount`), stunning the wraith and exposing its stag silhouette in the dark while replenishing the Farnblume's bloom.
 
+### 7. Workshop Siege & Perimeter Barricades
+- **Dynamic Shutter Rattles:** *Der Alp* stalks exterior windows (`WindowBreachNorth`, `WindowBreachEast`, `WindowBreachWest`), violently rattling the timber shutters.
+- **Plank Breaches & Draft Penalties:** If unaddressed, barricade planks splinter off. Each open breach increases the Farnblume's wilt rate by +20% and triggers whistling cold wind drafts.
+- **UV Flaring & Hammer Repairs:** Shining the flower's UV bloom (`F`) at the window terrifies the wraith into retreating. Nailing timber planks back on (`[E]`) restores fortification and seals drafts.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
 
 All audio systems in *Fern* are routed through a dedicated multi-channel bus hierarchy (`default_bus_layout.tres`):
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
-- **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, accompanied by authentic timber stress creaks and morning dawn bird song.
+- **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, grinding stone friction with randomized pitch (0.95–1.05), match strikes, candle snuff whooshes, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -86,6 +91,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v1.6.0 (Workshop Siege Update):** [https://github.com/soulwax/fern/releases/tag/v1.6.0](https://github.com/soulwax/fern/releases/tag/v1.6.0)
 - **v1.5.0 (Daguerreotype & Spark Silhouette):** [https://github.com/soulwax/fern/releases/tag/v1.5.0](https://github.com/soulwax/fern/releases/tag/v1.5.0)
 - **v1.4.0 (Audio Bus & Graphics Settings Update):** [https://github.com/soulwax/fern/releases/tag/v1.4.0](https://github.com/soulwax/fern/releases/tag/v1.4.0)
 - **v1.3.0 (Definitive Jam Edition):** [https://github.com/soulwax/fern/releases/tag/v1.3.0](https://github.com/soulwax/fern/releases/tag/v1.3.0)
@@ -98,6 +104,7 @@ All standalone builds are packaged with the standalone game executable, user man
 ## 🛠️ Developer Verification & Test Suite
 
 The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
+- `verify_v1_6_features.gd`: Validates window rattle, shutter shudder vibration, plank breach, hammer fortification, draft wilt multipliers, and wraith siege routines.
 - `verify_v1_5_features.gd`: Validates Daguerreotype shader compilation, toggle events, GrindStone spark emission, and wraith ember ignition.
 - `e2e_match_simulation.gd`: Simulates a full game cycle (00:00 to 06:00), testing hourly transitions, victory triggers, station interactions, and wraith speed scaling.
 - `verify_difficulty_and_death.gd`: Tests menu button cycling, state multipliers, and HUD jumpscare components.
@@ -105,7 +112,8 @@ The project includes headless simulation scripts inside [scripts_scratch/](file:
 
 To run tests in headless mode:
 ```powershell
-godot --headless --script scripts_scratch/verify_v1_5_features.gd
+godot --headless --script scripts_scratch/verify_v1_6_features.gd
 godot --headless --script scripts_scratch/e2e_match_simulation.gd
 ```
+
 
