@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://ccuckooclock"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/CuckooClockStation.gd" id="1_clock"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/cuckoo_call.wav" id="2_cuckoo"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/automaton_jam.wav" id="3_jam"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_clock"]
+size = Vector3(0.5, 0.9, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oak"]
+albedo_color = Color(0.24, 0.15, 0.08, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_case"]
+material = SubResource("StandardMaterial3D_oak")
+size = Vector3(0.35, 0.42, 0.16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
+albedo_color = Color(0.18, 0.1, 0.05, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_door"]
+material = SubResource("StandardMaterial3D_door")
+size = Vector3(0.08, 0.1, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_brass"]
+albedo_color = Color(0.75, 0.6, 0.22, 1)
+metallic = 0.85
+roughness = 0.35
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pendulum"]
+material = SubResource("StandardMaterial3D_brass")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pinecone"]
+albedo_color = Color(0.15, 0.15, 0.16, 1)
+metallic = 0.8
+roughness = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_weight"]
+material = SubResource("StandardMaterial3D_pinecone")
+top_radius = 0.02
+bottom_radius = 0.03
+height = 0.12
+
+[node name="CuckooClockStation" type="StaticBody3D" groups=["clock_station", "interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_clock")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_clock")
+
+[node name="ClockCase" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_case")
+
+[node name="BirdDoor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.09)
+
+[node name="DoorMesh" type="MeshInstance3D" parent="BirdDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0, 0)
+mesh = SubResource("BoxMesh_door")
+
+[node name="Pendulum" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0.02)
+
+[node name="DiscMesh" type="MeshInstance3D" parent="Pendulum"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.22, 0)
+mesh = SubResource("CylinderMesh_pendulum")
+
+[node name="WeightLeft" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, -0.25, 0.02)
+
+[node name="WeightMesh" type="MeshInstance3D" parent="WeightLeft"]
+mesh = SubResource("CylinderMesh_weight")
+
+[node name="WeightRight" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, -0.28, 0.02)
+
+[node name="WeightMesh" type="MeshInstance3D" parent="WeightRight"]
+mesh = SubResource("CylinderMesh_weight")
+
+[node name="CuckooAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_cuckoo")
+max_distance = 18.0
+bus = &"SFX"
+
+[node name="JamAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_jam")
+max_distance = 16.0
+bus = &"SFX"

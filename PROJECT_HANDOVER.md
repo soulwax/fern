@@ -104,6 +104,11 @@ Accessible directly from the **Main Menu**:
 - **Window Shutter Drop-Latch Barricades (Die Fensterläden-Riegel):** Heavy hand-forged wrought-iron drop-latches across interior timber window shutters. When the wraith claws at shutters, slam and wedge the latch (`[E]`) to absorb 2 brute-force impacts (`latch_rattle.wav`), protecting barricade planks from splintering.
 - **The Pine Pitch Resin Cauldron (Der Pechkessel):** An antique cast-iron pitch pot on the hearth. Stoking the embers (`[E]`) boils hot pine rosin (`cauldron_boil.wav`) and billows aromatic consecrated spruce vapor into the ceiling rafters, denying elevated ambush perches to *Der Alp* for 45s and forcing it down to the ground floor.
 
+### 14. The Black Forest Cuckoo Automaton, Cold-Iron Framing Chisel & Midsummer Herb Bundles (v0.0.5)
+- **The Black Forest Cuckoo Automaton (Die Schwarzwald-Kuckucksuhr):** Hand-carved mechanical wall clock with pinecone weight escapement. Emits authentic dual-pipe wooden bellows cuckoo calls on every half-hour (`cuckoo_call.wav`). If *Der Alp* draws within 6.0m, the supernatural presence chatters and violently jams the escapement gears (`automaton_jam.wav`), giving an unmistakable early acoustic warning. Players can pull descending weight chains (`[E]`) to rewind the clockwork.
+- **Cold-Iron Framing Chisel Defense (Das Handgeschmiedete Stemmeisen):** A heavy hand-forged socket framing chisel kept in the central workbench tool rack. When *Der Alp* lunges into critical attack range (<2.2m), the player can strike with cold iron (`[E]` / LMB) with a deafening concussive impact (`chisel_strike.wav`), repelling and staggering the wraith for 3.0s. Dulls upon impact, requiring resharpening at the GrindStone station.
+- **Midsummer Eve Consecrated Herb Bundles (Die Johanniskraut-Bündel):** Bundles of dried Saint John's wort and mugwort suspended from upper ceiling rafters. Under the Farnblume's UV bloom, they glow with golden protective runes. Crushing a sprig (`[E]`, `herb_crush.wav`) envelops the player in a fragrant botanical cloud for 20s, suppressing rapid cardiac heartbeat panic audio and masking sprint footsteps from *Der Alp*.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -112,7 +117,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
 - **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, rolling thunder rumbles, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, torch flame crackles, iron shutter drop-latch rattles, viscous pine pitch bubbling, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, torch flame crackles, iron shutter drop-latch rattles, viscous pine pitch bubbling, cuckoo calls and escapement jams, cold-iron chisel strikes, herb crunching foley, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -121,6 +126,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.5 (The Black Forest Cuckoo Automaton, Cold-Iron Framing Chisel & Midsummer Herb Bundles):** [https://github.com/soulwax/fern/releases/tag/v0.0.5](https://github.com/soulwax/fern/releases/tag/v0.0.5)
 - **v0.0.4 (The Kienspan Resin Torch, Window Drop-Latches & Pine Pitch Cauldron):** [https://github.com/soulwax/fern/releases/tag/v0.0.4](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 - **v0.0.3 (Consecrated Salt Lines, Turbulent Candle Drafts & Pine Shaving Soundtraps):** [https://github.com/soulwax/fern/releases/tag/v0.0.3](https://github.com/soulwax/fern/releases/tag/v0.0.3)
 - **v0.0.2 (The Black Forest Standuhr, Iron Horseshoe & Fog Ingress):** [https://github.com/soulwax/fern/releases/tag/v0.0.2](https://github.com/soulwax/fern/releases/tag/v0.0.2)
@@ -140,6 +146,7 @@ All standalone builds are packaged with the standalone game executable, user man
 ## 🛠️ Developer Verification & Test Suite
 
 The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
+- `verify_v0_0_5_features.gd`: Validates Cuckoo Clock half-hour bellows calls, proximity escapement jamming, weight rewind, Cold-Iron Framing Chisel lunging parry/repel, grindstone resharpening, and Midsummer Herb Bundle crushing with heartbeat/scent masking.
 - `verify_v1_9_features.gd`: Validates MirrorStation SubViewport reflection setup, Layer 2 wraith true-form visibility, floorboard altitude groans, and workbench tool tremble.
 - `verify_v1_8_features.gd`: Validates thunderstorm lightning shadow projection, thunder delay, cold breath condensation particles, and hanging chain physics & clinking.
 - `verify_v1_7_features.gd`: Validates heartbeat sub-bass cardiac pacing, Drudenfuss threshold UV luminescence, and sulfur repel bursts.
@@ -151,7 +158,7 @@ The project includes headless simulation scripts inside [scripts_scratch/](file:
 
 To run tests in headless mode:
 ```powershell
-godot --headless --script scripts_scratch/verify_v1_9_features.gd
+godot --headless --script scripts_scratch/verify_v0_0_5_features.gd
 godot --headless --script scripts_scratch/e2e_match_simulation.gd
 ```
 

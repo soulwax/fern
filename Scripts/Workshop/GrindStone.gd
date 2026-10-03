@@ -54,6 +54,12 @@ func _on_interacted(player: Node) -> void:
 		if flower and flower.has_method("recharge"):
 			flower.recharge(25.0)
 
+	if is_inside_tree():
+		var chisels = get_tree().get_nodes_in_group("chisel_station")
+		for c in chisels:
+			if c.has_method("resharpen"):
+				c.resharpen()
+
 func _trigger_sparks() -> void:
 	_ensure_nodes()
 	is_spinning = true

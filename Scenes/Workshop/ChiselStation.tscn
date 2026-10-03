@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cchiselstation"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/ChiselStation.gd" id="1_chisel"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/chisel_strike.wav" id="2_audio"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_chisel"]
+size = Vector3(0.35, 0.25, 0.45)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rack"]
+albedo_color = Color(0.28, 0.18, 0.1, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_rack"]
+material = SubResource("StandardMaterial3D_rack")
+size = Vector3(0.25, 0.08, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_steel"]
+albedo_color = Color(0.22, 0.24, 0.26, 1)
+metallic = 0.9
+roughness = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_blade"]
+material = SubResource("StandardMaterial3D_steel")
+size = Vector3(0.04, 0.015, 0.28)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sparks"]
+direction = Vector3(0, 1, 0)
+spread = 45.0
+initial_velocity_min = 1.2
+initial_velocity_max = 2.8
+gravity = Vector3(0, -2.5, 0)
+scale_min = 0.8
+scale_max = 1.6
+color = Color(1, 0.7, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spark"]
+shading_mode = 0
+albedo_color = Color(1, 0.75, 0.2, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_spark"]
+material = SubResource("StandardMaterial3D_spark")
+radius = 0.015
+height = 0.03
+
+[node name="ChiselStation" type="StaticBody3D" groups=["chisel_station", "interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_chisel")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_chisel")
+
+[node name="RackBase" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_rack")
+
+[node name="ChiselMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_blade")
+
+[node name="StrikeSparks" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.95
+process_material = SubResource("ParticleProcessMaterial_sparks")
+draw_pass_1 = SubResource("SphereMesh_spark")
+
+[node name="StrikeAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_audio")
+max_distance = 18.0
+bus = &"SFX"

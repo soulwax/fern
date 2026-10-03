@@ -51,6 +51,7 @@ var is_visible_to_player: bool = false
 var window_siege_cooldown: float = 30.0
 var target_window: Node3D = null
 var rafter_denial_timer: float = 0.0
+var scent_mask_timer: float = 0.0
 
 
 # Footstep tracking
@@ -72,6 +73,11 @@ func set_rafter_denial(duration: float) -> void:
 	rafter_denial_timer = duration
 	if current_target_point.y > 2.0:
 		_pick_next_waypoint()
+
+func set_scent_masked(duration: float) -> void:
+	scent_mask_timer = duration
+	if current_state == State.STALK:
+		set_state(State.PROWL)
 
 func _find_player() -> void:
 	var players = get_tree().get_nodes_in_group("player")
@@ -119,6 +125,9 @@ func _physics_process(delta: float) -> void:
 		var cur_y = global_position.y if is_inside_tree() else position.y
 		if cur_y > 2.0:
 			velocity.y = -4.0
+	
+	if scent_mask_timer > 0.0:
+		scent_mask_timer -= delta
 	
 	if current_state == State.PROWL or current_state == State.STALK:
 		window_siege_cooldown -= delta
@@ -192,7 +201,7 @@ func _process_prowl(delta: float) -> void:
 
 func _process_stalk(delta: float) -> void:
 	state_timer -= delta
-	if not player_ref:
+	if not player_ref or scent_mask_timer > 0.0:
 		set_state(State.PROWL)
 		return
 		
