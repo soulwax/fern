@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v1.7.0)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v1.8.0)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v1.7.0)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v1.8.0)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build (v1.7.0)](https://github.com/soulwax/fern/releases/download/v1.7.0/Fern-v1.7.0-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build (v1.8.0)](https://github.com/soulwax/fern/releases/download/v1.8.0/Fern-v1.8.0-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -32,6 +32,9 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 ## ✨ Core Features & Mechanics
 
 - 🌸 **The Handheld Farnblume:** Held in your left hand with living, organic luminescence. Wilt dynamics require constant replenishment at the workshop stations.
+- ⚡ **Black Forest Thunderstorm & Shadow Silhouettes (v1.8.0):** Periodic distant lightning flashes cast sharp chiaroscuro beams through the workshop windows. Any wraith stalking inside is silhouetted as a towering antlered shadow against the timber walls, followed by deep rolling thunder.
+- ❄️ **Exhaled Freezing Breath Condensation (v1.8.0):** As *Der Alp* draws near (<7.5m) or cold night drafts seep through broken window breaches, ambient temperature plunges, producing rhythmic clouds of translucent condensed breath in the player's view.
+- ⛓️ **Dynamic Rafter Chains & Metallic Foley (v1.8.0):** Heavy iron chains suspended from the ceiling sway with authentic pendulum physics and metallic clinking audio when either the entity or player passes beneath or through them.
 - 🔨 **Workshop Siege & Perimeter Barricades:** *Der Alp* stalks exterior workshop windows, violently rattling timber shutters with authentic 3D spatial foley. If unaddressed, barricade planks splinter off, allowing whistling cold drafts that accelerate the Farnblume's wilt rate (+20% per open breach). Rush to windows with UV bloom (`F`) to repel the wraith, and nail fresh timber planks (`[E]`) to seal the perimeter.
 - 📷 **19th-Century Daguerreotype Post-Processing:** Custom full-screen film grain shader simulating authentic silver halide grain, claustrophobic radial vignetting, vintage curved glass chromatic aberration, and rich chiaroscuro contrast. Fully toggleable in the Pause Menu.
 - 💥 **Grindstone Spark Silhouette Detection:** Turn the grindstone foot pedal to shower the room in fiery sparks. Any sparks striking *Der Alp* ignite glowing embers on its stag-horn body for 3 seconds, stunning the entity and outlining its terrifying silhouette in the dark.
@@ -73,7 +76,9 @@ Every standalone release archive is self-contained and pre-configured for Window
 
 | Version | Status | Highlights | Download |
 |:---|:---:|:---|:---:|
-| **v1.6.0** | 🌟 **Latest** | **Workshop Siege Update:** Dynamic window shutter rattles, barricade breaches by Der Alp, draft-induced wilt penalty, hammer repair | [ZIP (275 MB)](https://github.com/soulwax/fern/releases/download/v1.6.0/Fern-v1.6.0-windows-x86_64.zip) |
+| **v1.8.0** | 🌟 **Latest** | **Walpurgisnacht Thunderstorm, Freezing Breath & Rafter Chains:** Lightning silhouette beams, rolling thunder audio, freezing breath condensation, and dynamic swaying rafter chains with metallic clinking | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v1.8.0/Fern-v1.8.0-windows-x86_64.zip) |
+| **v1.7.0** | Stable | **Heartbeat Anxiety & Drudenfuss Consecration:** Proximity sub-bass cardiac pacing, Drudenfuss chalk threshold runes, UV luminescence boost, sulfur burst | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v1.7.0/Fern-v1.7.0-windows-x86_64.zip) |
+| **v1.6.0** | Stable | **Workshop Siege Update:** Dynamic window shutter rattles, barricade breaches by Der Alp, draft-induced wilt penalty, hammer repair | [ZIP (306 MB)](https://github.com/soulwax/fern/releases/download/v1.6.0/Fern-v1.6.0-windows-x86_64.zip) |
 | **v1.5.0** | Stable | **Daguerreotype & Spark Silhouette:** 19th-century silver halide film grain shader, Grindstone spark wraith ignition & outline, bloom recharge | [ZIP (275 MB)](https://github.com/soulwax/fern/releases/download/v1.5.0/Fern-v1.5.0-windows-x86_64.zip) |
 | **v1.4.0** | Stable | **Audio & Graphics Settings:** Multi-channel audio bus layout with valley reverb, Forward+ TAA, VSync, in-game audio channels & F11 fullscreen | [ZIP (275 MB)](https://github.com/soulwax/fern/releases/download/v1.4.0/Fern-v1.4.0-windows-x86_64.zip) |
 | **v1.3.0** | Stable | **Definitive Jam Edition:** High-res key art, complete jam presentation page, full audio foley suite | [ZIP (274 MB)](https://github.com/soulwax/fern/releases/download/v1.3.0/Fern-v1.3.0-windows-x86_64.zip) |

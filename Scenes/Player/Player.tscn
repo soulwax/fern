@@ -3,10 +3,30 @@
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.gd" id="1_pc"]
 [ext_resource type="PackedScene" path="res://Scenes/Player/Farnblume.tscn" id="2_fb"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/wood_crunch_step.wav" id="3_step"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/breath_cold.wav" id="4_breath"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p1"]
 radius = 0.35
 height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_breath"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.9, 0.95, 1, 0.28)
+
+[sub_resource type="SphereMesh" id="SphereMesh_breath"]
+material = SubResource("StandardMaterial3D_breath")
+radius = 0.04
+height = 0.08
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_breath"]
+direction = Vector3(0, 0, -1)
+spread = 20.0
+initial_velocity_min = 0.4
+initial_velocity_max = 0.8
+gravity = Vector3(0, 0.05, 0)
+scale_min = 0.8
+scale_max = 2.2
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
@@ -33,6 +53,23 @@ collide_with_areas = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26, -0.22, -0.42)
 
 [node name="Farnblume" parent="Head/Camera3D/HandSocket" instance=ExtResource("2_fb")]
+
+[node name="ColdBreathParticles" type="GPUParticles3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, -0.2)
+emitting = false
+amount = 12
+lifetime = 1.1
+one_shot = true
+explosiveness = 0.85
+process_material = SubResource("ParticleProcessMaterial_breath")
+draw_pass_1 = SubResource("SphereMesh_breath")
+
+[node name="ColdBreathAudio" type="AudioStreamPlayer3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, -0.2)
+stream = ExtResource("4_breath")
+volume_db = -12.0
+max_distance = 6.0
+bus = &"SFX"
 
 [node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

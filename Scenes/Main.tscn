@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/LadderStation.tscn" id="16_ladder"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/Ambiance/black_forest_wind.wav" id="17_wind"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/PostProcess.tscn" id="18_postproc"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/thunder_distant.wav" id="19_thunder"]
 
 [sub_resource type="Environment" id="Environment_gothic"]
 background_mode = 1
@@ -73,6 +74,13 @@ visible = false
 light_color = Color(1, 0.82, 0.55, 1)
 light_energy = 0.0
 light_volumetric_fog_energy = 2.0
+shadow_enabled = true
+
+[node name="LightningLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 12, 0)
+light_color = Color(0.85, 0.95, 1, 1)
+light_energy = 0.0
+light_volumetric_fog_energy = 3.5
 shadow_enabled = true
 
 [node name="Workshop" parent="." instance=ExtResource("2_workshop")]
@@ -153,4 +161,9 @@ bus = &"Bells"
 
 [node name="DayBirdsAudio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("10_birds")
+bus = &"Ambiance"
+
+[node name="ThunderAudio" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("19_thunder")
+volume_db = -6.0
 bus = &"Ambiance"

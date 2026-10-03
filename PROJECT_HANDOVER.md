@@ -79,15 +79,20 @@ Accessible directly from the **Main Menu**:
 - **UV-Reactive Drudenfuss Threshold:** Drawing the warded threshold plays abrasive chalk scratching audio (`chalk_scratch.wav` on `SFX` bus). Active runes glow with holy blue-violet light that intensifies under the Farnblume's UV beam. If *Der Alp* collides with the barrier, it ignites sulfur smoke particles and forces a screeching retreat.
 - **Concussive Anvil Ring:** Workshop anvil strikes route through the `SFX` bus with 14m shockwave stun.
 
+### 9. Walpurgisnacht Thunderstorm, Freezing Breath & Rafter Chains (v1.8.0)
+- **Thunderstorm & Lightning Silhouettes:** Distant lightning flashes cast sharp chiaroscuro beams through the workshop windows, illuminating *Der Alp*'s terrifying branching antlered shadow against timber walls followed by rolling valley thunder.
+- **Exhaled Freezing Breath Condensation:** As *Der Alp* stalks within 7.5m or cold night drafts seep through broken window breaches, ambient temperature plunges, producing rhythmic clouds of translucent condensed breath in the player's view.
+- **Dynamic Rafter Chains & Foley Clinking:** Ceiling chains and hooks sway with realistic pendulum physics and metallic clinking when the entity or player passes beneath or through them.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
 
 All audio systems in *Fern* are routed through a dedicated multi-channel bus hierarchy (`default_bus_layout.tres`):
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
-- **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
+- **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, rolling thunder rumbles, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -96,6 +101,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v1.8.0 (Walpurgisnacht Thunderstorm, Freezing Breath & Rafter Chains):** [https://github.com/soulwax/fern/releases/tag/v1.8.0](https://github.com/soulwax/fern/releases/tag/v1.8.0)
 - **v1.7.0 (Heartbeat Anxiety & Drudenfuss Consecration):** [https://github.com/soulwax/fern/releases/tag/v1.7.0](https://github.com/soulwax/fern/releases/tag/v1.7.0)
 - **v1.6.0 (Workshop Siege Update):** [https://github.com/soulwax/fern/releases/tag/v1.6.0](https://github.com/soulwax/fern/releases/tag/v1.6.0)
 - **v1.5.0 (Daguerreotype & Spark Silhouette):** [https://github.com/soulwax/fern/releases/tag/v1.5.0](https://github.com/soulwax/fern/releases/tag/v1.5.0)
@@ -110,6 +116,8 @@ All standalone builds are packaged with the standalone game executable, user man
 ## 🛠️ Developer Verification & Test Suite
 
 The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
+- `verify_v1_8_features.gd`: Validates thunderstorm lightning shadow projection, thunder delay, cold breath condensation particles, and hanging chain physics & clinking.
+- `verify_v1_7_features.gd`: Validates heartbeat sub-bass cardiac pacing, Drudenfuss threshold UV luminescence, and sulfur repel bursts.
 - `verify_v1_6_features.gd`: Validates window rattle, shutter shudder vibration, plank breach, hammer fortification, draft wilt multipliers, and wraith siege routines.
 - `verify_v1_5_features.gd`: Validates Daguerreotype shader compilation, toggle events, GrindStone spark emission, and wraith ember ignition.
 - `e2e_match_simulation.gd`: Simulates a full game cycle (00:00 to 06:00), testing hourly transitions, victory triggers, station interactions, and wraith speed scaling.
@@ -118,7 +126,7 @@ The project includes headless simulation scripts inside [scripts_scratch/](file:
 
 To run tests in headless mode:
 ```powershell
-godot --headless --script scripts_scratch/verify_v1_6_features.gd
+godot --headless --script scripts_scratch/verify_v1_8_features.gd
 godot --headless --script scripts_scratch/e2e_match_simulation.gd
 ```
 

@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Workshop/HangingProp.gd" id="1_hp"]
 [ext_resource type="PackedScene" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/SM_Hook.gltf" id="2_hook"]
 [ext_resource type="AudioStream" path="res://Assets/Audio/chain_creak.wav" id="3_creak"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/chain_clink.wav" id="4_clink"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_prox"]
 radius = 2.6
@@ -27,4 +28,11 @@ shape = SubResource("SphereShape3D_prox")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0, 0)
 stream = ExtResource("3_creak")
 max_distance = 18.0
-bus = &"Master"
+bus = &"SFX"
+
+[node name="ChainClinkAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+stream = ExtResource("4_clink")
+volume_db = -4.0
+max_distance = 18.0
+bus = &"SFX"

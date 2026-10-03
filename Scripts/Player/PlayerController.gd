@@ -33,6 +33,12 @@ signal prompt_changed(prompt_text: String)
 @onready var hand_socket: Node3D = $Head/Camera3D/HandSocket
 @onready var footstep_player: AudioStreamPlayer3D = $FootstepPlayer
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
+@onready var cold_breath_particles: GPUParticles3D = $Head/Camera3D/ColdBreathParticles
+@onready var cold_breath_audio: AudioStreamPlayer3D = $Head/Camera3D/ColdBreathAudio
+
+signal cold_breath_emitted()
+var breath_timer: float = 0.0
+var cached_wraith: Node3D = null
 
 # Internal state
 var is_sprinting: bool = false
@@ -165,6 +171,52 @@ func _physics_process(delta: float) -> void:
 			camera.position.x = lerp(camera.position.x, 0.0, delta * 8.0)
 
 	_check_interaction()
+	_handle_cold_breath(delta)
+
+func _ensure_breath_nodes() -> void:
+	if not head:
+		head = get_node_or_null("Head")
+	if not camera and head:
+		camera = head.get_node_or_null("Camera3D")
+	if not cold_breath_particles and camera:
+		cold_breath_particles = camera.get_node_or_null("ColdBreathParticles")
+	if not cold_breath_audio and camera:
+		cold_breath_audio = camera.get_node_or_null("ColdBreathAudio")
+
+func _handle_cold_breath(delta: float) -> void:
+	_ensure_breath_nodes()
+	if not cached_wraith or not is_instance_valid(cached_wraith):
+		var wraiths = get_tree().get_nodes_in_group("unseen_entity") if get_tree() else []
+		if wraiths.size() > 0:
+			cached_wraith = wraiths[0]
+			
+	var is_freezing = false
+	if cached_wraith and is_instance_valid(cached_wraith):
+		var dist = global_position.distance_to(cached_wraith.global_position)
+		if dist <= 7.5:
+			is_freezing = true
+			
+	var game_state = get_node_or_null("/root/GameState")
+	if game_state and game_state.open_window_breaches > 0:
+		is_freezing = true
+		
+	if is_freezing:
+		breath_timer -= delta
+		if breath_timer <= 0.0:
+			trigger_cold_breath()
+			breath_timer = randf_range(2.0, 3.2)
+	else:
+		breath_timer = 1.0
+
+func trigger_cold_breath() -> void:
+	_ensure_breath_nodes()
+	if cold_breath_particles and is_inside_tree():
+		cold_breath_particles.restart()
+		cold_breath_particles.emitting = true
+	if cold_breath_audio and is_inside_tree():
+		cold_breath_audio.pitch_scale = randf_range(0.92, 1.08)
+		cold_breath_audio.play()
+	cold_breath_emitted.emit()
 
 func _trigger_footstep() -> void:
 	if footstep_player and footstep_player.stream:
