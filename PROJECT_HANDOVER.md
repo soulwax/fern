@@ -123,6 +123,11 @@ Accessible directly from the **Main Menu**:
 - **Die Johanniskraut-Dolden (Midsummer Herb Bundles):** Rafter-hung herbs (`Scenes/Workshop/HerbBundleStation.tscn`). Crushed (`[E]`, `herb_crush.wav`) to mask scent for 20s and break wraith stalking pursuit.
 - **Das Unerschütterliche Fundament (Solid Continuous Floor Architecture):** 4-meter thick static box colliders underpinning all ground floorboards and loft rafters, combined with sub-floor safety nets, perimeter wall barriers, terminal velocity clamping, and fail-safe abyss rescue. Guarantees no falling or tunneling through the floor under any physics conditions.
 
+### 18. Das Kohlenbecken & Der Hobelspan-Wall (Charcoal Hearth, Zinc Basin & Drawknife Shavings)
+- **Das Kohlenbecken & Der Schmiedebalg (Charcoal Hearth & Bellows Flare):** Authentic forge hearth (`Scenes/Workshop/HearthBellowsStation.tscn`). Supernatural proximity (<5.0m) quenches embers with a vapor hiss (`ember_hiss.wav`). Pumping leather bellows (`[E]`, `bellows_pump.wav`) erupts radiant orange firelight and sparks, repelling *Der Alp* for 4.0s.
+- **Das Zink-Regenfass & Tropfenresonanz (Zinc Basin & Droplet Resonator):** Galvanized zinc rainwater tub (`Scenes/Workshop/ZincBasinStation.tscn`) dripping with metallic pings (`drip_tap.wav`). Overhead entity traversal in rafters arrests surface tension, triggering a sudden acoustic splash (`water_splash.wav`). Interact (`[E]`) to refill rainwater and restore Farnblume luminescence.
+- **Das Zugmesser & Der Hobelspan-Wall (Drawknife & Spruce Shaving Snare):** Two-handled drawknife at shaving horse (`Scenes/Workshop/DrawknifeStation.tscn`). Hold `[E]` to carve aromatic ribbons (`drawknife_peel.wav`). Tangled shaving snares reduce wraith movement speed by 40% (0.6x) for 5.0 seconds.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -140,6 +145,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.6 (Das Kohlenbecken & Der Hobelspan-Wall):** [https://github.com/soulwax/fern/releases/tag/v0.0.6](https://github.com/soulwax/fern/releases/tag/v0.0.6)
 - **v0.0.5 (Die Kuckucksuhr & Das Unerschütterliche Fundament):** [https://github.com/soulwax/fern/releases/tag/v0.0.5](https://github.com/soulwax/fern/releases/tag/v0.0.5)
 - **v0.0.4 (Die Pechfackel):** [https://github.com/soulwax/fern/releases/tag/v0.0.4](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 - **v0.0.3 (Die Totenbretter):** [https://github.com/soulwax/fern/releases/tag/v0.0.3](https://github.com/soulwax/fern/releases/tag/v0.0.3)
