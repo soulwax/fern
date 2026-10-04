@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://clinseedlamp"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/LinseedLampStation.gd" id="1_lamp"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/wick_turn.wav" id="2_wick_audio"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lamp"]
+height = 1.2
+radius = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chain"]
+albedo_color = Color(0.2, 0.2, 0.22, 1)
+metallic = 0.8
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_chain"]
+material = SubResource("StandardMaterial3D_chain")
+top_radius = 0.015
+bottom_radius = 0.015
+height = 1.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_brass"]
+albedo_color = Color(0.65, 0.52, 0.25, 1)
+metallic = 0.75
+roughness = 0.35
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cap"]
+material = SubResource("StandardMaterial3D_brass")
+top_radius = 0.08
+bottom_radius = 0.22
+height = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mica"]
+transparency = 1
+albedo_color = Color(0.9, 0.82, 0.6, 0.45)
+roughness = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mica"]
+material = SubResource("StandardMaterial3D_mica")
+top_radius = 0.22
+bottom_radius = 0.18
+height = 0.28
+
+[node name="LinseedLampStation" type="StaticBody3D" groups=["interactable", "lamp_station"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_lamp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+shape = SubResource("CylinderShape3D_lamp")
+
+[node name="ChainMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("CylinderMesh_chain")
+
+[node name="LampMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+mesh = SubResource("CylinderMesh_cap")
+
+[node name="MicaMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("CylinderMesh_mica")
+
+[node name="LampLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+light_color = Color(1, 0.76, 0.42, 1)
+light_energy = 0.4
+omni_range = 6.0
+omni_attenuation = 1.2
+
+[node name="WickAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+stream = ExtResource("2_wick_audio")
+max_distance = 15.0
+bus = &"SFX"
