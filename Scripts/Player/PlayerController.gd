@@ -128,6 +128,9 @@ func _physics_process(delta: float) -> void:
 		target_speed = crouch_speed
 	elif is_sprinting:
 		target_speed = sprint_speed
+		var game_state = get_node_or_null("/root/GameState")
+		if game_state and game_state.get("has_rowan_talisman"):
+			target_speed = sprint_speed * 1.12
 
 	# Movement input
 	var input_dir = Vector2.ZERO

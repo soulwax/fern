@@ -1,92 +1,80 @@
 extends SceneTree
 
-const SaltLineStationClass = preload("res://Scripts/Workshop/SaltLineStation.gd")
-const WoodShavingTrapClass = preload("res://Scripts/Workshop/WoodShavingTrap.gd")
-const CandleStationClass = preload("res://Scripts/Workshop/CandleStation.gd")
-
 func _init() -> void:
-	print("--- Running FERN Milestone v0.0.3 Feature Verification ---")
+	print("--- BEGIN VERIFICATION: Fern v0.0.3 Features ---")
 
-	# Test 1: SaltLineStation
-	print("[1/4] Verifying SaltLineStation.tscn and sizzling threshold repel...")
-	var salt_scene = load("res://Scenes/Workshop/SaltLineStation.tscn")
-	assert(salt_scene != null, "SaltLineStation.tscn must load successfully")
-	var salt_instance = salt_scene.instantiate()
-	assert(salt_instance != null, "SaltLineStation.tscn must instantiate cleanly")
+	# TEST 1: TotenbrettStation mechanics
+	print("\n[Test 1] Testing TotenbrettStation mechanics...")
+	var totenbrett_scene = load("res://Scenes/Workshop/TotenbrettStation.tscn")
+	assert(totenbrett_scene != null, "TotenbrettStation.tscn failed to load!")
+	var totenbrett = totenbrett_scene.instantiate()
+	root.add_child(totenbrett)
 
-	var sizzle_audio = salt_instance.get_node_or_null("SizzleAudio")
-	assert(sizzle_audio != null, "SizzleAudio must exist in SaltLineStation")
-	assert(sizzle_audio.bus == &"SFX", "SizzleAudio must route to SFX bus")
-	assert(salt_instance.current_charges == 2, "SaltLine must start with 2 charges")
+	assert(totenbrett.is_consecrated == false, "Initial totenbrett must be unconsecrated")
+	totenbrett.consecrate_totenbrett()
+	assert(totenbrett.is_consecrated == true, "Totenbrett must be consecrated after consecrate_totenbrett()")
+	assert(totenbrett.rune_light.visible == true, "RuneLight must be visible when consecrated")
 
-	# Simulate wraith crossing
+	# Test proximity repel on mock wraith
 	var wraith_scene = load("res://Scenes/Monster/InvisibleWraith.tscn")
-	var wraith_instance = wraith_scene.instantiate()
-	salt_instance.trigger_sizzle(wraith_instance)
-	assert(salt_instance.current_charges == 1, "Charges must decrement to 1 after sizzle")
-	assert(wraith_instance.current_state == wraith_instance.State.REPELLED, "Wraith must be repelled by salt sizzle")
+	var wraith = wraith_scene.instantiate()
+	root.add_child(wraith)
+	wraith.global_position = totenbrett.global_position + Vector3(1.0, 0.0, 0.0)
+	totenbrett._check_for_approaching_wraith()
+	assert(wraith.current_state == WraithAI.State.REPELLED, "Wraith must be repelled by Totenbrett!")
 
-	# Replenish
-	salt_instance.replenish()
-	assert(salt_instance.current_charges == 2, "Replenish must restore charges to 2")
-	print("  -> Passed: SaltLineStation barrier & replenishment verified.")
+	totenbrett.discharge_ward()
+	assert(totenbrett.is_consecrated == false, "Totenbrett must be unconsecrated after discharge_ward()")
+	print(" -> PASS: Totenbrett consecration, rune glow, and wraith repel verified.")
+	totenbrett.queue_free()
+	wraith.queue_free()
 
-	# Test 2: CandleStation draft physics
-	print("[2/4] Verifying CandleStation.gd turbulent draft physics...")
-	var candle_scene = load("res://Scenes/Workshop/CandleStation.tscn")
-	assert(candle_scene != null, "CandleStation.tscn must load successfully")
-	var candle_instance = candle_scene.instantiate()
-	assert(candle_instance != null, "CandleStation.tscn must instantiate cleanly")
+	# TEST 2: TalismanBenchStation mechanics
+	print("\n[Test 2] Testing TalismanBenchStation & Rowan Amulet...")
+	var talisman_scene = load("res://Scenes/Workshop/TalismanBenchStation.tscn")
+	assert(talisman_scene != null, "TalismanBenchStation.tscn failed to load!")
+	var talisman_bench = talisman_scene.instantiate()
+	root.add_child(talisman_bench)
 
-	# Test process with simulated draft
-	candle_instance._ready()
-	candle_instance._process(0.1)
-	assert(candle_instance.is_lit == true, "Candle must remain lit under normal draft")
-	var flame_mesh = candle_instance.get_node_or_null("FlameMesh")
-	assert(flame_mesh != null, "FlameMesh must exist on CandleStation")
-	print("  -> Passed: CandleStation turbulent draft physics verified.")
+	assert(talisman_bench.is_crafted == false, "Initial talisman must be uncrafted")
+	talisman_bench.craft_talisman()
+	assert(talisman_bench.is_crafted == true, "Talisman must be crafted after craft_talisman()")
+	assert(talisman_bench.amulet_mesh.visible == true, "Amulet mesh must be visible after crafting")
+	
+	var game_state = root.get_node_or_null("/root/GameState")
+	if game_state:
+		assert(game_state.has_rowan_talisman == true, "GameState.has_rowan_talisman must be true!")
+	print(" -> PASS: TalismanBenchStation crafting and GameState flag verified.")
+	talisman_bench.queue_free()
 
-	# Test 3: WoodShavingTrap
-	print("[3/4] Verifying WoodShavingTrap.tscn and crunch foley...")
-	var trap_scene = load("res://Scenes/Workshop/WoodShavingTrap.tscn")
-	assert(trap_scene != null, "WoodShavingTrap.tscn must load successfully")
-	var trap_instance = trap_scene.instantiate()
-	assert(trap_instance != null, "WoodShavingTrap.tscn must instantiate cleanly")
+	# TEST 3: GlassCarillonProp mechanics
+	print("\n[Test 3] Testing GlassCarillonProp rafter bells...")
+	var carillon_scene = load("res://Scenes/Workshop/GlassCarillonProp.tscn")
+	assert(carillon_scene != null, "GlassCarillonProp.tscn failed to load!")
+	var carillon = carillon_scene.instantiate()
+	root.add_child(carillon)
 
-	var crunch_audio = trap_instance.get_node_or_null("CrunchAudio")
-	assert(crunch_audio != null, "CrunchAudio must exist in WoodShavingTrap")
-	assert(crunch_audio.bus == &"SFX", "CrunchAudio must route to SFX bus")
+	carillon.trigger_chime()
+	assert(carillon.is_swaying == true, "Carillon bells must sway after trigger_chime()")
+	assert(carillon.chime_audio.playing == true, "Chime audio must play after trigger_chime()")
+	print(" -> PASS: GlassCarillonProp resonance and bell swaying verified.")
+	carillon.queue_free()
 
-	trap_instance.trigger_crunch(true)
-	assert(trap_instance.step_cooldown > 0.0, "Triggering crunch must activate step cooldown")
-	print("  -> Passed: WoodShavingTrap crunch foley verified.")
-
-	# Test 4: Main.tscn integration
-	print("[4/4] Verifying Main.tscn integration of all v0.0.3 stations...")
+	# TEST 4: Full Main Scene Integration
+	print("\n[Test 4] Testing Full Main Scene Integration with v0.0.3 stations...")
 	var main_scene = load("res://Scenes/Main.tscn")
-	assert(main_scene != null, "Main.tscn must load successfully")
-	var main_instance = main_scene.instantiate()
-	assert(main_instance != null, "Main.tscn must instantiate cleanly")
+	assert(main_scene != null, "Main.tscn failed to load!")
+	var main = main_scene.instantiate()
+	root.add_child(main)
 
-	var main_salt = main_instance.get_node_or_null("SaltLineStation")
-	assert(main_salt != null, "Main.tscn must contain SaltLineStation")
-	var main_trap1 = main_instance.get_node_or_null("WoodShavingTrap1")
-	assert(main_trap1 != null, "Main.tscn must contain WoodShavingTrap1")
-	var main_trap2 = main_instance.get_node_or_null("WoodShavingTrap2")
-	assert(main_trap2 != null, "Main.tscn must contain WoodShavingTrap2")
+	assert(main.get_node_or_null("TotenbrettStation") != null, "TotenbrettStation must exist in Main.tscn!")
+	assert(main.get_node_or_null("TalismanBenchStation") != null, "TalismanBenchStation must exist in Main.tscn!")
+	assert(main.get_node_or_null("GlassCarillonProp") != null, "GlassCarillonProp must exist in Main.tscn!")
 
-	print("  -> SaltLineStation position: ", main_salt.position)
-	print("  -> WoodShavingTrap1 position: ", main_trap1.position)
-	print("  -> WoodShavingTrap2 position: ", main_trap2.position)
+	print(" -> PASS: Full Main Scene loaded with all v0.0.3 stations successfully.")
+	main.queue_free()
 
-	# Clean up
-	salt_instance.free()
-	wraith_instance.free()
-	candle_instance.free()
-	trap_instance.free()
-	main_instance.free()
-
-	print("=======================================================")
-	print("🎉 ALL v0.0.3 FEATURE VERIFICATIONS PASSED SUCCESSFULLY!")
-	print("=======================================================")
+	print("\n==========================================")
+	print("ALL v0.0.3 VERIFICATION TESTS PASSED (100%)")
+	print("==========================================")
 	quit(0)

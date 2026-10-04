@@ -35,6 +35,9 @@
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/ZincBasinStation.tscn" id="33_basin"]
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/DrawknifeStation.tscn" id="34_drawknife"]
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/BreadOfferingStation.tscn" id="35_bread"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/TotenbrettStation.tscn" id="36_totenbrett"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/TalismanBenchStation.tscn" id="37_talisman"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/GlassCarillonProp.tscn" id="38_carillon"]
 
 [sub_resource type="Environment" id="Environment_gothic"]
 background_mode = 1
@@ -187,6 +190,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0, 3.2)
 
 [node name="BreadOfferingStation" parent="." instance=ExtResource("35_bread")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.88, 0.6)
+
+[node name="TotenbrettStation" parent="." instance=ExtResource("36_totenbrett")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -1.2)
+
+[node name="TalismanBenchStation" parent="." instance=ExtResource("37_talisman")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.88, -2.8)
+
+[node name="GlassCarillonProp" parent="." instance=ExtResource("38_carillon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2, 0)
 
 [node name="CandleGrindstone" parent="." instance=ExtResource("15_candle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0.88, -2.5)

@@ -5,6 +5,7 @@ signal game_won()
 signal game_lost()
 signal ambient_bell_tolled()
 signal post_processing_toggled(enabled: bool)
+signal talisman_crafted()
 
 enum Difficulty {
 	MIDSUMMER,     # Standard 6-hour night
@@ -20,6 +21,7 @@ enum Difficulty {
 var elapsed_in_hour: float = 0.0
 var is_game_active: bool = true
 var daguerreotype_enabled: bool = true
+var has_rowan_talisman: bool = false
 
 func set_daguerreotype_enabled(enabled: bool) -> void:
 	daguerreotype_enabled = enabled
@@ -100,6 +102,7 @@ func reset_game() -> void:
 	elapsed_in_hour = 0.0
 	is_game_active = true
 	open_window_breaches = 0
+	has_rowan_talisman = false
 	hour_changed.emit(current_hour, get_current_hour_name())
 
 

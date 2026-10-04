@@ -83,6 +83,9 @@ func _process(delta: float) -> void:
 		if game_state and game_state.current_difficulty == game_state.Difficulty.WALPURGISNACHT:
 			slow_thresh = 15.0
 			fast_thresh = 8.0
+		if game_state and game_state.get("has_rowan_talisman"):
+			slow_thresh *= 0.75
+			fast_thresh *= 0.75
 			
 		if dist <= fast_thresh:
 			# Frantic panic pulse

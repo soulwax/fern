@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://6ealan0bqyl4"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/GlassCarillonProp.gd" id="1_script"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/glass_carillon_chime.wav" id="2_audio"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wire"]
+albedo_color = Color(0.3, 0.3, 0.32, 1)
+metallic = 0.85
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wire"]
+material = SubResource("StandardMaterial3D_wire")
+top_radius = 0.005
+bottom_radius = 0.005
+height = 0.65
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass"]
+transparency = 1
+albedo_color = Color(0.82, 0.95, 1, 0.5)
+roughness = 0.12
+emission_enabled = true
+emission = Color(0.4, 0.75, 1, 1)
+emission_energy_multiplier = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bell"]
+material = SubResource("StandardMaterial3D_glass")
+top_radius = 0.03
+bottom_radius = 0.075
+height = 0.12
+
+[node name="GlassCarillonProp" type="Node3D" groups=["glass_carillon"]]
+script = ExtResource("1_script")
+
+[node name="SuspensionWire" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32, 0)
+mesh = SubResource("CylinderMesh_wire")
+
+[node name="Bells" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0)
+
+[node name="Bell1" type="MeshInstance3D" parent="Bells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0, 0)
+mesh = SubResource("CylinderMesh_bell")
+
+[node name="Bell2" type="MeshInstance3D" parent="Bells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0, 0)
+mesh = SubResource("CylinderMesh_bell")
+
+[node name="Bell3" type="MeshInstance3D" parent="Bells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.08)
+mesh = SubResource("CylinderMesh_bell")
+
+[node name="Bell4" type="MeshInstance3D" parent="Bells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08)
+mesh = SubResource("CylinderMesh_bell")
+
+[node name="ChimeAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0)
+stream = ExtResource("2_audio")
+volume_db = 1.0
+max_distance = 24.0
+bus = &"SFX"
