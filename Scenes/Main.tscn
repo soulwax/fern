@@ -41,6 +41,9 @@
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/BellRopeStation.tscn" id="39_bellrope"]
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/LinseedLampStation.tscn" id="40_linseedlamp"]
 [ext_resource type="PackedScene" path="res://Scenes/Workshop/IncenseCenserStation.tscn" id="41_censer"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/HolyWaterStoupStation.tscn" id="42_holywater"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/BroadaxeBlockStation.tscn" id="43_broadaxe"]
+[ext_resource type="PackedScene" path="res://Scenes/Workshop/ResonantSpruceStation.tscn" id="44_spruce"]
 
 [sub_resource type="Environment" id="Environment_gothic"]
 background_mode = 1
@@ -283,6 +286,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0.5)
 
 [node name="IncenseCenserStation" parent="." instance=ExtResource("41_censer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8, 2.2, -0.5)
+
+[node name="HolyWaterStoupStation" parent="." instance=ExtResource("42_holywater")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.6, 1.4, 4.75)
+
+[node name="BroadaxeBlockStation" parent="." instance=ExtResource("43_broadaxe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0, 1.8)
+
+[node name="ResonantSpruceStation" parent="." instance=ExtResource("44_spruce")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0, -0.2)
 
 [node name="CandleGrindstone" parent="." instance=ExtResource("15_candle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0.88, -2.5)

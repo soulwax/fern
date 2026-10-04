@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cbroadaxeblock01"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/BroadaxeBlockStation.gd" id="1_broadaxe"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/axe_timber_strike.wav" id="2_axe_audio"]
+[ext_resource type="ArrayMesh" path="res://Assets/LeartesStudios/CarpentersWorkshop/Art/Meshes/extracted/SM_Axe.SM_Axe_LOD0.mesh" id="3_axe_mesh"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_block"]
+height = 0.75
+radius = 0.38
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oak"]
+albedo_color = Color(0.38, 0.28, 0.18, 1)
+roughness = 0.9
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_stump"]
+material = SubResource("StandardMaterial3D_oak")
+top_radius = 0.35
+bottom_radius = 0.38
+height = 0.7
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_chips"]
+direction = Vector3(0, 0.8, 0)
+spread = 65.0
+initial_velocity_min = 1.2
+initial_velocity_max = 2.8
+gravity = Vector3(0, -9.8, 0)
+scale_min = 0.5
+scale_max = 1.5
+color = Color(0.85, 0.65, 0.4, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chip"]
+albedo_color = Color(0.82, 0.62, 0.38, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_chip"]
+material = SubResource("StandardMaterial3D_chip")
+size = Vector3(0.04, 0.02, 0.06)
+
+[node name="BroadaxeBlockStation" type="StaticBody3D" groups=["broadaxe_station", "interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_broadaxe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+shape = SubResource("CylinderShape3D_block")
+
+[node name="BlockMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("CylinderMesh_stump")
+
+[node name="AxeMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0.05, 0.68, -0.02)
+mesh = ExtResource("3_axe_mesh")
+
+[node name="StrikeParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
+emitting = false
+amount = 16
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.85
+process_material = SubResource("ParticleProcessMaterial_chips")
+draw_pass_1 = SubResource("BoxMesh_chip")
+
+[node name="AxeAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+stream = ExtResource("2_axe_audio")
+max_distance = 20.0
+bus = &"SFX"

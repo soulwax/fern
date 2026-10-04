@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.7)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.8)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.7)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.8)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build — v0.0.7](https://github.com/soulwax/fern/releases/download/v0.0.7/Fern-v0.0.7-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build — v0.0.8](https://github.com/soulwax/fern/releases/download/v0.0.8/Fern-v0.0.8-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -31,6 +31,9 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 
 ## ✨ Core Features & Mechanics
 
+- 💧 **Das Weihwasserbecken & Buchsbaum-Aspergill (Holy Water Stoup & Boxwood Aspergillum):** Wall stoup containing consecrated Epiphany water (*Dreikönigswasser*) with dried boxwood twig. Sprinkling consecrated droplets (`[E]`, `holy_sprinkle.wav`) blesses a 4.5m perimeter for 30s. When *Der Alp* steps into the threshold, droplets vaporize into scalding holy steam (`holy_steam_sizzle.wav`), blinding the wraith for 5.0 seconds and repelling its pursuit.
+- 🪓 **Das Breitbeil im Haublock (Carpenter's Broadaxe & Oak Heartwood Chopping Block):** Hand-forged 19th-century broadaxe embedded in a solid oak chopping block. Striking the blade deeper into heartwood (`[E]`, `axe_timber_strike.wav`) discharges a grounding acoustic-mechanical shockwave through the floorboards within 4.8m, forcing *Der Alp*'s visible silhouette to remain locked for 10.0s and slowing its velocity.
+- 🎻 **Die Haselfichte (Resonant Spruce Soundboard & String Harp):** Unfinished mountain singing-spruce (*Haselfichte*) soundboard strung with gut wires resting on workshop sawbenches. Under *Der Alp*'s supernatural proximity (<5.5m), strings hum with an eerie microtonal sympathetic drone (`soundboard_drone.wav`). Plucking harmonic wires (`[E]`, `soundboard_pluck.wav`) emits a crystalline acoustic shockwave that scrambles the wraith's spatial hunting locks for 14.0s.
 - 🔔 **Der Glockenstrick (Belfry Bell Rope & Rafter Shockwave):** Suspended hemp bell rope connecting to the workshop roof belfry. Pulling the rope (`[E]`, `bell_rope_pull.wav`) triggers a powerful resonant chime (`belfry_chime.wav`) that sends an acoustic shockwave through the upper rafters, stunning *Der Alp* and forcing it down out of elevated perches.
 - 🪔 **Die Leinöllampe (Linseed Oil Sanctuary Lamp):** Heavy brass hanging lamp fueled by carpenter's linseed oil. Igniting the wick (`[E]`, `wick_turn.wav`) projects a focused golden illumination cone, creating a safe sanctuary that rapidly regenerates carpenter stamina and deters *Der Alp* from entering a full HUNT charge.
 - 💨 **Das Wacholder-Räucherfass (Juniper Rosin Incense Censer):** Perforated copper thurible burner filled with spruce rosin, dried juniper, and thyme. Stoking the coals (`[E]`, `censer_ignite.wav`) billows fragrant consecrated smoke for 35s, suppressing creeping floor mist by 70% and revealing unseen entity footstep wakes.
@@ -104,7 +107,8 @@ Every standalone release archive is self-contained and pre-configured for Window
 
 | Version | Status | Highlights | Download |
 |:---:|:---:|:---|:---:|
-| **v0.0.7** | 🌟 **Latest** | **Der Glockenstrick & Das Räucherfass:** Suspended roof belfry bell rope rafter stun shockwave, linseed oil sanctuary lamp stamina recovery & hunt deterrence, juniper rosin incense censer mist suppression & wake detection, and workshop floor alignment & delta physics stabilization | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.7/Fern-v0.0.7-windows-x86_64.zip) |
+| **v0.0.8** | 🌟 **Latest** | **Das Weihwasserbecken, Das Breitbeil & Die Haselfichte:** Consecrated Epiphany water stoup perimeter blessing & scalding steam blind, carpenter's broadaxe oak heartwood strike with 4.8m ground shockwave locking wraith silhouette, and alpine resonant singing-spruce soundboard with sympathetic proximity drone and pursuit tracking scramble | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.8/Fern-v0.0.8-windows-x86_64.zip) |
+| **v0.0.7** | 📦 Stable | **Der Glockenstrick & Das Räucherfass:** Suspended roof belfry bell rope rafter stun shockwave, linseed oil sanctuary lamp stamina recovery & hunt deterrence, juniper rosin incense censer mist suppression & wake detection, and workshop floor alignment & delta physics stabilization | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.7/Fern-v0.0.7-windows-x86_64.zip) |
 | **v0.0.6** | 📦 Stable | **Das Kohlenbecken & Der Hobelspan-Wall:** Charcoal hearth bellows flare defense, galvanized zinc rainwater basin with acoustic overhead rafter anomaly detection and water jar refill, and carpenter's drawknife wood shaving snares (40% slow) | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.6/Fern-v0.0.6-windows-x86_64.zip) |
 | **v0.0.5** | 📦 Stable | **Die Kuckucksuhr & Das Unerschütterliche Fundament:** Cuckoo automaton with escapement jamming telemetry, cold-iron socket framing chisel parry defense, ceiling herb bundles with scent masking, and 4m thick solid continuous floor collision architecture preventing all tunneling/falling | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.5/Fern-v0.0.5-windows-x86_64.zip) |
 | **v0.0.4** | 📦 Stable | **Die Pechfackel:** Portable pine pitch resin torch with active wraith repulsion aura, window shutter drop-latches absorbing siege impacts, and pine pitch resin cauldron for ceiling rafter denial | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.4/Fern-v0.0.4-windows-x86_64.zip) |

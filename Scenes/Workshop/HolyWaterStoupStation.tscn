@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://c6waterstoup01"]
+
+[ext_resource type="Script" path="res://Scripts/Workshop/HolyWaterStoupStation.gd" id="1_stoup"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/holy_sprinkle.wav" id="2_sprinkle_audio"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/holy_steam_sizzle.wav" id="3_steam_audio"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_stoup"]
+size = Vector3(0.5, 0.6, 0.45)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stone"]
+albedo_color = Color(0.35, 0.35, 0.38, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_basin"]
+material = SubResource("StandardMaterial3D_stone")
+top_radius = 0.22
+bottom_radius = 0.14
+height = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boxwood"]
+albedo_color = Color(0.24, 0.36, 0.2, 1)
+roughness = 0.7
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_twig"]
+material = SubResource("StandardMaterial3D_boxwood")
+top_radius = 0.015
+bottom_radius = 0.02
+height = 0.32
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_drops"]
+direction = Vector3(0.2, 0.7, 0.5)
+spread = 45.0
+initial_velocity_min = 1.8
+initial_velocity_max = 3.2
+gravity = Vector3(0, -6.5, 0)
+scale_min = 0.4
+scale_max = 1.0
+color = Color(0.7, 0.88, 1.0, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drop"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.8, 0.92, 1.0, 0.65)
+
+[sub_resource type="SphereMesh" id="SphereMesh_drop"]
+material = SubResource("StandardMaterial3D_drop")
+radius = 0.025
+height = 0.05
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_steam"]
+direction = Vector3(0, 1, 0)
+spread = 70.0
+initial_velocity_min = 0.8
+initial_velocity_max = 2.2
+gravity = Vector3(0, 0.4, 0)
+scale_min = 0.8
+scale_max = 2.5
+color = Color(0.9, 0.94, 0.98, 0.45)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_steam"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.9, 0.94, 0.98, 0.35)
+
+[sub_resource type="SphereMesh" id="SphereMesh_steam"]
+material = SubResource("StandardMaterial3D_steam")
+radius = 0.2
+height = 0.3
+
+[node name="HolyWaterStoupStation" type="StaticBody3D" groups=["holy_water_stoup", "interactable"]]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_stoup")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_stoup")
+
+[node name="StoupMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+mesh = SubResource("CylinderMesh_basin")
+
+[node name="AspergillumMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 0.08, 0.12, 0.04)
+mesh = SubResource("CylinderMesh_twig")
+
+[node name="HolyLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.1)
+light_color = Color(0.65, 0.82, 1, 1)
+light_energy = 0.1
+omni_range = 4.5
+
+[node name="SprinkleParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.1)
+emitting = false
+amount = 20
+lifetime = 0.8
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_drops")
+draw_pass_1 = SubResource("SphereMesh_drop")
+
+[node name="SteamParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+emitting = false
+amount = 32
+lifetime = 1.8
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_steam")
+draw_pass_1 = SubResource("SphereMesh_steam")
+
+[node name="SprinkleAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+stream = ExtResource("2_sprinkle_audio")
+max_distance = 14.0
+bus = &"SFX"
+
+[node name="SteamAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+stream = ExtResource("3_steam_audio")
+max_distance = 18.0
+bus = &"SFX"

@@ -128,6 +128,11 @@ Accessible directly from the **Main Menu**:
 - **Das Zink-Regenfass & Tropfenresonanz (Zinc Basin & Droplet Resonator):** Galvanized zinc rainwater tub (`Scenes/Workshop/ZincBasinStation.tscn`) dripping with metallic pings (`drip_tap.wav`). Overhead entity traversal in rafters arrests surface tension, triggering a sudden acoustic splash (`water_splash.wav`). Interact (`[E]`) to refill rainwater and restore Farnblume luminescence.
 - **Das Zugmesser & Der Hobelspan-Wall (Drawknife & Spruce Shaving Snare):** Two-handled drawknife at shaving horse (`Scenes/Workshop/DrawknifeStation.tscn`). Hold `[E]` to carve aromatic ribbons (`drawknife_peel.wav`). Tangled shaving snares reduce wraith movement speed by 40% (0.6x) for 5.0 seconds.
 
+### 19. Das Weihwasserbecken, Das Breitbeil & Die Haselfichte (Holy Water Stoup, Broadaxe & Resonant Spruce)
+- **Das Weihwasserbecken & Buchsbaum-Aspergill (Holy Water Stoup & Boxwood Aspergillum):** Antique wall-mounted stoup containing consecrated Epiphany water (*Dreikönigswasser*) with dried boxwood twig (`Scenes/Workshop/HolyWaterStoupStation.tscn`). Sprinkling consecrated droplets (`[E]`, `holy_sprinkle.wav`) blesses a 4.5m perimeter for 30s. When *Der Alp* enters the consecrated zone, droplets flash into scalding holy steam (`holy_steam_sizzle.wav`), blinding the wraith for 5.0s and forcing an immediate retreat.
+- **Das Breitbeil im Haublock (Carpenter's Broadaxe & Oak Heartwood Chopping Block):** Hand-forged broadaxe embedded in a solid oak chopping block (`Scenes/Workshop/BroadaxeBlockStation.tscn`). Striking the axe into the heartwood (`[E]`, `axe_timber_strike.wav`) discharges a grounding acoustic-mechanical shockwave through the floorboards within 4.8m on the ground floor, locking *Der Alp*'s visible silhouette for 10.0s and slowing it down.
+- **Die Haselfichte (Resonant Spruce Soundboard & String Harp):** Alpine resonant singing-spruce soundboard strung with gut wires resting on workshop sawbenches (`Scenes/Workshop/ResonantSpruceStation.tscn`). Sympathetically hums with an eerie microtonal drone (`soundboard_drone.wav`) when *Der Alp* creeps within 5.5m. Plucking the harmonic wires (`[E]`, `soundboard_pluck.wav`) emits a crystalline acoustic chime that scrambles the wraith's hunting and stalking tracking for 14.0s, breaking locks and diverting it into disoriented wandering.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -145,6 +150,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.8 (Das Weihwasserbecken, Das Breitbeil & Die Haselfichte):** [https://github.com/soulwax/fern/releases/tag/v0.0.8](https://github.com/soulwax/fern/releases/tag/v0.0.8)
 - **v0.0.7 (Der Glockenstrick & Das Räucherfass):** [https://github.com/soulwax/fern/releases/tag/v0.0.7](https://github.com/soulwax/fern/releases/tag/v0.0.7)
 - **v0.0.6 (Das Kohlenbecken & Der Hobelspan-Wall):** [https://github.com/soulwax/fern/releases/tag/v0.0.6](https://github.com/soulwax/fern/releases/tag/v0.0.6)
 - **v0.0.5 (Die Kuckucksuhr & Das Unerschütterliche Fundament):** [https://github.com/soulwax/fern/releases/tag/v0.0.5](https://github.com/soulwax/fern/releases/tag/v0.0.5)

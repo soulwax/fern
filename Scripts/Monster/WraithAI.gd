@@ -59,6 +59,11 @@ var scent_mask_timer: float = 0.0
 var slow_timer: float = 0.0
 var slow_multiplier: float = 1.0
 
+# v0.0.8 Holy Water, Broadaxe & Resonant Spruce Mechanics
+var consecrated_blind_timer: float = 0.0
+var grounded_silhouette_timer: float = 0.0
+var acoustic_scramble_timer: float = 0.0
+
 
 # Footstep tracking
 var step_dist_accumulator: float = 0.0
@@ -88,6 +93,24 @@ func set_scent_masked(duration: float) -> void:
 func apply_movement_slow(multiplier: float, duration: float) -> void:
 	slow_multiplier = clamp(multiplier, 0.1, 1.0)
 	slow_timer = duration
+
+func apply_holy_water_blind(duration: float) -> void:
+	consecrated_blind_timer = duration
+	_play_screech()
+	set_state(State.REPELLED)
+	state_timer = duration
+
+func apply_broadaxe_grounding(duration: float) -> void:
+	grounded_silhouette_timer = duration
+	_play_screech()
+	_update_visual_reveal(1.0, 0.4)
+	apply_movement_slow(0.35, 3.5)
+
+func apply_soundboard_scramble(duration: float) -> void:
+	acoustic_scramble_timer = duration
+	_pick_next_waypoint()
+	if current_state == State.HUNT or current_state == State.STALK:
+		set_state(State.PROWL)
 
 func _find_player() -> void:
 	if not is_inside_tree():
@@ -145,6 +168,15 @@ func _physics_process(delta: float) -> void:
 		slow_timer -= delta
 		if slow_timer <= 0.0:
 			slow_multiplier = 1.0
+
+	if consecrated_blind_timer > 0.0:
+		consecrated_blind_timer -= delta
+
+	if grounded_silhouette_timer > 0.0:
+		grounded_silhouette_timer -= delta
+
+	if acoustic_scramble_timer > 0.0:
+		acoustic_scramble_timer -= delta
 	
 	if current_state == State.PROWL or current_state == State.STALK:
 		window_siege_cooldown -= delta
@@ -256,7 +288,7 @@ func _process_prowl(delta: float) -> void:
 	if to_target.length() < 1.0 or state_timer <= 0.0:
 		_pick_next_waypoint()
 		state_timer = randf_range(4.0, 8.0)
-		if player_ref and randf() < 0.4:
+		if player_ref and randf() < 0.4 and acoustic_scramble_timer <= 0.0 and consecrated_blind_timer <= 0.0 and scent_mask_timer <= 0.0:
 			set_state(State.STALK)
 			return
 
@@ -272,7 +304,7 @@ func _process_stalk(delta: float) -> void:
 	if _check_and_divert_to_bread_offering():
 		return
 		
-	if not player_ref or scent_mask_timer > 0.0:
+	if not player_ref or scent_mask_timer > 0.0 or acoustic_scramble_timer > 0.0 or consecrated_blind_timer > 0.0:
 		set_state(State.PROWL)
 		return
 		
@@ -304,7 +336,7 @@ func _process_hunt(delta: float) -> void:
 	if _check_and_divert_to_bread_offering():
 		return
 		
-	if not player_ref:
+	if not player_ref or acoustic_scramble_timer > 0.0 or consecrated_blind_timer > 0.0:
 		set_state(State.PROWL)
 		return
 		
@@ -532,6 +564,8 @@ func _handle_sensory_decay(delta: float) -> void:
 			ember_particles.emitting = false
 
 	var uv_ratio = clamp(uv_exposure_timer / 0.8, 0.0, 1.0)
+	if grounded_silhouette_timer > 0.0:
+		uv_ratio = max(uv_ratio, 1.0)
 	var ember_ratio = clamp(spark_ignite_timer / 2.0, 0.0, 1.0)
 	_update_visual_reveal(uv_ratio, ember_ratio)
 
