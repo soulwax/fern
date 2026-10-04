@@ -21,6 +21,15 @@ func _ready() -> void:
 	if lightning_light:
 		lightning_light.light_energy = 0.0
 
+	var workshop = get_node_or_null("Workshop")
+	if workshop:
+		var w_light = workshop.get_node_or_null("Directional Light")
+		if w_light:
+			w_light.visible = false
+		var w_env = workshop.get_node_or_null("WorldEnvironment")
+		if w_env:
+			w_env.queue_free()
+
 	var game_state = get_node_or_null("/root/GameState")
 	if game_state:
 		game_state.ambient_bell_tolled.connect(_on_bell_tolled)

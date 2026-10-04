@@ -4,9 +4,8 @@ func _init() -> void:
 	print("--- Running FERN Milestone v0.0.7 Feature Verification ---")
 
 	# Mock player & mock wraith
-	var mock_player = CharacterBody3D.new()
-	mock_player.name = "MockPlayer"
-	mock_player.set_script(load("res://Scripts/Player/PlayerController.gd"))
+	var player_scene = load("res://Scenes/Player/Player.tscn")
+	var mock_player = player_scene.instantiate()
 	mock_player.position = Vector3(0, 0.2, 0.5)
 	mock_player.set("stamina", 50.0)
 	mock_player.set("max_stamina", 100.0)
@@ -24,14 +23,15 @@ func _init() -> void:
 	var rope_scene = load("res://Scenes/Workshop/BellRopeStation.tscn")
 	assert(rope_scene != null, "BellRopeStation.tscn must load successfully")
 	var rope = rope_scene.instantiate()
+	rope.position = Vector3(0, 3.2, -1.5)
 	root.add_child(rope)
 	rope._ready()
 
 	assert(rope.current_cooldown == 0.0, "Bell rope must start ready to pull")
 	assert(rope.is_enabled == true, "Bell rope must be enabled")
 
-	# Position wraith in rafters above threshold (Y=3.2 > 2.2)
-	wraith.position = rope.position + Vector3(0, 0.2, 0)
+	# Position wraith in rafters above threshold (Y=3.4 > 2.2)
+	wraith.position = Vector3(0, 3.4, -1.5)
 	rope.wraith_ref = wraith
 	var pulled = rope.pull_rope()
 	assert(pulled == true, "Pull rope must succeed")

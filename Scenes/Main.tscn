@@ -121,6 +121,7 @@ light_volumetric_fog_energy = 3.5
 shadow_enabled = true
 
 [node name="Workshop" parent="." instance=ExtResource("2_workshop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17, -11.42, 7.21)
 
 [node name="SolidFloorCollider" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)

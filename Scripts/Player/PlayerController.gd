@@ -49,6 +49,9 @@ var step_cycle_dist: float = 0.0
 var step_interval: float = 1.7
 var current_prompt: String = ""
 
+var stamina: float = 100.0
+var max_stamina: float = 100.0
+
 var is_frozen: bool = false
 
 # Current interactable focused
@@ -112,11 +115,17 @@ func _physics_process(delta: float) -> void:
 	if is_frozen:
 		return
 
-	# Gravity with terminal velocity clamping to prevent tunneling
-	if not is_on_floor():
-		velocity.y = max(velocity.y - gravity * delta, -20.0)
-	elif Input.is_action_just_pressed("jump") and not is_crouching:
-		velocity.y = jump_velocity
+	# Clamp delta to prevent scene-loading lag spikes and frame hitches from tunnelling through geometry
+	var safe_delta = clampf(delta, 0.001, 0.05)
+
+	# Gravity with floor stabilization and terminal velocity clamping
+	if is_on_floor():
+		if velocity.y < 0.0:
+			velocity.y = 0.0
+		if Input.is_action_just_pressed("jump") and not is_crouching:
+			velocity.y = jump_velocity
+	else:
+		velocity.y = max(velocity.y - gravity * safe_delta, -20.0)
 
 	# Crouch state
 	is_crouching = Input.is_action_pressed("crouch")
@@ -147,12 +156,15 @@ func _physics_process(delta: float) -> void:
 	# Transform input direction relative to player orientation
 	var wish_dir = (transform.basis * Vector3(input_dir.x, 0.0, input_dir.y)).normalized()
 	
+	# Frame-rate independent exponential decay
 	if wish_dir != Vector3.ZERO:
-		velocity.x = lerp(velocity.x, wish_dir.x * target_speed, delta * acceleration)
-		velocity.z = lerp(velocity.z, wish_dir.z * target_speed, delta * acceleration)
+		var accel_weight = 1.0 - exp(-acceleration * safe_delta)
+		velocity.x = lerp(velocity.x, wish_dir.x * target_speed, accel_weight)
+		velocity.z = lerp(velocity.z, wish_dir.z * target_speed, accel_weight)
 	else:
-		velocity.x = lerp(velocity.x, 0.0, delta * friction)
-		velocity.z = lerp(velocity.z, 0.0, delta * friction)
+		var friction_weight = 1.0 - exp(-friction * safe_delta)
+		velocity.x = lerp(velocity.x, 0.0, friction_weight)
+		velocity.z = lerp(velocity.z, 0.0, friction_weight)
 
 	if is_inside_tree():
 		move_and_slide()
@@ -163,22 +175,23 @@ func _physics_process(delta: float) -> void:
 	# Headbob & Footstep cycle
 	var horizontal_speed = Vector2(velocity.x, velocity.z).length()
 	if is_on_floor() and horizontal_speed > 0.3:
-		step_cycle_dist += horizontal_speed * delta
+		step_cycle_dist += horizontal_speed * safe_delta
 		if step_cycle_dist >= step_interval:
 			step_cycle_dist = 0.0
 			_trigger_footstep()
 			
 		if camera and headbob_enabled:
-			headbob_time += delta * horizontal_speed * headbob_frequency
+			headbob_time += safe_delta * horizontal_speed * headbob_frequency
 			camera.position.y = original_cam_y + sin(headbob_time) * headbob_amplitude
 			camera.position.x = cos(headbob_time * 0.5) * (headbob_amplitude * 0.6)
 	else:
 		if camera and headbob_enabled:
-			camera.position.y = lerp(camera.position.y, original_cam_y, delta * 8.0)
-			camera.position.x = lerp(camera.position.x, 0.0, delta * 8.0)
+			var cam_weight = 1.0 - exp(-8.0 * safe_delta)
+			camera.position.y = lerp(camera.position.y, original_cam_y, cam_weight)
+			camera.position.x = lerp(camera.position.x, 0.0, cam_weight)
 
 	_check_interaction()
-	_handle_cold_breath(delta)
+	_handle_cold_breath(safe_delta)
 
 func _ensure_breath_nodes() -> void:
 	if not head:
@@ -193,7 +206,7 @@ func _ensure_breath_nodes() -> void:
 func _handle_cold_breath(delta: float) -> void:
 	_ensure_breath_nodes()
 	if not cached_wraith or not is_instance_valid(cached_wraith):
-		var wraiths = get_tree().get_nodes_in_group("unseen_entity") if get_tree() else []
+		var wraiths = get_tree().get_nodes_in_group("unseen_entity") if is_inside_tree() else []
 		if wraiths.size() > 0:
 			cached_wraith = wraiths[0]
 			
@@ -219,13 +232,14 @@ func _handle_cold_breath(delta: float) -> void:
 
 func _enforce_floor_safety() -> void:
 	var check_y = global_position.y if is_inside_tree() else position.y
-	if check_y < -0.5 or position.y < -0.5:
+	if check_y < 0.0 or position.y < 0.0:
 		var safe_x = clamp(global_position.x if is_inside_tree() else position.x, -5.5, 5.5)
 		var safe_z = clamp(global_position.z if is_inside_tree() else position.z, -5.5, 5.5)
-		position = Vector3(safe_x, 0.2, safe_z)
+		position = Vector3(safe_x, 0.1, safe_z)
 		if is_inside_tree():
-			global_position = Vector3(safe_x, 0.2, safe_z)
+			global_position = Vector3(safe_x, 0.1, safe_z)
 		velocity = Vector3.ZERO
+
 
 func trigger_cold_breath() -> void:
 	_ensure_breath_nodes()

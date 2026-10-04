@@ -90,6 +90,8 @@ func apply_movement_slow(multiplier: float, duration: float) -> void:
 	slow_timer = duration
 
 func _find_player() -> void:
+	if not is_inside_tree():
+		return
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
 		player_ref = players[0]
@@ -427,7 +429,10 @@ func set_state(new_state: State) -> void:
 
 func expose_to_uv_light(source: Node) -> void:
 	uv_decay_timer = 0.35 # Keep reveal alive while being hit
-	uv_exposure_timer += get_process_delta_time()
+	var dt = get_process_delta_time()
+	if dt <= 0.0:
+		dt = 0.05
+	uv_exposure_timer += dt
 	var ratio = clamp(uv_exposure_timer / 0.8, 0.0, 1.0)
 	var ember_ratio = clamp(spark_ignite_timer / 2.0, 0.0, 1.0)
 	_update_visual_reveal(ratio, ember_ratio)
@@ -570,16 +575,16 @@ func _spawn_hoofprint() -> void:
 	print_inst.rotation.y = rotation.y
 
 func _play_hoof_crunch() -> void:
-	if hoof_audio and not hoof_audio.playing:
+	if hoof_audio and not hoof_audio.playing and is_inside_tree():
 		hoof_audio.pitch_scale = randf_range(0.85, 1.15)
 		hoof_audio.play()
 
 func _play_growl() -> void:
-	if growl_audio and not growl_audio.playing:
+	if growl_audio and not growl_audio.playing and is_inside_tree():
 		growl_audio.pitch_scale = randf_range(0.8, 1.0)
 		growl_audio.play()
 
 func _play_screech() -> void:
-	if screech_audio:
+	if screech_audio and is_inside_tree():
 		screech_audio.pitch_scale = randf_range(0.9, 1.1)
 		screech_audio.play()

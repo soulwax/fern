@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.6)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.7)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.6)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.7)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build — v0.0.6](https://github.com/soulwax/fern/releases/download/v0.0.6/Fern-v0.0.6-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build — v0.0.7](https://github.com/soulwax/fern/releases/download/v0.0.7/Fern-v0.0.7-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -31,6 +31,10 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 
 ## ✨ Core Features & Mechanics
 
+- 🔔 **Der Glockenstrick (Belfry Bell Rope & Rafter Shockwave):** Suspended hemp bell rope connecting to the workshop roof belfry. Pulling the rope (`[E]`, `bell_rope_pull.wav`) triggers a powerful resonant chime (`belfry_chime.wav`) that sends an acoustic shockwave through the upper rafters, stunning *Der Alp* and forcing it down out of elevated perches.
+- 🪔 **Die Leinöllampe (Linseed Oil Sanctuary Lamp):** Heavy brass hanging lamp fueled by carpenter's linseed oil. Igniting the wick (`[E]`, `wick_turn.wav`) projects a focused golden illumination cone, creating a safe sanctuary that rapidly regenerates carpenter stamina and deters *Der Alp* from entering a full HUNT charge.
+- 💨 **Das Wacholder-Räucherfass (Juniper Rosin Incense Censer):** Perforated copper thurible burner filled with spruce rosin, dried juniper, and thyme. Stoking the coals (`[E]`, `censer_ignite.wav`) billows fragrant consecrated smoke for 35s, suppressing creeping floor mist by 70% and revealing unseen entity footstep wakes.
+- 🏗️ **Workshop Geometry Realignment & Delta Physics Stabilization:** Aligned workshop 3D geometry transform from elevation disparity down to world floor plane, with clamped safe delta, exponential decay velocity integration, and instant floor vertical velocity arrest preventing all tunneling through geometry during frame hitches.
 - 🪵 **Die Totenbretter (Ancestral Memorial Ward Planks):** Inscribe and consecrate an authentic Black Forest death plank ward (`[E]`, `totenbrett_consecrate.wav`). When *Der Alp* stalks within 3.5m, the ancestral ward erupts in radiant violet runes, repelling the creature for 4.0s.
 - 🌿 **Das Ebereschen-Amulett (Rowan Wood Talisman Carving):** Carve a protective amulet from sacred rowan wood at the secondary carving bench (`[E]`, `talisman_carve.wav`), bestowing a permanent +12% sprint speed boost and a 25% reduction in panic heartbeat anxiety thresholds.
 - 🔔 **Das Glasglockenspiel (Acoustic Glass Rafter Carillons):** Hand-blown forest-glass bells suspended from the workshop rafters. Resonates with crystalline spatial chimes (`glass_carillon_chime.wav`) and visual swaying whenever *Der Alp* creeps through elevated rafter catwalks.
@@ -100,7 +104,8 @@ Every standalone release archive is self-contained and pre-configured for Window
 
 | Version | Status | Highlights | Download |
 |:---:|:---:|:---|:---:|
-| **v0.0.6** | 🌟 **Latest** | **Das Kohlenbecken & Der Hobelspan-Wall:** Charcoal hearth bellows flare defense, galvanized zinc rainwater basin with acoustic overhead rafter anomaly detection and water jar refill, and carpenter's drawknife wood shaving snares (40% slow) | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.6/Fern-v0.0.6-windows-x86_64.zip) |
+| **v0.0.7** | 🌟 **Latest** | **Der Glockenstrick & Das Räucherfass:** Suspended roof belfry bell rope rafter stun shockwave, linseed oil sanctuary lamp stamina recovery & hunt deterrence, juniper rosin incense censer mist suppression & wake detection, and workshop floor alignment & delta physics stabilization | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.7/Fern-v0.0.7-windows-x86_64.zip) |
+| **v0.0.6** | 📦 Stable | **Das Kohlenbecken & Der Hobelspan-Wall:** Charcoal hearth bellows flare defense, galvanized zinc rainwater basin with acoustic overhead rafter anomaly detection and water jar refill, and carpenter's drawknife wood shaving snares (40% slow) | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.6/Fern-v0.0.6-windows-x86_64.zip) |
 | **v0.0.5** | 📦 Stable | **Die Kuckucksuhr & Das Unerschütterliche Fundament:** Cuckoo automaton with escapement jamming telemetry, cold-iron socket framing chisel parry defense, ceiling herb bundles with scent masking, and 4m thick solid continuous floor collision architecture preventing all tunneling/falling | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.5/Fern-v0.0.5-windows-x86_64.zip) |
 | **v0.0.4** | 📦 Stable | **Die Pechfackel:** Portable pine pitch resin torch with active wraith repulsion aura, window shutter drop-latches absorbing siege impacts, and pine pitch resin cauldron for ceiling rafter denial | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.4/Fern-v0.0.4-windows-x86_64.zip) |
 | **v0.0.3** | 📦 Stable | **Die Totenbretter:** Ancestral memorial ward planks, rowan wood talisman carving bench (+12% sprint speed, 25% anxiety reduction), and acoustic glass rafter carillons | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip) |

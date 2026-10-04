@@ -145,6 +145,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.7 (Der Glockenstrick & Das Räucherfass):** [https://github.com/soulwax/fern/releases/tag/v0.0.7](https://github.com/soulwax/fern/releases/tag/v0.0.7)
 - **v0.0.6 (Das Kohlenbecken & Der Hobelspan-Wall):** [https://github.com/soulwax/fern/releases/tag/v0.0.6](https://github.com/soulwax/fern/releases/tag/v0.0.6)
 - **v0.0.5 (Die Kuckucksuhr & Das Unerschütterliche Fundament):** [https://github.com/soulwax/fern/releases/tag/v0.0.5](https://github.com/soulwax/fern/releases/tag/v0.0.5)
 - **v0.0.4 (Die Pechfackel):** [https://github.com/soulwax/fern/releases/tag/v0.0.4](https://github.com/soulwax/fern/releases/tag/v0.0.4)
