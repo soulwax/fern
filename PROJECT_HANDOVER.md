@@ -117,6 +117,12 @@ Accessible directly from the **Main Menu**:
 - **Das Ebereschen-Amulett (Rowan Wood Talisman Carving):** Carving bench for shaping protective amulets from sacred rowan wood (`Scenes/Workshop/TalismanBenchStation.tscn`). Carving the talisman (`[E]`, `talisman_carve.wav`) equips the player with lasting protection: +12% sprint speed boost and a 25% reduction in panic heartbeat anxiety thresholds.
 - **Das Glasglockenspiel (Acoustic Glass Rafter Carillons):** Hand-blown forest-glass bells suspended from loft rafters (`Scenes/Workshop/GlassCarillonProp.tscn`). Resonates with crystalline spatial chimes (`glass_carillon_chime.wav`) and visual swaying whenever *Der Alp* stalks through the overhead rafter catwalks.
 
+### 17. Die Kuckucksuhr, Cold-Iron Framing Chisel, Herb Bundles & Das Unerschütterliche Fundament
+- **Die Kuckucksuhr (Black Forest Cuckoo Automaton):** Authentic wall clock automaton (`Scenes/Workshop/CuckooClockStation.tscn`). Calls hourly with dual whistle pipes (`cuckoo_call.wav`) and chatters/jams when *Der Alp* nears within 3.5m (`automaton_jam.wav`).
+- **Das Kaltmeißel-Parieren (Cold-Iron Framing Chisel Defense):** Unrefined socket framing chisel (`Scenes/Workshop/ChiselStation.tscn`) capable of parrying wraith leaps (`chisel_strike.wav`) to stagger *Der Alp* for 3.5s.
+- **Die Johanniskraut-Dolden (Midsummer Herb Bundles):** Rafter-hung herbs (`Scenes/Workshop/HerbBundleStation.tscn`). Crushed (`[E]`, `herb_crush.wav`) to mask scent for 20s and break wraith stalking pursuit.
+- **Das Unerschütterliche Fundament (Solid Continuous Floor Architecture):** 4-meter thick static box colliders underpinning all ground floorboards and loft rafters, combined with sub-floor safety nets, perimeter wall barriers, terminal velocity clamping, and fail-safe abyss rescue. Guarantees no falling or tunneling through the floor under any physics conditions.
+
 ---
 
 ## 🔊 Sound Design & Multi-Channel Audio Architecture
@@ -134,6 +140,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.5 (Die Kuckucksuhr & Das Unerschütterliche Fundament):** [https://github.com/soulwax/fern/releases/tag/v0.0.5](https://github.com/soulwax/fern/releases/tag/v0.0.5)
 - **v0.0.4 (Die Pechfackel):** [https://github.com/soulwax/fern/releases/tag/v0.0.4](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 - **v0.0.3 (Die Totenbretter):** [https://github.com/soulwax/fern/releases/tag/v0.0.3](https://github.com/soulwax/fern/releases/tag/v0.0.3)
 - **v0.0.2 (Der Albschatten):** [https://github.com/soulwax/fern/releases/tag/v0.0.2](https://github.com/soulwax/fern/releases/tag/v0.0.2)

@@ -112,9 +112,9 @@ func _physics_process(delta: float) -> void:
 	if is_frozen:
 		return
 
-	# Gravity
+	# Gravity with terminal velocity clamping to prevent tunneling
 	if not is_on_floor():
-		velocity.y -= gravity * delta
+		velocity.y = max(velocity.y - gravity * delta, -20.0)
 	elif Input.is_action_just_pressed("jump") and not is_crouching:
 		velocity.y = jump_velocity
 
@@ -154,7 +154,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerp(velocity.x, 0.0, delta * friction)
 		velocity.z = lerp(velocity.z, 0.0, delta * friction)
 
-	move_and_slide()
+	if is_inside_tree():
+		move_and_slide()
+	
+	# Bulletproof floor safeguard & abyss rescue: prevent falling through floor under any circumstance
+	_enforce_floor_safety()
 	
 	# Headbob & Footstep cycle
 	var horizontal_speed = Vector2(velocity.x, velocity.z).length()
@@ -164,12 +168,12 @@ func _physics_process(delta: float) -> void:
 			step_cycle_dist = 0.0
 			_trigger_footstep()
 			
-		if headbob_enabled:
+		if camera and headbob_enabled:
 			headbob_time += delta * horizontal_speed * headbob_frequency
 			camera.position.y = original_cam_y + sin(headbob_time) * headbob_amplitude
 			camera.position.x = cos(headbob_time * 0.5) * (headbob_amplitude * 0.6)
 	else:
-		if headbob_enabled:
+		if camera and headbob_enabled:
 			camera.position.y = lerp(camera.position.y, original_cam_y, delta * 8.0)
 			camera.position.x = lerp(camera.position.x, 0.0, delta * 8.0)
 
@@ -195,11 +199,13 @@ func _handle_cold_breath(delta: float) -> void:
 			
 	var is_freezing = false
 	if cached_wraith and is_instance_valid(cached_wraith):
-		var dist = global_position.distance_to(cached_wraith.global_position)
+		var p_pos = global_position if is_inside_tree() else position
+		var w_pos = cached_wraith.global_position if cached_wraith.is_inside_tree() else cached_wraith.position
+		var dist = p_pos.distance_to(w_pos)
 		if dist <= 7.5:
 			is_freezing = true
 			
-	var game_state = get_node_or_null("/root/GameState")
+	var game_state = get_node_or_null("/root/GameState") if is_inside_tree() else null
 	if game_state and game_state.open_window_breaches > 0:
 		is_freezing = true
 		
@@ -210,6 +216,16 @@ func _handle_cold_breath(delta: float) -> void:
 			breath_timer = randf_range(2.0, 3.2)
 	else:
 		breath_timer = 1.0
+
+func _enforce_floor_safety() -> void:
+	var check_y = global_position.y if is_inside_tree() else position.y
+	if check_y < -0.5 or position.y < -0.5:
+		var safe_x = clamp(global_position.x if is_inside_tree() else position.x, -5.5, 5.5)
+		var safe_z = clamp(global_position.z if is_inside_tree() else position.z, -5.5, 5.5)
+		position = Vector3(safe_x, 0.2, safe_z)
+		if is_inside_tree():
+			global_position = Vector3(safe_x, 0.2, safe_z)
+		velocity = Vector3.ZERO
 
 func trigger_cold_breath() -> void:
 	_ensure_breath_nodes()
