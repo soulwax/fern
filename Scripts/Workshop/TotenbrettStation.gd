@@ -66,7 +66,7 @@ func consecrate_totenbrett() -> void:
 	is_consecrated = true
 	ward_timer = ward_duration
 	
-	if consecrate_audio:
+	if consecrate_audio and is_inside_tree():
 		consecrate_audio.pitch_scale = randf_range(0.98, 1.02)
 		consecrate_audio.play()
 		
@@ -78,13 +78,28 @@ func consecrate_totenbrett() -> void:
 	totenbrett_consecrated.emit(ward_duration)
 	_update_visuals()
 
-func _check_for_approaching_wraith() -> void:
-	if not is_inside_tree():
-		return
-	var wraiths = get_tree().get_nodes_in_group("unseen_entity")
+func _check_for_approaching_wraith(custom_wraiths: Array = []) -> void:
+	var wraiths: Array = []
+	wraiths.append_array(custom_wraiths)
+	if wraiths.is_empty() and is_inside_tree() and get_tree() != null:
+		wraiths = get_tree().get_nodes_in_group("unseen_entity")
+	if wraiths.is_empty() and get_parent() != null:
+		for child in get_parent().get_children():
+			if child is WraithAI or child.is_in_group("unseen_entity"):
+				wraiths.append(child)
+	if wraiths.is_empty():
+		# Fallback if testing outside tree or nodes not yet registered in groups
+		var tree_root = Engine.get_main_loop()
+		if tree_root is SceneTree and tree_root.root != null:
+			for child in tree_root.root.get_children():
+				if child is WraithAI or child.is_in_group("unseen_entity"):
+					wraiths.append(child)
+			for child in tree_root.root.find_children("*", "", true, false):
+				if (child is WraithAI or child.is_in_group("unseen_entity")) and not wraiths.has(child):
+					wraiths.append(child)
+	var cur_p = global_position if is_inside_tree() else position
 	for w in wraiths:
 		if is_instance_valid(w):
-			var cur_p = global_position if is_inside_tree() else position
 			var wr_p = w.global_position if w.is_inside_tree() else w.position
 			var d = cur_p.distance_to(wr_p)
 			if d <= repel_distance:

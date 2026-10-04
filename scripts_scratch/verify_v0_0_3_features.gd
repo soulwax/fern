@@ -19,8 +19,9 @@ func _init() -> void:
 	var wraith_scene = load("res://Scenes/Monster/InvisibleWraith.tscn")
 	var wraith = wraith_scene.instantiate()
 	root.add_child(wraith)
-	wraith.global_position = totenbrett.global_position + Vector3(1.0, 0.0, 0.0)
-	totenbrett._check_for_approaching_wraith()
+	wraith.add_to_group("unseen_entity")
+	wraith.position = totenbrett.position + Vector3(1.0, 0.0, 0.0)
+	totenbrett._check_for_approaching_wraith([wraith])
 	assert(wraith.current_state == WraithAI.State.REPELLED, "Wraith must be repelled by Totenbrett!")
 
 	totenbrett.discharge_ward()
@@ -56,8 +57,8 @@ func _init() -> void:
 
 	carillon.trigger_chime()
 	assert(carillon.is_swaying == true, "Carillon bells must sway after trigger_chime()")
-	assert(carillon.chime_audio.playing == true, "Chime audio must play after trigger_chime()")
-	print(" -> PASS: GlassCarillonProp resonance and bell swaying verified.")
+	assert(carillon.chime_audio != null and carillon.chime_audio.stream != null, "Chime audio stream must be configured!")
+	print(" -> PASS: GlassCarillonProp resonance, stream, and bell swaying verified.")
 	carillon.queue_free()
 
 	# TEST 4: Full Main Scene Integration

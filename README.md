@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.2)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.3)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.2)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.3)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build — v0.0.2](https://github.com/soulwax/fern/releases/download/v0.0.2/Fern-v0.0.2-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build — v0.0.3](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -31,6 +31,9 @@ You are the solitary master carpenter. Through the nocturnal ordeal from **00:00
 
 ## ✨ Core Features & Mechanics
 
+- 🪵 **Die Totenbretter (Ancestral Memorial Ward Planks):** Inscribe and consecrate an authentic Black Forest death plank ward (`[E]`, `totenbrett_consecrate.wav`). When *Der Alp* stalks within 3.5m, the ancestral ward erupts in radiant violet runes, repelling the creature for 4.0s.
+- 🌿 **Das Ebereschen-Amulett (Rowan Wood Talisman Carving):** Carve a protective amulet from sacred rowan wood at the secondary carving bench (`[E]`, `talisman_carve.wav`), bestowing a permanent +12% sprint speed boost and a 25% reduction in panic heartbeat anxiety thresholds.
+- 🔔 **Das Glasglockenspiel (Acoustic Glass Rafter Carillons):** Hand-blown forest-glass bells suspended from the workshop rafters. Resonates with crystalline spatial chimes (`glass_carillon_chime.wav`) and visual swaying whenever *Der Alp* creeps through elevated rafter catwalks.
 - 🍞 **Das Opferbrot (Folkloric Appeasement Offering Trencher):** Slice and place a hearty rye loaf on the central workshop trencher (`[E]`, `bread_slice_place.wav`). When *Der Alp* stalks or hunts, it catches the scent of rye and detours to feed upon the trencher for 18 seconds (`wraith_appeased_feed.wav`), suspending its hunt and pacifying its aggression.
 - 🕯️ **Der Albschatten (Spectral Shadow Silhouette Projection):** Even when *Der Alp* is invisible to direct gaze, strong workshop illumination (hearth fire, resin cauldron, torches, candles) casts its towering, antlered silhouette across the timber walls and ceiling floorboards (`SHADOW_CASTING_SETTING_SHADOWS_ONLY`).
 - ❄️ **Frost Ingress & Shingle Gale Chatter:** Temperatures plunge near windows when *Der Alp* lingers, visibly creeping frost patterns across the glass and frames. Rafter movement triggers violent storm wind gusts rattling roof shingles (`shingle_gale_rattle.wav`).
@@ -97,7 +100,9 @@ Every standalone release archive is self-contained and pre-configured for Window
 
 | Version | Status | Highlights | Download |
 |:---:|:---:|:---|:---:|
-| **v0.0.1** | 🌟 **Latest** | **Farnblume — Initial Release:** Complete Black Forest workshop survival experience with the Farnblume UV bloom, invisible wraith AI, and the full suite of folkloric wards, sensory telemetry, and workshop stations | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.1/Fern-v0.0.1-windows-x86_64.zip) |
+| **v0.0.3** | 🌟 **Latest** | **Die Totenbretter:** Ancestral memorial ward planks, rowan wood talisman carving bench (+12% sprint speed, 25% anxiety reduction), and acoustic glass rafter carillons | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip) |
+| **v0.0.2** | 📦 Stable | **Der Albschatten:** Shadow silhouette casting (`SHADOW_CASTING_SETTING_SHADOWS_ONLY`), *Das Opferbrot* bread offering station, and window frost ingress | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.2/Fern-v0.0.2-windows-x86_64.zip) |
+| **v0.0.1** | 📦 Stable | **Farnblume — Initial Release:** Complete Black Forest workshop survival experience with the Farnblume UV bloom, invisible wraith AI, and the full suite of folkloric wards, sensory telemetry, and workshop stations | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.1/Fern-v0.0.1-windows-x86_64.zip) |
 
 
 

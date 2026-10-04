@@ -112,7 +112,10 @@ Accessible directly from the **Main Menu**:
 ### 15. Charcoal Hearth Bellows, Zinc Rainwater Basin & Carpenter's Drawknife Shavings
 - **The Charcoal Hearth & Leather Bellows Blast (Das Kohlenbecken & Der Schmiedebalg):** The blacksmith hearth by the stone chimney (`Scenes/Workshop/HearthBellowsStation.tscn`). When *Der Alp* stalks within 5.0m, the supernatural chill quenches glowing coals into a sharp vapor hiss (`ember_hiss.wav`). Interacting with the leather bellows (`[E]`, `bellows_pump.wav`) blasts compressed air into the coals, erupting radiant light, flying sparks, and repelling the creature for 4.0s.
 - **The Zinc Rainwater Basin & Droplet Resonator (Das Zink-Regenfass):** A galvanized zinc rainwater bucket catching roof runoff (`Scenes/Workshop/ZincBasinStation.tscn`). Drips with periodic metallic pings (`drip_tap.wav`). When *Der Alp* prowls across roof shingles or ceiling rafters overhead (`Y > 2.4m`), surface tension is arrested—the drip halts, followed by a violent splashing anomaly (`water_splash.wav`). Players can also collect fresh water (`[E]`) to revive the Farnblume.
-- **Carpenter's Drawknife & Shaving Snares (Das Zugmesser & Der Hobelspan-Wall):** A curved two-handled drawknife at the timber shaving horse (`Scenes/Workshop/DrawknifeStation.tscn`). Holding `[E]` peels aromatic spruce shavings (`drawknife_peel.wav`). Laid across doorway or window chokepoints, the ribbon snares entangle *Der Alp*, slowing its movement by 40% for 5.0 seconds.
+### 16. Die Totenbretter, Rowan Wood Talisman Bench & Glass Rafter Carillons
+- **Die Totenbretter (Ancestral Memorial Death Planks):** Authentic Black Forest memorial planks inscribed with ancestral prayers and runes (`Scenes/Workshop/TotenbrettStation.tscn`). Consecrating the plank (`[E]`, `totenbrett_consecrate.wav`) arms an ancestral ward that illuminates violet runes and erupts when *Der Alp* creeps within 3.5m, violently repelling the creature for 4.0s.
+- **Das Ebereschen-Amulett (Rowan Wood Talisman Carving):** Carving bench for shaping protective amulets from sacred rowan wood (`Scenes/Workshop/TalismanBenchStation.tscn`). Carving the talisman (`[E]`, `talisman_carve.wav`) equips the player with lasting protection: +12% sprint speed boost and a 25% reduction in panic heartbeat anxiety thresholds.
+- **Das Glasglockenspiel (Acoustic Glass Rafter Carillons):** Hand-blown forest-glass bells suspended from loft rafters (`Scenes/Workshop/GlassCarillonProp.tscn`). Resonates with crystalline spatial chimes (`glass_carillon_chime.wav`) and visual swaying whenever *Der Alp* stalks through the overhead rafter catwalks.
 
 ---
 
@@ -122,7 +125,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 - **Bells Bus (Cathedral Church Bell Tolls):** Routed through an `AudioEffectReverb` with 0.70 room size and 0.45 damping, producing an authentic distant valley echo from 01:00 to 06:00.
 - **Ambiance Bus:** Low-end wind draft loops howling against the clapboard walls, window breach drafts, rolling thunder rumbles, cardiac heartbeat pulses, accompanied by authentic timber stress creaks and morning dawn bird song.
 - **Creature Bus:** Spatially attenuated wraith growls, floor wood crunches, and bloodcurdling jumpscare screams.
-- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, torch flame crackles, iron shutter drop-latch rattles, viscous pine pitch bubbling, cuckoo calls, chisel impacts, crushed herb crunches, bellows rushes, ember hisses, zinc basin pings, water splashes, drawknife peeling, bread loaf cutting, wraith appeased feeding rustles, roof shingle gale rattling, and player footsteps.
+- **SFX Bus:** Distinct metallic rings for the anvil, swaying ceiling chain clinks, grinding stone friction, hammer impacts on timber barricades, shutter rattle vibrations, match strikes, candle snuff whooshes, chalk scratching on threshold, shivering cold breath puffs, cloth squeaks wiping the silvered mirror, deep oak floorboard/rafter groans, workbench tool rattles, mechanical clock escapement ticks, grandfather clock chimes, cold iron horseshoe ward clangs, consecrated salt sizzles, pine shavings crunches, torch flame crackles, iron shutter drop-latch rattles, viscous pine pitch bubbling, cuckoo calls, chisel impacts, crushed herb crunches, bellows rushes, ember hisses, zinc basin pings, water splashes, drawknife peeling, bread loaf cutting, wraith appeased feeding rustles, roof shingle gale rattling, totenbrett consecration, rowan talisman carving, glass carillon chimes, and player footsteps.
 - **In-Game Mixing:** Master, SFX, and Ambiance levels are independently controllable via the in-game Pause Menu.
 
 ---
@@ -131,6 +134,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.3 (Die Totenbretter):** [https://github.com/soulwax/fern/releases/tag/v0.0.3](https://github.com/soulwax/fern/releases/tag/v0.0.3)
 - **v0.0.2 (Der Albschatten):** [https://github.com/soulwax/fern/releases/tag/v0.0.2](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 - **v0.0.1 (Farnblume — Initial Release):** [https://github.com/soulwax/fern/releases/tag/v0.0.1](https://github.com/soulwax/fern/releases/tag/v0.0.1)
 
@@ -139,6 +143,7 @@ All standalone builds are packaged with the standalone game executable, user man
 ## 🛠️ Developer Verification & Test Suite
 
 The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
+- `verify_v0_0_3_features.gd`: Validates Totenbrett consecration, rune glow, wraith proximity repulsion, Talisman bench crafting, GameState rowan talisman equipping (+12% sprint, 25% anxiety reduction), and GlassCarillonProp chimes and swaying.
 - `verify_v0_0_2_features.gd`: Validates BreadOfferingStation placement, consumption, cooldown cycle, InvisibleWraith ShadowCaster (`SHADOWS_ONLY`), ShingleGaleAudio, and WindowBreach frost ingress.
 - `e2e_match_simulation.gd`: Simulates a full game cycle (00:00 to 06:00), testing hourly transitions, victory triggers, station interactions, and wraith speed scaling.
 - `verify_difficulty_and_death.gd`: Tests menu button cycling, state multipliers, and HUD jumpscare components.
@@ -146,7 +151,7 @@ The project includes headless simulation scripts inside [scripts_scratch/](file:
 
 To run tests in headless mode:
 ```powershell
-godot --headless --script scripts_scratch/verify_v0_0_2_features.gd
+godot --headless --script scripts_scratch/verify_v0_0_3_features.gd
 godot --headless --script scripts_scratch/e2e_match_simulation.gd
 ```
 
