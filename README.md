@@ -3,10 +3,10 @@
 # 🌿 FERN: FARNBLUME
 ### *The Fern Flower — A Black Forest Folk Horror Survival Game*
 
-[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.3)
+[![Release](https://img.shields.io/github/v/release/soulwax/fern?color=blueviolet&label=Definitive%20Edition&logo=github)](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 [![Engine](https://img.shields.io/badge/Engine-Godot%204.7%20Forward%2B-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![Physics](https://img.shields.io/badge/Physics-Jolt%20Physics%203D-ff6600)](https://github.com/godot-jolt/godot-jolt)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.3)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x86__64-0078D6?logo=windows&logoColor=white)](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 [![Author](https://img.shields.io/badge/Author-soulwax-darkred)](https://github.com/soulwax)
 
 <br/>
@@ -15,7 +15,7 @@
 
 <br/>
 
-**[⬇️ Download Standalone Windows Build — v0.0.3](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
+**[⬇️ Download Standalone Windows Build — v0.0.4](https://github.com/soulwax/fern/releases/download/v0.0.4/Fern-v0.0.4-windows-x86_64.zip)** • **[📖 Game Jam Presentation](GAME_JAM_SUBMISSION.md)** • **[📜 Developer Handover](PROJECT_HANDOVER.md)**
 
 </div>
 
@@ -100,7 +100,8 @@ Every standalone release archive is self-contained and pre-configured for Window
 
 | Version | Status | Highlights | Download |
 |:---:|:---:|:---|:---:|
-| **v0.0.3** | 🌟 **Latest** | **Die Totenbretter:** Ancestral memorial ward planks, rowan wood talisman carving bench (+12% sprint speed, 25% anxiety reduction), and acoustic glass rafter carillons | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip) |
+| **v0.0.4** | 🌟 **Latest** | **Die Pechfackel:** Portable pine pitch resin torch with active wraith repulsion aura, window shutter drop-latches absorbing siege impacts, and pine pitch resin cauldron for ceiling rafter denial | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.4/Fern-v0.0.4-windows-x86_64.zip) |
+| **v0.0.3** | 📦 Stable | **Die Totenbretter:** Ancestral memorial ward planks, rowan wood talisman carving bench (+12% sprint speed, 25% anxiety reduction), and acoustic glass rafter carillons | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.3/Fern-v0.0.3-windows-x86_64.zip) |
 | **v0.0.2** | 📦 Stable | **Der Albschatten:** Shadow silhouette casting (`SHADOW_CASTING_SETTING_SHADOWS_ONLY`), *Das Opferbrot* bread offering station, and window frost ingress | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.2/Fern-v0.0.2-windows-x86_64.zip) |
 | **v0.0.1** | 📦 Stable | **Farnblume — Initial Release:** Complete Black Forest workshop survival experience with the Farnblume UV bloom, invisible wraith AI, and the full suite of folkloric wards, sensory telemetry, and workshop stations | [ZIP](https://github.com/soulwax/fern/releases/download/v0.0.1/Fern-v0.0.1-windows-x86_64.zip) |
 

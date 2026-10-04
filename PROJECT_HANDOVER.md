@@ -134,6 +134,7 @@ All audio systems in *Fern* are routed through a dedicated multi-channel bus hie
 
 All standalone builds are packaged with the standalone game executable, user manual, game jam manifesto, and promotional cover art.
 
+- **v0.0.4 (Die Pechfackel):** [https://github.com/soulwax/fern/releases/tag/v0.0.4](https://github.com/soulwax/fern/releases/tag/v0.0.4)
 - **v0.0.3 (Die Totenbretter):** [https://github.com/soulwax/fern/releases/tag/v0.0.3](https://github.com/soulwax/fern/releases/tag/v0.0.3)
 - **v0.0.2 (Der Albschatten):** [https://github.com/soulwax/fern/releases/tag/v0.0.2](https://github.com/soulwax/fern/releases/tag/v0.0.2)
 - **v0.0.1 (Farnblume — Initial Release):** [https://github.com/soulwax/fern/releases/tag/v0.0.1](https://github.com/soulwax/fern/releases/tag/v0.0.1)
@@ -143,6 +144,7 @@ All standalone builds are packaged with the standalone game executable, user man
 ## 🛠️ Developer Verification & Test Suite
 
 The project includes headless simulation scripts inside [scripts_scratch/](file:///c:/Users/soulwax/Workspace/Godot/fern/scripts_scratch/):
+- `verify_v0_0_4_features.gd`: Validates Kienspan torch ignition, timer decay, wraith repulsion aura, window shutter drop-latch impact absorption, and pine pitch resin cauldron rafter denial.
 - `verify_v0_0_3_features.gd`: Validates Totenbrett consecration, rune glow, wraith proximity repulsion, Talisman bench crafting, GameState rowan talisman equipping (+12% sprint, 25% anxiety reduction), and GlassCarillonProp chimes and swaying.
 - `verify_v0_0_2_features.gd`: Validates BreadOfferingStation placement, consumption, cooldown cycle, InvisibleWraith ShadowCaster (`SHADOWS_ONLY`), ShingleGaleAudio, and WindowBreach frost ingress.
 - `e2e_match_simulation.gd`: Simulates a full game cycle (00:00 to 06:00), testing hourly transitions, victory triggers, station interactions, and wraith speed scaling.
@@ -151,7 +153,7 @@ The project includes headless simulation scripts inside [scripts_scratch/](file:
 
 To run tests in headless mode:
 ```powershell
-godot --headless --script scripts_scratch/verify_v0_0_3_features.gd
+godot --headless --script scripts_scratch/verify_v0_0_4_features.gd
 godot --headless --script scripts_scratch/e2e_match_simulation.gd
 ```
 
