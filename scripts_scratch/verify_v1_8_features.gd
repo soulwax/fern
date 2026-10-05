@@ -13,7 +13,7 @@ func _init() -> void:
 	var lightning_light = main_instance.get_node_or_null("LightningLight")
 	assert(lightning_light != null, "LightningLight must exist in Main.tscn")
 	assert(lightning_light is DirectionalLight3D, "LightningLight must be DirectionalLight3D")
-	assert(lightning_light.shadow_enabled == true, "LightningLight must cast shadows")
+	assert(lightning_light.shadow_enabled == false, "LightningLight flash must not cast shadows")
 
 	var thunder_audio = main_instance.get_node_or_null("Audio/ThunderAudio")
 	assert(thunder_audio != null, "ThunderAudio must exist under Audio/ in Main.tscn")

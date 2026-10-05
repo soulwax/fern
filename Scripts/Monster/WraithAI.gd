@@ -46,6 +46,8 @@ var creak_timer: float = 4.0
 var shingle_timer: float = 5.0
 var target_offering: Node = null
 var player_ref: Node3D = null
+var _last_reveal_amount: float = -1.0
+var _last_ember_amount: float = -1.0
 
 # Sensory & Reveal timers
 var uv_exposure_timer: float = 0.0
@@ -570,6 +572,11 @@ func _handle_sensory_decay(delta: float) -> void:
 	_update_visual_reveal(uv_ratio, ember_ratio)
 
 func _update_visual_reveal(ratio: float, ember_ratio: float = 0.0) -> void:
+	if is_equal_approx(ratio, _last_reveal_amount) and is_equal_approx(ember_ratio, _last_ember_amount):
+		return
+	_last_reveal_amount = ratio
+	_last_ember_amount = ember_ratio
+
 	if not body_mesh:
 		body_mesh = get_node_or_null("Visuals/BodyMesh")
 	if not antler_mesh:

@@ -33,7 +33,7 @@ func _update_window_draft_density() -> void:
 	_ensure_nodes()
 	if not ambient_mist:
 		return
-	var windows = get_tree().get_nodes_in_group("window_breach")
+	var windows := _window_breaches()
 	var open_breaches: int = 0
 	for w in windows:
 		if "current_planks" in w and w.current_planks <= 0:
@@ -49,9 +49,7 @@ func _update_wraith_wake() -> void:
 		return
 
 	if not wraith_node or not is_instance_valid(wraith_node):
-		var main_tree = get_tree()
-		if main_tree:
-			wraith_node = main_tree.root.find_child("InvisibleWraith", true, false) as CharacterBody3D
+		wraith_node = _primary_wraith() as CharacterBody3D
 		if not wraith_node:
 			displaced_wake.emitting = false
 			return
@@ -68,3 +66,17 @@ func _update_wraith_wake() -> void:
 		displaced_wake.emitting = true
 	else:
 		displaced_wake.emitting = false
+
+func _window_breaches() -> Array:
+	var game_state := get_node_or_null("/root/GameState")
+	if game_state and game_state.has_method("get_window_breaches"):
+		return game_state.get_window_breaches()
+	return get_tree().get_nodes_in_group("window_breach") if is_inside_tree() else []
+
+func _primary_wraith() -> Node:
+	var game_state := get_node_or_null("/root/GameState")
+	if game_state and game_state.has_method("get_primary_wraith"):
+		return game_state.get_primary_wraith()
+	if is_inside_tree():
+		return get_tree().root.find_child("InvisibleWraith", true, false)
+	return null

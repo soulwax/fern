@@ -54,7 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 [node name="SparkParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.4)
 emitting = false
-amount = 160
+amount = 48
 lifetime = 0.8
 one_shot = false
 explosiveness = 0.05

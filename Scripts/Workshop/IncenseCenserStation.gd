@@ -42,6 +42,7 @@ func _ready() -> void:
 	super._ready()
 	_ensure_nodes()
 	_update_prompt()
+	set_process(is_active)
 
 func _update_prompt() -> void:
 	if is_active:
@@ -97,6 +98,7 @@ func light_censer() -> bool:
 	_ensure_nodes()
 	current_charges -= 1
 	is_active = true
+	set_process(true)
 	smoke_timer = smoke_duration
 
 	if ignite_audio and is_inside_tree():
@@ -120,6 +122,7 @@ func light_censer() -> bool:
 
 func quench_censer() -> void:
 	is_active = false
+	set_process(false)
 	smoke_timer = 0.0
 
 	if coal_light:

@@ -46,6 +46,7 @@ func _ready() -> void:
 	_ensure_nodes()
 	_update_prompt()
 	_set_light(dormant_light_energy)
+	set_process(is_burning)
 
 func _update_prompt() -> void:
 	if is_burning:
@@ -79,6 +80,7 @@ func _process(delta: float) -> void:
 	if burn_timer <= 0.0:
 		is_burning = false
 		burn_timer = 0.0
+		set_process(false)
 		_set_light(dormant_light_energy)
 		_update_prompt()
 		lamp_expired.emit()
@@ -122,6 +124,7 @@ func ignite_lamp(_player: Node = null) -> bool:
 	_ensure_nodes()
 	current_uses -= 1
 	is_burning = true
+	set_process(true)
 	burn_timer = burn_duration
 
 	if wick_audio and is_inside_tree():

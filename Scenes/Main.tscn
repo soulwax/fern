@@ -54,7 +54,7 @@ ambient_light_energy = 0.35
 tonemap_mode = 2
 tonemap_exposure = 1.05
 tonemap_white = 1.1
-volumetric_fog_enabled = true
+volumetric_fog_enabled = false
 volumetric_fog_density = 0.028
 volumetric_fog_albedo = Color(0.32, 0.4, 0.5, 1)
 volumetric_fog_emission = Color(0.02, 0.03, 0.05, 1)
@@ -105,23 +105,26 @@ environment = SubResource("Environment_gothic")
 transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 10, 0)
 light_color = Color(0.65, 0.78, 0.95, 1)
 light_energy = 0.65
-light_volumetric_fog_energy = 1.6
+light_volumetric_fog_energy = 0.0
 shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_blend_splits = false
+directional_shadow_max_distance = 28.0
 
 [node name="DawnSunlight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, 0.353553, -0.353553, 0, 0.707107, 0.707107, 0.5, -0.612372, 0.612372, 0, 10, 0)
 visible = false
 light_color = Color(1, 0.82, 0.55, 1)
 light_energy = 0.0
-light_volumetric_fog_energy = 2.0
-shadow_enabled = true
+light_volumetric_fog_energy = 0.0
+shadow_enabled = false
 
 [node name="LightningLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 12, 0)
 light_color = Color(0.85, 0.95, 1, 1)
 light_energy = 0.0
-light_volumetric_fog_energy = 3.5
-shadow_enabled = true
+light_volumetric_fog_energy = 0.0
+shadow_enabled = false
 
 [node name="Workshop" parent="." instance=ExtResource("2_workshop")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17, -11.42, 7.21)

@@ -21,6 +21,7 @@ func _ready() -> void:
 	_ensure_nodes()
 	if spark_particles:
 		spark_particles.emitting = false
+	set_process(false)
 
 func _ensure_nodes() -> void:
 	if not wheel_mesh:
@@ -63,6 +64,7 @@ func _on_interacted(player: Node) -> void:
 func _trigger_sparks() -> void:
 	_ensure_nodes()
 	is_spinning = true
+	set_process(true)
 	spin_timer = spark_duration
 	if spark_particles:
 		spark_particles.emitting = true
@@ -74,6 +76,7 @@ func _trigger_sparks() -> void:
 
 func _stop_sparks() -> void:
 	is_spinning = false
+	set_process(false)
 	if spark_particles:
 		spark_particles.emitting = false
 	if grind_audio and grind_audio.playing:

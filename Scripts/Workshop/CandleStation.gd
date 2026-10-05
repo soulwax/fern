@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 	
 	if is_lit and light:
 		# Calculate draft intensity from open window breaches
-		var windows = get_tree().get_nodes_in_group("window_breach")
+		var windows := _window_breaches()
 		var open_breaches: int = 0
 		for w in windows:
 			if "current_planks" in w and w.current_planks <= 0:
@@ -41,7 +41,7 @@ func _process(delta: float) -> void:
 		var effective_intensity: float = flicker_intensity * draft_boost
 
 		# Calculate entity proximity draft
-		var wraith = get_tree().root.find_child("InvisibleWraith", true, false)
+		var wraith := _primary_wraith()
 		var wraith_dist: float = 999.0
 		var draft_dir: Vector3 = Vector3.ZERO
 		if wraith and is_instance_valid(wraith):
@@ -110,3 +110,17 @@ func _update_visual_state(play_audio: bool) -> void:
 func _on_interacted(_player: Node) -> void:
 	if not is_lit:
 		relight_candle()
+
+func _window_breaches() -> Array:
+	var game_state := get_node_or_null("/root/GameState")
+	if game_state and game_state.has_method("get_window_breaches"):
+		return game_state.get_window_breaches()
+	return get_tree().get_nodes_in_group("window_breach") if is_inside_tree() else []
+
+func _primary_wraith() -> Node:
+	var game_state := get_node_or_null("/root/GameState")
+	if game_state and game_state.has_method("get_primary_wraith"):
+		return game_state.get_primary_wraith()
+	if is_inside_tree():
+		return get_tree().root.find_child("InvisibleWraith", true, false)
+	return null

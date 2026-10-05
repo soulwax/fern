@@ -20,8 +20,8 @@ scale_max = 1.8
 
 [sub_resource type="SphereMesh" id="SphereMesh_ambient"]
 material = SubResource("StandardMaterial3D_mist")
-radius = 0.6
-height = 0.4
+radius = 0.35
+height = 0.23
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wake"]
 transparency = 1
@@ -49,7 +49,7 @@ script = ExtResource("1_mist_script")
 
 [node name="AmbientMist" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-amount = 64
+amount = 24
 lifetime = 8.0
 visibility_aabb = AABB(-8, 0, -8, 16, 2, 16)
 process_material = SubResource("ParticleProcessMaterial_ambient")

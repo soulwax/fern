@@ -84,7 +84,7 @@ func _process(delta: float) -> void:
 func _update_frost_ingress(delta: float) -> void:
 	if not is_inside_tree():
 		return
-	var wraiths = get_tree().get_nodes_in_group("unseen_entity")
+	var wraiths := _unseen_entities()
 	var target_frost: float = 0.0
 	for w in wraiths:
 		if is_instance_valid(w):
@@ -222,3 +222,9 @@ func _on_interacted(player: Node) -> void:
 		var game_state = get_node_or_null("/root/GameState")
 		if game_state and game_state.has_method("notify_window_repaired"):
 			game_state.notify_window_repaired()
+
+func _unseen_entities() -> Array:
+	var game_state := get_node_or_null("/root/GameState")
+	if game_state and game_state.has_method("get_unseen_entities"):
+		return game_state.get_unseen_entities()
+	return get_tree().get_nodes_in_group("unseen_entity") if is_inside_tree() else []

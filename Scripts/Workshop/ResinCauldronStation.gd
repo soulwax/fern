@@ -99,7 +99,13 @@ func _update_visual_state() -> void:
 func _apply_rafter_denial(duration: float) -> void:
 	if not is_inside_tree():
 		return
-	var wraiths = get_tree().get_nodes_in_group("unseen_entity")
+	var wraiths := _unseen_entities()
 	for w in wraiths:
 		if w.has_method("set_rafter_denial"):
 			w.set_rafter_denial(duration)
+
+func _unseen_entities() -> Array:
+	var game_state := get_node_or_null("/root/GameState")
+	if game_state and game_state.has_method("get_unseen_entities"):
+		return game_state.get_unseen_entities()
+	return get_tree().get_nodes_in_group("unseen_entity") if is_inside_tree() else []

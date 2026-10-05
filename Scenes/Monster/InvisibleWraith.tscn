@@ -156,7 +156,7 @@ draw_pass_1 = SubResource("SphereMesh_ember")
 
 [node name="ShadowBody" type="MeshInstance3D" parent="Visuals/ShadowCaster"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
-cast_shadow = 3
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_body")
 
 [node name="ShadowAntlers" type="Node3D" parent="Visuals/ShadowCaster"]
@@ -164,12 +164,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
 
 [node name="ShadowLeftHorn" type="MeshInstance3D" parent="Visuals/ShadowCaster/ShadowAntlers"]
 transform = Transform3D(0.866025, 0.5, 0, -0.433013, 0.75, -0.5, -0.25, 0.433013, 0.866025, -0.28, 0.28, 0)
-cast_shadow = 3
+cast_shadow = 0
 mesh = SubResource("CylinderMesh_horn_main")
 
 [node name="ShadowRightHorn" type="MeshInstance3D" parent="Visuals/ShadowCaster/ShadowAntlers"]
 transform = Transform3D(0.866025, -0.5, 0, 0.433013, 0.75, -0.5, 0.25, 0.433013, 0.866025, 0.28, 0.28, 0)
-cast_shadow = 3
+cast_shadow = 0
 mesh = SubResource("CylinderMesh_horn_main")
 
 [node name="Audio" type="Node3D" parent="."]

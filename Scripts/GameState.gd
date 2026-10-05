@@ -140,6 +140,51 @@ func _get_active_tree() -> SceneTree:
 		return get_tree()
 	return Engine.get_main_loop() as SceneTree
 
+var _cached_unseen: Array = []
+var _cached_windows: Array = []
+
+func get_unseen_entities() -> Array:
+	if _nodes_cached(_cached_unseen):
+		return _cached_unseen
+	var tree := _get_active_tree()
+	if tree == null:
+		return []
+	var found := tree.get_nodes_in_group("unseen_entity")
+	if found.is_empty() and tree.root:
+		var named := tree.root.find_child("InvisibleWraith", true, false)
+		if named:
+			found = [named]
+	if found.is_empty():
+		return found
+	_cached_unseen = found
+	return _cached_unseen
+
+func get_primary_wraith() -> Node:
+	var entities := get_unseen_entities()
+	if entities.is_empty():
+		return null
+	return entities[0]
+
+func get_window_breaches() -> Array:
+	if _nodes_cached(_cached_windows):
+		return _cached_windows
+	var tree := _get_active_tree()
+	if tree == null:
+		return []
+	var found := tree.get_nodes_in_group("window_breach")
+	if found.is_empty():
+		return found
+	_cached_windows = found
+	return _cached_windows
+
+func _nodes_cached(nodes: Array) -> bool:
+	if nodes.is_empty():
+		return false
+	for node in nodes:
+		if not is_instance_valid(node):
+			return false
+	return true
+
 func trigger_victory() -> void:
 	is_game_active = false
 	game_won.emit()

@@ -21,6 +21,7 @@ func _ready() -> void:
 	_ensure_nodes()
 	if proximity_area and not proximity_area.body_entered.is_connected(_on_body_entered):
 		proximity_area.body_entered.connect(_on_body_entered)
+	set_process(false)
 
 func _ensure_nodes() -> void:
 	if not visual_pivot:
@@ -47,6 +48,7 @@ func _process(delta: float) -> void:
 			is_swinging = false
 			if visual_pivot:
 				visual_pivot.rotation = Vector3.ZERO
+			set_process(false)
 
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("unseen_entity") or body.is_in_group("player"):
@@ -58,6 +60,7 @@ func _on_body_entered(body: Node3D) -> void:
 func trigger_swing(impulse_velocity: Vector3 = Vector3.ZERO) -> void:
 	_ensure_nodes()
 	is_swinging = true
+	set_process(true)
 	swing_time = 0.0
 	
 	if impulse_velocity.length() > 0.5:

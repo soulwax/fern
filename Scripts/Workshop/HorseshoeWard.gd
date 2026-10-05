@@ -56,6 +56,7 @@ func trigger_deflection(wraith: Node3D) -> void:
 	if not is_ward_active:
 		return
 	is_ward_active = false
+	set_process(false)
 	prompt_message = "[E] Consecrate Cold Iron Horseshoe"
 
 	if ward_audio:
@@ -82,6 +83,7 @@ func _on_interacted(_player: Node) -> void:
 
 func consecrate() -> void:
 	is_ward_active = true
+	set_process(true)
 	prompt_message = "Cold Iron Ward Active"
 
 	if ward_audio:

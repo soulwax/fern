@@ -23,13 +23,14 @@ signal cupped_state_changed(is_cupped: bool)
 var current_energy: float = 100.0
 var is_cupped: bool = false
 var target_flower_scale: Vector3 = Vector3.ONE
+var _last_broadcast_energy: float = -1.0
 
 func _ready() -> void:
 	current_energy = max_energy
 	if spot_light:
 		spot_light.spot_range = beam_range
 		spot_light.spot_angle = beam_angle
-	bloom_energy_changed.emit(current_energy, max_energy)
+	_broadcast_bloom_energy(true)
 
 func _process(delta: float) -> void:
 	# Input toggle for cupping the bloom (R key)
@@ -48,7 +49,7 @@ func _process(delta: float) -> void:
 			wilt_mult = game_state.get_wilt_rate_multiplier()
 		current_energy = max(0.0, current_energy - deplete_rate * delta * wilt_mult)
 
-	bloom_energy_changed.emit(current_energy, max_energy)
+	_broadcast_bloom_energy(false)
 	
 	# Light power scaling
 	var energy_ratio = current_energy / max_energy
@@ -76,15 +77,24 @@ func set_cupped(cupped: bool) -> void:
 
 func replenish_in_water() -> void:
 	current_energy = max_energy
-	bloom_energy_changed.emit(current_energy, max_energy)
+	_broadcast_bloom_energy(true)
 
 func recharge(amount: float) -> void:
 	current_energy = min(max_energy, current_energy + amount)
+	_broadcast_bloom_energy(true)
+
+func _broadcast_bloom_energy(force: bool) -> void:
+	var displayed := snappedf(current_energy, 0.5)
+	if not force and is_equal_approx(displayed, _last_broadcast_energy):
+		return
+	_last_broadcast_energy = displayed
 	bloom_energy_changed.emit(current_energy, max_energy)
 
 
 func _detect_unseen_entities() -> void:
 	if is_cupped or current_energy <= 5.0:
+		return
+	if spot_light and not spot_light.visible:
 		return
 		
 	if not detection_shapecast:

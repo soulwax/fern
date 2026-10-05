@@ -37,8 +37,8 @@ func _init() -> void:
 	assert(shadow_caster != null, "ShadowCaster node must exist under Visuals!")
 	var shadow_body = wraith.get_node_or_null("Visuals/ShadowCaster/ShadowBody")
 	assert(shadow_body != null, "ShadowBody must exist!")
-	assert(shadow_body.cast_shadow == GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY, 
-		"ShadowBody must have cast_shadow = SHADOWS_ONLY (3)!")
+	assert(shadow_body.cast_shadow == GeometryInstance3D.SHADOW_CASTING_SETTING_OFF, 
+		"ShadowBody must not cast a shadows-only duplicate!")
 	
 	var shingle_audio = wraith.get_node_or_null("Audio/ShingleGaleAudio")
 	assert(shingle_audio != null, "ShingleGaleAudio must exist under Audio!")
@@ -47,7 +47,7 @@ func _init() -> void:
 	assert("APPEASED" in WraithAI.State, "WraithAI.State must contain APPEASED enum!")
 	wraith.set_state(WraithAI.State.APPEASED)
 	assert(wraith.current_state == WraithAI.State.APPEASED, "Wraith must transition to APPEASED state!")
-	print(" -> PASS: ShadowCaster (SHADOWS_ONLY), ShingleGaleAudio, and APPEASED state verified.")
+	print(" -> PASS: ShadowCaster (shadows off), ShingleGaleAudio, and APPEASED state verified.")
 	wraith.queue_free()
 
 	# TEST 3: WindowBreach Frost Ingress

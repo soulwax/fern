@@ -37,15 +37,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04)
 mesh = SubResource("QuadMesh_glass")
 
 [node name="SubViewport" type="SubViewport" parent="."]
-size = Vector2i(512, 512)
-render_target_update_mode = 4
+size = Vector2i(256, 256)
+render_target_update_mode = 0
 
 [node name="ReflectionCamera" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-cull_mask = 1048575
+cull_mask = 524287
 fov = 68.0
 near = 0.1
-far = 30.0
+far = 12.0
 
 [node name="WipeAudio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_wipe")

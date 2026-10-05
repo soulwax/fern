@@ -1,5 +1,7 @@
 extends Node3D
 
+const WorkshopDrawCullScript = preload("res://Scripts/Workshop/WorkshopDrawCull.gd")
+
 signal lightning_flashed()
 
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
@@ -29,6 +31,7 @@ func _ready() -> void:
 		var w_env = workshop.get_node_or_null("WorldEnvironment")
 		if w_env:
 			w_env.queue_free()
+		WorkshopDrawCullScript.apply(workshop)
 
 	var game_state = get_node_or_null("/root/GameState")
 	if game_state:
